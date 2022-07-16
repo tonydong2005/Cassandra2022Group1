@@ -5,8 +5,10 @@ import Book from './Book';
 const BookList = (props) => (
     <div>
         Book List:
+
         <ul>
-            {props.books.map(book => {
+            {console.log(typeof props.books.books)}
+            {props.books.books.map(book => {
                 return (
                     <li key={book.id}>
                         <Book {...book} />
