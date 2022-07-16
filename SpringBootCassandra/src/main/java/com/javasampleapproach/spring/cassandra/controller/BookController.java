@@ -6,6 +6,9 @@ import java.util.UUID;
 
 import javax.validation.Valid;
 
+import com.javasampleapproach.spring.cassandra.CassandraConnector;
+import com.javasampleapproach.spring.cassandra.CreateMethods;
+import com.javasampleapproach.spring.cassandra.KeyspaceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,19 +26,36 @@ import com.datastax.driver.core.utils.UUIDs;
 import com.javasampleapproach.spring.cassandra.model.Book;
 import com.javasampleapproach.spring.cassandra.repo.BookRepository;
 
+import com.datastax.oss.driver.api.core.CqlSession;
+
 @CrossOrigin(origins = "http://localhost:8081")
 @RestController
 @RequestMapping("/api")
 public class BookController {
-
 	@Autowired
 	BookRepository bookRepository;
+	private CqlSession session;
+
+	public BookController() {
+		CassandraConnector connector = new CassandraConnector();
+		connector.connect("127.0.0.1", 9042, "datacenter1");
+		session = connector.getSession();
+		System.out.println("ran constructor");
+	}
 
 	@GetMapping("/books")
 	public List<Book> getAllBooks() {
 		System.out.println("Get all Books...");
 
 		return bookRepository.findAll();
+	}
+	@GetMapping("/keyspaces")
+	public List<String> getAllKeyspaces() {
+
+		KeyspaceRepository keyspaceRepository = new KeyspaceRepository(session);
+		System.out.println("fseaof");
+		return keyspaceRepository.getKeyspaceList();
+
 	}
 
 	@PostMapping("/books/create")
@@ -46,6 +66,14 @@ public class BookController {
 		Book _book = bookRepository.save(book);
 		return new ResponseEntity<>(_book, HttpStatus.OK);
 	}
+	/*public ResponseEntity<Book> createKeyspace() {
+		CassandraConnector connector = new CassandraConnector();
+		connector.connect("127.0.0.1", 9042, "datacenter1");
+		CqlSession session = connector.getSession();
+		CreateMethods create = new CreateMethods(session);
+		create.createKeyspace("test");
+		return new ResponseEntity<>(book, HttpStatus.OK);
+	}*/
 
 	@PutMapping("/books/{id}")
 	public ResponseEntity<Book> updateBook(@PathVariable("id") UUID id, @RequestBody Book book) {
