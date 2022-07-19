@@ -9,6 +9,8 @@ import javax.validation.Valid;
 import com.javasampleapproach.spring.cassandra.CassandraConnector;
 import com.javasampleapproach.spring.cassandra.CreateMethods;
 import com.javasampleapproach.spring.cassandra.KeyspaceRepository;
+import com.javasampleapproach.spring.cassandra.model.Keyspace;
+import com.javasampleapproach.spring.cassandra.model.Tabl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -50,12 +52,21 @@ public class BookController {
 		return bookRepository.findAll();
 	}
 	@GetMapping("/keyspaces")
-	public List<String> getAllKeyspaces() {
+	public List<Keyspace> getAllKeyspaces() {
 
 		KeyspaceRepository keyspaceRepository = new KeyspaceRepository(session);
-		System.out.println("fseaof");
+		System.out.println("getAllKeyspaces ran");
 		return keyspaceRepository.getKeyspaceList();
 
+	}
+
+	@GetMapping("keyspaces/{keyspaceName}")
+	public List<Tabl> getAllTables(@PathVariable("keyspaceName") String keyspace) {
+		KeyspaceRepository keyspaceRepository = new KeyspaceRepository(session);
+		System.out.println("getAllTables ran");
+		System.out.println(keyspace);
+		System.out.println(keyspaceRepository.getTableList(keyspace));
+		return keyspaceRepository.getTableList(keyspace);
 	}
 
 	@PostMapping("/books/create")
@@ -96,7 +107,7 @@ public class BookController {
 
 	@DeleteMapping("/books/{id}")
 	public ResponseEntity<String> deleteBook(@PathVariable("id") UUID id) {
-		System.out.println("Delete Baook with ID = " + id + "...");
+		System.out.println("Delete Book with ID = " + id + "...");
 
 		try {
 			bookRepository.deleteById(id);
