@@ -3,9 +3,13 @@ import ReactDOM from 'react-dom';
 import AppRouter from './routers/AppRouter';
 import getAppStore from './store/store';
 import { getBooks } from './actions/books';
+import { getKeyspaces } from './actions/keyspaces';
+import { getTables } from './actions/tables';
 import './styles/styles.scss';
 
 import { Provider } from 'react-redux';
+
+import { combineActions } from 'redux-actions';
 
 const store = getAppStore();
 
@@ -15,6 +19,7 @@ const template = (
     </Provider>
 );
 
-store.dispatch(getBooks()).then(() => {
+store.dispatch(getBooks());
+store.dispatch(getKeyspaces()).then(() => {
     ReactDOM.render(template, document.getElementById('app'));
 });

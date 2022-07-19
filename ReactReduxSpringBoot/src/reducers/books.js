@@ -20,7 +20,7 @@ export default (state = booksReducerDefaultState, action) => {
                     return book;
                 }
             });
-        case 'GET_BOOKs':
+        case 'GET_BOOKS':
             return action.books;
         default:
             return state;

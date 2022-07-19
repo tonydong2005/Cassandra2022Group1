@@ -53,7 +53,7 @@ export const editBook = (id, updates) => {
 };
 
 const _getBooks = (books) => ({
-    type: 'GET_BOOKs',
+    type: 'GET_BOOKS',
     books
 });
 

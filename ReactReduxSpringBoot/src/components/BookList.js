@@ -7,7 +7,7 @@ const BookList = (props) => (
         Book List:
 
         <ul>
-            {console.log(typeof props.books.books)}
+            {console.log(props.books.books)}
             {props.books.books.map(book => {
                 return (
                     <li key={book.id}>
