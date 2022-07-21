@@ -6,10 +6,10 @@ const _getTables = (keyspace, tables) => ({
     tables
 });
 
-export const getTables = (keyspace, tables) => {
+export const getTables = (keyspace) => {
     return (dispatch) => {
-        return axios.get(`keyspaces/${keyspace.keyspaceName}`).then(result => {
-            tables = [];
+        return axios.get(`keyspaces/${keyspace.keyspaceName}/tables`).then(result => {
+            const tables = [];
             console.log({keyspace});
             result.data.forEach(item => {
                 tables.push(item);

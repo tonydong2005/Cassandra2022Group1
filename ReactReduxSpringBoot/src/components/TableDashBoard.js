@@ -1,6 +1,4 @@
 import React from 'react';
-import BookList from './BookList';
-import KeyspaceList from './KeyspaceList';
 import TableList from './TableList';
 
 const TableDashBoard = () => (
