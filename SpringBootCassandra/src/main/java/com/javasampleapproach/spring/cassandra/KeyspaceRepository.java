@@ -49,25 +49,52 @@ public class KeyspaceRepository {
         }
         ResultSet rs = session.execute(select.build());
         List<Tabl> result = new ArrayList<>();
-        rs.forEach(x -> result.add(new Tabl(x.getString("table_name"))));
+        rs.forEach(x -> result.add(new Tabl(x.getString("table_name"), x.getString("keyspace_name"), this.getRowList(x.getString("keyspace_name"), x.getString("table_name")))));
         return result;
     }
 
-    public String getColDefs(String keyspace, String table)
+    public List<List<String>> getRowList(String keyspace, String table){
+        try {
+            Select select=QueryBuilder.selectFrom(keyspace, table).all();
+            ResultSet rs=session.execute(select.build());
+            List<List<String>>result=new ArrayList<>();
+            Map<CqlIdentifier,DataType>cd=getColDefs(keyspace,table);
+            rs.forEach(pee->{
+                List<String>poo=new ArrayList<>();
+                cd.forEach((key,value)->{
+                    poo.add(pee.getObject(key).toString());
+                });
+                result.add(poo);
+            });
+            String temp = "";
+            for (List<String> list : result) {
+                temp = list.get(list.size() - 1);
+                for (int i = list.size() - 2; i > -1; i--) {
+                    list.set(i + 1, list.get(i));
+                }
+                list.set(0, temp);
+            }
+            return result;
+        } catch (Exception e)
+        {
+            return null;
+        }
+    }
+
+    public Map<CqlIdentifier,DataType> getColDefs(String keyspace, String table)
     {
         try {
             Map<CqlIdentifier, ColumnMetadata> map = session.getMetadata().getKeyspace(keyspace).get().getTable(table).get().getColumns();
             Set<CqlIdentifier> set = map.keySet();
-            StringBuilder s1 = new StringBuilder("");
-            for (CqlIdentifier cqlIdentifier : set) {
-                String s = map.get(cqlIdentifier).toString();
-                s1.append(s.substring(s.indexOf("(") + 1, s.length() - 1) + " | ");
-            }
-            String out = s1.substring(0, s1.length() - 2).replaceAll(keyspace+"."+table+".", "");
-            return (out);
+
+            //System.out.println(map);
+            Map<CqlIdentifier,DataType>joe=new HashMap<>();
+            map.forEach((key,value) -> joe.put(key,value.getType()));
+
+            return joe;
         }catch (Exception e)
         {
-            return "";
+            return null;
         }
     }
 

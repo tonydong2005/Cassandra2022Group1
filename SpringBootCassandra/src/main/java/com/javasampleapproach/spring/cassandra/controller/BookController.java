@@ -1,11 +1,13 @@
 package com.javasampleapproach.spring.cassandra.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 import javax.validation.Valid;
 
+import com.datastax.oss.driver.api.core.cql.Row;
 import com.javasampleapproach.spring.cassandra.CassandraConnector;
 import com.javasampleapproach.spring.cassandra.CreateMethods;
 import com.javasampleapproach.spring.cassandra.KeyspaceRepository;
@@ -60,13 +62,23 @@ public class BookController {
 
 	}
 
-	@GetMapping("keyspaces/{keyspaceName}")
+	@GetMapping("keyspaces/{keyspaceName}/tables")
 	public List<Tabl> getAllTables(@PathVariable("keyspaceName") String keyspace) {
 		KeyspaceRepository keyspaceRepository = new KeyspaceRepository(session);
-		System.out.println("getAllTables ran");
+		System.out.print("getAllTables ran in keyspace ");
 		System.out.println(keyspace);
 		System.out.println(keyspaceRepository.getTableList(keyspace));
 		return keyspaceRepository.getTableList(keyspace);
+	}
+
+	@GetMapping("keyspaces/{keyspaceName}/tables/{tableName}")
+	public List<List<String>> getAllRows(@PathVariable("keyspaceName") String keyspace, @PathVariable("tableName") String table) {
+		KeyspaceRepository keyspaceRepository = new KeyspaceRepository(session);
+		System.out.print("getAllRows ran in keyspace ");
+		System.out.print(keyspace + " in table ");
+		System.out.println(table);
+		System.out.println(keyspaceRepository.getRowList(keyspace, table));
+		return keyspaceRepository.getRowList(keyspace, table);
 	}
 
 	@PostMapping("/books/create")
