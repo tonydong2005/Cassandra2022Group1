@@ -77,9 +77,23 @@ public class BookController {
 		System.out.print("getAllRows ran in keyspace ");
 		System.out.print(keyspace + " in table ");
 		System.out.println(table);
-		System.out.println(keyspaceRepository.getRowList(keyspace, table));
-		return keyspaceRepository.getRowList(keyspace, table);
+		List<List<String>> list = keyspaceRepository.getRowList(keyspace, table);
+		System.out.println(list);
+		return list;
 	}
+
+	@GetMapping("keyspaces/{keyspaceName}/tables/{tableName}/columnNames")
+	public List<String> getColumnNames(@PathVariable("keyspaceName") String keyspace, @PathVariable("tableName") String table) {
+		KeyspaceRepository keyspaceRepository = new KeyspaceRepository(session);
+		System.out.print("getColumnNames ran in keyspace ");
+		System.out.print(keyspace + " in table ");
+		System.out.println(table);
+		List<String> list = keyspaceRepository.getColNames(keyspace, table);
+		System.out.println(list);
+		return list;
+	}
+
+
 
 	@PostMapping("/books/create")
 	public ResponseEntity<Book> createBook(@Valid @RequestBody Book book) {

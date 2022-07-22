@@ -81,6 +81,16 @@ public class KeyspaceRepository {
         }
     }
 
+    public List<String>getColNames(String keyspace, String table){
+        List<String>result=new ArrayList<>();
+        Map<CqlIdentifier,DataType>colDefs=getColDefs(keyspace,table);
+        colDefs.forEach((key,value)->{
+            String s=key.toString()+" ("+value.toString().toLowerCase() + ")";
+            result.add(s);
+        });
+        return result;
+    }
+
     public Map<CqlIdentifier,DataType> getColDefs(String keyspace, String table)
     {
         try {
