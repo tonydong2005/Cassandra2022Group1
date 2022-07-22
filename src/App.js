@@ -10,9 +10,10 @@ function App() {
       <h1>JP MORGAN CHASE & CO.</h1>
       <img id = "logo" src={chaselogo} alt="JPMorgan Chase Logo"/>
       </header>
-    <section>
-      
+    <section id = "gradient">
     </section>
+    <h1>hi</h1>
+
     </div>
 
    

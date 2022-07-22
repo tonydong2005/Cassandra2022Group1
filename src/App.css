@@ -58,8 +58,14 @@ header{
   
   width:150px;
 }
-section{
+#login{
+  color: #A6A6A6;
+  width: 1000px;
+  height: 1000px;
+  padding:100px;
+}
+#gradient{
   background-image: linear-gradient(white, #0076D6);
   height: 100%;
-  padding: 600px;
+  height: 1000px;
 }
