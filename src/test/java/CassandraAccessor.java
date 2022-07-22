@@ -6,6 +6,8 @@ import com.datastax.oss.driver.api.core.type.DataType;
 import com.datastax.oss.driver.api.querybuilder.QueryBuilder;
 import com.datastax.oss.driver.api.querybuilder.relation.Relation;
 import com.datastax.oss.driver.api.querybuilder.select.Select;
+import javafx.util.Pair;
+
 import java.util.*;
 
 public class CassandraAccessor {
@@ -33,6 +35,16 @@ public class CassandraAccessor {
         ResultSet rs = session.execute(select.build());
         List<String> result = new ArrayList<>();
         rs.forEach(x -> result.add(x.getString("table_name")));
+        return result;
+    }
+
+    public List<String>getLabels(String keyspace, String table){
+        List<String>result=new ArrayList<>();
+        Map<CqlIdentifier,DataType>colDefs=getColDefs(keyspace,table);
+        colDefs.forEach((key,value)->{
+            String s=key.toString()+" "+value.toString().toLowerCase();
+            result.add(s);
+        });
         return result;
     }
 
