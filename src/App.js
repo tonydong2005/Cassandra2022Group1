@@ -6,9 +6,10 @@ import chaselogo from './chaselogo-removebg-preview.png';
 function App() {
   return (
     <div id="header">
+      <header>
       <h1>JP MORGAN CHASE & CO.</h1>
       <img id = "logo" src={chaselogo} alt="JPMorgan Chase Logo"/>
-
+      </header>
     <section>
       
     </section>
