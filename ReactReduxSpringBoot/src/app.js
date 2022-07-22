@@ -8,7 +8,7 @@ import { getTables } from './actions/tables';
 import './styles/styles.scss';
 
 
-import 'ag-grid-community/dist/styles/ag-theme-dark.css'; // Core grid CSS, always needed
+import 'ag-grid-community/dist/styles/ag-theme-blue.css'; // Core grid CSS, always needed
 import 'ag-grid-community/dist/styles/ag-grid.css'; // Optional theme CSS
 
 import { Provider } from 'react-redux';
