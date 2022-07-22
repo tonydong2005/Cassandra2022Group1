@@ -36,8 +36,8 @@ import com.datastax.oss.driver.api.core.CqlSession;
 @RestController
 @RequestMapping("/api")
 public class BookController {
-	@Autowired
-	BookRepository bookRepository;
+	//@Autowired
+	//BookRepository bookRepository;
 	private CqlSession session;
 
 	public BookController() {
@@ -47,12 +47,12 @@ public class BookController {
 		System.out.println("ran constructor");
 	}
 
-	@GetMapping("/books")
+	/*@GetMapping("/books")
 	public List<Book> getAllBooks() {
 		System.out.println("Get all Books...");
 
 		return bookRepository.findAll();
-	}
+	}*/
 	@GetMapping("/keyspaces")
 	public List<Keyspace> getAllKeyspaces() {
 
@@ -94,7 +94,7 @@ public class BookController {
 	}
 
 
-
+/*
 	@PostMapping("/books/create")
 	public ResponseEntity<Book> createBook(@Valid @RequestBody Book book) {
 		System.out.println("Create Book: " + book.getTitle() + "...");
@@ -103,7 +103,7 @@ public class BookController {
 		Book _book = bookRepository.save(book);
 		return new ResponseEntity<>(_book, HttpStatus.OK);
 	}
-	/*public ResponseEntity<Book> createKeyspace() {
+	public ResponseEntity<Book> createKeyspace() {
 		CassandraConnector connector = new CassandraConnector();
 		connector.connect("127.0.0.1", 9042, "datacenter1");
 		CqlSession session = connector.getSession();
@@ -112,7 +112,7 @@ public class BookController {
 		return new ResponseEntity<>(book, HttpStatus.OK);
 	}*/
 
-	@PutMapping("/books/{id}")
+	/*@PutMapping("/books/{id}")
 	public ResponseEntity<Book> updateBook(@PathVariable("id") UUID id, @RequestBody Book book) {
 		System.out.println("Update Book with ID = " + id + "...");
 
@@ -143,4 +143,5 @@ public class BookController {
 
 		return new ResponseEntity<>("Book has been deleted!", HttpStatus.OK);
 	}
+	*/
 }
