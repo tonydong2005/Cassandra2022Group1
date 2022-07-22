@@ -59,7 +59,7 @@ header{
   width:150px;
 }
 section{
-  background-image: linear-gradient(white, blue);
+  background-image: linear-gradient(white, #0076D6);
   height: 100%;
   padding: 600px;
 }
