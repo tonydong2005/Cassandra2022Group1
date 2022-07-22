@@ -12,7 +12,9 @@ function App() {
       </header>
     <section id = "gradient">
     </section>
-    <h1>hi</h1>
+    <section class = "login">
+      <h2>Log In</h2>
+    </section>
 
     </div>
 
