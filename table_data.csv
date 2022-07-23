@@ -1,0 +1,2 @@
+Keyspace Name,Table Name,Num Partitions,Partition Row Stats,Column Definitions,Table Size,Partition Size Stats
+jpmorganproject,jpmorgantable,1,Min: 1 | Max: 1 | Average: 1.0,employeenum int | employeename text ,0.000 B,Max Partition Size: 0.000 B

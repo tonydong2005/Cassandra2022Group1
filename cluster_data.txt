@@ -1,0 +1,4 @@
+Cluster Name: Test Cluster
+Tables in Cluster: 37
+User Generated Tables in Cluster: 1
+Cluster Size: 241.397 KB

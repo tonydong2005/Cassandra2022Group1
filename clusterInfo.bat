@@ -1,0 +1,1 @@
+nodetool describecluster > cluster_info.txt

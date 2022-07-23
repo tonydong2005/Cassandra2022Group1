@@ -1,0 +1,8 @@
+Cluster Information:
+	Name: Test Cluster
+	Snitch: org.apache.cassandra.locator.SimpleSnitch
+	DynamicEndPointSnitch: enabled
+	Partitioner: org.apache.cassandra.dht.Murmur3Partitioner
+	Schema versions:
+		e8c2fa87-4791-3596-8100-50cd0909115f: [127.0.0.1]
+

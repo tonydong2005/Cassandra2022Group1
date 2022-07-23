@@ -1,0 +1,1 @@
+nodetool tablestats > table_info.txt
