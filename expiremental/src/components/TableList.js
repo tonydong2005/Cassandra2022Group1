@@ -2,7 +2,6 @@ import React, { Component, useState, useEffect } from 'react';
 import axios from 'axios';
 import { AgGridReact } from 'ag-grid-react';
 
-
 function TableList(props) {
 	const [error, setError] = useState(null);
 	const [isLoaded, setIsLoaded] = useState(false);
@@ -18,7 +17,6 @@ function TableList(props) {
 			(result) => {
 			setIsLoaded(true);
 			setList(result.data);
-			console.log(list);
 			},
 			// Note: it's important to handle errors here
 			// instead of a catch() block so that we don't swallow
@@ -36,14 +34,17 @@ function TableList(props) {
 		return <div>Loading...</div>;
 	  } else {
 		const listFormatted = [];
-		list.map((tableName, index) => listFormatted.push(<li key={index}>{tableName}</li>)); // for the Ag grid {tables: {tableName}}
+		list.forEach((tables, index) => listFormatted.push({tables})); // for the Ag grid <li key={index}>{tableName}</li>
+		console.log(listFormatted);
 		return (
-				/*<AgGridReact
+			<div id="myGrid" className="ag-theme-alpine" style={{height: 400, width: 600}}>
+				<AgGridReact
 				rowData={listFormatted}
 				columnDefs={columnDefs}>
 
-			</AgGridReact>*/
-			<ul>{listFormatted}</ul>
+				</AgGridReact>
+			</div>
+			/*<ul>{listFormatted}</ul>*/
 		);
 	  }
 	}
