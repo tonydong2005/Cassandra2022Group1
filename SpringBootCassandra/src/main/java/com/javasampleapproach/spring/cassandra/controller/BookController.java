@@ -11,9 +11,9 @@ import com.datastax.oss.driver.api.core.cql.Row;
 import com.javasampleapproach.spring.cassandra.CassandraConnector;
 import com.javasampleapproach.spring.cassandra.CreateMethods;
 import com.javasampleapproach.spring.cassandra.KeyspaceRepository;
-import com.javasampleapproach.spring.cassandra.model.Keyspace;
 import com.javasampleapproach.spring.cassandra.model.Tabl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.annotation.AccessType;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -27,12 +27,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.datastax.driver.core.utils.UUIDs;
-import com.javasampleapproach.spring.cassandra.model.Book;
-import com.javasampleapproach.spring.cassandra.repo.BookRepository;
 
 import com.datastax.oss.driver.api.core.CqlSession;
 
-@CrossOrigin(origins = "http://localhost:8081")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api")
 public class BookController {
@@ -54,7 +52,7 @@ public class BookController {
 		return bookRepository.findAll();
 	}*/
 	@GetMapping("/keyspaces")
-	public List<Keyspace> getAllKeyspaces() {
+	public List<String> getAllKeyspaces() {
 
 		KeyspaceRepository keyspaceRepository = new KeyspaceRepository(session);
 		System.out.println("getAllKeyspaces ran");
@@ -63,7 +61,7 @@ public class BookController {
 	}
 
 	@GetMapping("keyspaces/{keyspaceName}/tables")
-	public List<Tabl> getAllTables(@PathVariable("keyspaceName") String keyspace) {
+	public List<String> getAllTables(@PathVariable(value = "keyspaceName") String keyspace) {
 		KeyspaceRepository keyspaceRepository = new KeyspaceRepository(session);
 		System.out.print("getAllTables ran in keyspace ");
 		System.out.println(keyspace);

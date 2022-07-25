@@ -10,7 +10,6 @@ import com.datastax.oss.driver.api.core.type.DataTypes;
 import com.datastax.oss.driver.api.querybuilder.QueryBuilder;
 import com.datastax.oss.driver.api.querybuilder.relation.Relation;
 import com.datastax.oss.driver.api.querybuilder.select.Select;
-import com.javasampleapproach.spring.cassandra.model.Keyspace;
 import com.javasampleapproach.spring.cassandra.model.Tabl;
 
 import java.io.BufferedReader;
@@ -32,15 +31,15 @@ public class KeyspaceRepository {
         xd.add("EB");
         xd.add("ZB");
     }
-    public List<Keyspace> getKeyspaceList() {
+    public List<String> getKeyspaceList() {
         Select select = QueryBuilder.selectFrom("system_schema", "keyspaces").all();
         ResultSet rs = session.execute(select.build());
-        List<Keyspace> result = new ArrayList<Keyspace>();
-        rs.forEach(x -> result.add(new Keyspace(x.getString("keyspace_name"), this.getTableList(x.getString("keyspace_name")))));
+        List<String> result = new ArrayList<>();
+        rs.forEach(x -> result.add(x.getString("keyspace_name")));
         return result;
     }
 
-    public List<Tabl> getTableList(String keyspace)
+    public List<String> getTableList(String keyspace)
     {
         Select select = QueryBuilder.selectFrom("system_schema", "tables").all();
         if (keyspace != null) {
@@ -48,8 +47,8 @@ public class KeyspaceRepository {
             select = select.where(Relation.column("keyspace_name").isEqualTo(QueryBuilder.literal(keyspace)));
         }
         ResultSet rs = session.execute(select.build());
-        List<Tabl> result = new ArrayList<>();
-        rs.forEach(x -> result.add(new Tabl(x.getString("table_name"), x.getString("keyspace_name"), this.getRowList(x.getString("keyspace_name"), x.getString("table_name")))));
+        List<String> result = new ArrayList<>();
+        rs.forEach(x -> result.add(x.getString("table_name")));
         return result;
     }
 
