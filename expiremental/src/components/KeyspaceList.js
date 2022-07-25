@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import TableList from './TableList';
 import axios from 'axios';
+import { Button } from '@mui/material';
 
 
 function KeyspaceList() {
 	const [error, setError] = useState(null);
 	const [isLoaded, setIsLoaded] = useState(false);
 	const [list, setList] = useState([]);
-
-
+	const [clicked, setClicked] = useState([false, false, false, false, false, false, false]);
 	useEffect(() => {
 		axios.get('http://localhost:8080/api/keyspaces')
 		.then(
@@ -25,6 +25,23 @@ function KeyspaceList() {
 			}
 		)
 	}, [])
+	function clickedElement(keyspace, index) {
+		if(clicked[index])
+			return (<li key={index}><Button variant="contained" onClick={() => {
+				const items = clicked.map(item => item);
+				items[index] = false;
+				console.log(items);
+				setClicked(items);
+				console.log(clicked);}}>{keyspace}</Button>
+			<TableList keyspace={keyspace}/></li>);
+		else
+			return (<li key={index}><Button variant="contained" onClick={() => {
+				const items = clicked.map(item => item);
+				items[index] = true;
+				console.log(items);
+				setClicked(items.map(item => item));
+				console.log(clicked);}}>{keyspace}</Button></li>);
+	}
 
 	if (error) {
 		return <div>Error: {error.message}</div>;
@@ -34,10 +51,7 @@ function KeyspaceList() {
 		return (
 				<ul>
 					{list.map((keyspace, index) => (
-					<li key={index}>
-						<h1>{keyspace}</h1>
-						<TableList keyspace={keyspace}/>
-					</li>
+					clickedElement(keyspace, index)
 					))}
 				</ul>
 		);

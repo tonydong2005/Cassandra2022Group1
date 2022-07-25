@@ -35,7 +35,6 @@ function TableList(props) {
 	  } else {
 		const listFormatted = [];
 		list.forEach((tables, index) => listFormatted.push({tables})); // for the Ag grid <li key={index}>{tableName}</li>
-		console.log(listFormatted);
 		return (
 			<div id="myGrid" className="ag-theme-alpine" style={{height: 400, width: 600}}>
 				<AgGridReact
