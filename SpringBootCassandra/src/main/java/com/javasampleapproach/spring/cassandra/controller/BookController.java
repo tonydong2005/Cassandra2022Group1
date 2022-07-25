@@ -90,8 +90,6 @@ public class BookController {
 		System.out.println(list);
 		return list;
 	}
-
-
 /*
 	@PostMapping("/books/create")
 	public ResponseEntity<Book> createBook(@Valid @RequestBody Book book) {

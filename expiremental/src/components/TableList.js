@@ -34,16 +34,16 @@ function TableList(props) {
 		return <div>Loading...</div>;
 	  } else {
 		const listFormatted = [];
-		list.forEach((tables, index) => listFormatted.push({tables})); // for the Ag grid <li key={index}>{tableName}</li>
+		list.forEach((tables, index) => <li key={index}>{tables}</li> ); // listFormatted.push({tables})
 		return (
-			<div id="myGrid" className="ag-theme-alpine" style={{height: 400, width: 600}}>
+			/*<div id="myGrid" className="ag-theme-alpine" style={{height: 400, width: 600}}>
 				<AgGridReact
 				rowData={listFormatted}
 				columnDefs={columnDefs}>
 
 				</AgGridReact>
-			</div>
-			/*<ul>{listFormatted}</ul>*/
+			</div>*/
+			<ul>{listFormatted}</ul>
 		);
 	  }
 	}
