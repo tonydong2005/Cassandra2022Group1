@@ -89,7 +89,36 @@ public class KeyspaceRepository {
         });
         return result;
     }
+    public List<String> getPrimaryKeyLabels(String keyspace, String table){
+        List<ColumnMetadata> data =  session.getMetadata().getKeyspace(keyspace).get().getTable(table).get().getPrimaryKey();
+        List<String> labels = new ArrayList<>();
+        data.forEach(x-> labels.add(x.getName().asCql(true)));
+        return labels;
+    }
+    public List<String>getPrimaryKeyNames(String keyspace, String table){
+        List<String>result=new ArrayList<>();
+        Map<CqlIdentifier,DataType>colDefs=getPrimaryKeyDefs(keyspace,table);
+        colDefs.forEach((key,value)->{
+            String s=key.toString()+" ("+value.toString().toLowerCase() + ")";
+            result.add(s);
+        });
+        return result;
+    }
+    public Map<CqlIdentifier,DataType> getPrimaryKeyDefs(String keyspace, String table)
+    {
+        try {
+            List<ColumnMetadata> map = session.getMetadata().getKeyspace(keyspace).get().getTable(table).get().getPrimaryKey();
 
+            //System.out.println(map);
+            Map<CqlIdentifier,DataType>joe=new HashMap<>();
+            map.forEach((key) -> joe.put(key.getName(),key.getType()));
+
+            return joe;
+        }catch (Exception e)
+        {
+            return null;
+        }
+    }
     public Map<CqlIdentifier,DataType> getColDefs(String keyspace, String table)
     {
         try {
@@ -380,4 +409,6 @@ public class KeyspaceRepository {
         // SOME TYPES YET TO BE IMPLEMENTED
         return "";
     }
+
 }
+

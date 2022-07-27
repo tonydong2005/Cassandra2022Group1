@@ -24,7 +24,7 @@ function KeyspaceList() {
 			setError(error);
 			}
 		)
-	}, [])
+	}, [])	
 	function clickedElement(keyspace, index) {
 		if(clicked[index])
 			return (<li key={index}><Button variant="contained" onClick={() => {

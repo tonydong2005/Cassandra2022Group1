@@ -1,44 +1,22 @@
 package com.javasampleapproach.spring.cassandra.controller;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 
-import javax.validation.Valid;
-
-import com.datastax.oss.driver.api.core.cql.Row;
 import com.javasampleapproach.spring.cassandra.CassandraConnector;
-import com.javasampleapproach.spring.cassandra.CreateMethods;
 import com.javasampleapproach.spring.cassandra.KeyspaceRepository;
-import com.javasampleapproach.spring.cassandra.model.Tabl;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.annotation.AccessType;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.datastax.driver.core.utils.UUIDs;
+import org.springframework.web.bind.annotation.*;
 
 import com.datastax.oss.driver.api.core.CqlSession;
 
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api")
-public class BookController {
+public class CassandraController {
 	//@Autowired
 	//BookRepository bookRepository;
 	private CqlSession session;
 
-	public BookController() {
+	public CassandraController() {
 		CassandraConnector connector = new CassandraConnector();
 		connector.connect("127.0.0.1", 9042, "datacenter1");
 		session = connector.getSession();
@@ -69,7 +47,7 @@ public class BookController {
 		return keyspaceRepository.getTableList(keyspace);
 	}
 
-	@GetMapping("keyspaces/{keyspaceName}/tables/{tableName}")
+	@GetMapping("keyspaces/{keyspaceName}/tables/{tableName}/rows")
 	public List<List<String>> getAllRows(@PathVariable("keyspaceName") String keyspace, @PathVariable("tableName") String table) {
 		KeyspaceRepository keyspaceRepository = new KeyspaceRepository(session);
 		System.out.print("getAllRows ran in keyspace ");
@@ -87,9 +65,13 @@ public class BookController {
 		System.out.print(keyspace + " in table ");
 		System.out.println(table);
 		List<String> list = keyspaceRepository.getColNames(keyspace, table);
+		List<String> list2 = keyspaceRepository.getPrimaryKeyNames(keyspace, table);
+		list.removeAll(list2);
+		list.addAll(0, list2);
 		System.out.println(list);
 		return list;
 	}
+
 /*
 	@PostMapping("/books/create")
 	public ResponseEntity<Book> createBook(@Valid @RequestBody Book book) {

@@ -1,6 +1,6 @@
+com\javasampleapproach\spring\cassandra\controller\CassandraController.class
 com\javasampleapproach\spring\cassandra\CreateMethods.class
 com\javasampleapproach\spring\cassandra\repo\BookRepository.class
-com\javasampleapproach\spring\cassandra\controller\BookController.class
 com\javasampleapproach\spring\cassandra\KeyspaceRepository.class
 com\javasampleapproach\spring\cassandra\SpringBootCassandraApplication.class
 com\javasampleapproach\spring\cassandra\CassandraConnector.class

@@ -1,5 +1,6 @@
 import React, { Component, useState, useEffect } from 'react';
 import axios from 'axios';
+import Table from './Table';
 import { AgGridReact } from 'ag-grid-react';
 
 function TableList(props) {
@@ -7,7 +8,7 @@ function TableList(props) {
 	const [isLoaded, setIsLoaded] = useState(false);
 	const [keyspace, setKeyspace] = useState(props.keyspace);
 	const [list, setList] = useState([]);
-	const [columnDefs] = useState([{field:'tables'}])
+	const [columnDefs] = useState([{field:'tables'}]);
 
 
 	useEffect(() => {
@@ -34,7 +35,7 @@ function TableList(props) {
 		return <div>Loading...</div>;
 	  } else {
 		const listFormatted = [];
-		list.forEach((tables, index) => <li key={index}>{tables}</li> ); // listFormatted.push({tables})
+		//list.forEach((tables, index) => ); // listFormatted.push({tables})
 		return (
 			/*<div id="myGrid" className="ag-theme-alpine" style={{height: 400, width: 600}}>
 				<AgGridReact
@@ -43,7 +44,7 @@ function TableList(props) {
 
 				</AgGridReact>
 			</div>*/
-			<ul>{listFormatted}</ul>
+			list.map((table, index) => <Table keyspace={keyspace} table={table}/>)
 		);
 	  }
 	}
