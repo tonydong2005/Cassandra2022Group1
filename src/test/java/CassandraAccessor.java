@@ -22,6 +22,20 @@ public class CassandraAccessor {
         ResultSet rs = session.execute(select.build());
         List<String> result = new ArrayList<>();
         rs.forEach(x -> result.add(x.getString("keyspace_name")));
+        result.remove("system_auth");
+        result.remove("system_schema");
+        result.remove("system_distributed");
+        result.remove("system");
+        result.remove("system_traces");
+        result.remove("dse_system_local");
+        result.remove("dse_system");
+        result.remove("dse_leases");
+        result.remove("dse_insights");
+        result.remove("dse_perf");
+        result.remove("dse_security");
+        result.remove("system_backups");
+        result.remove("solr_admin");
+        result.remove("dse_insights_local");
         return result;
     }
 
