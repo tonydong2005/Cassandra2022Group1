@@ -8,7 +8,6 @@ function TableList(props) {
 	const [isLoaded, setIsLoaded] = useState(false);
 	const [keyspace, setKeyspace] = useState(props.keyspace);
 	const [list, setList] = useState([]);
-	const [columnDefs] = useState([{field:'tables'}]);
 
 
 	useEffect(() => {

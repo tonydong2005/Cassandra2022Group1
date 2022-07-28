@@ -8,13 +8,14 @@ function KeyspaceList() {
 	const [error, setError] = useState(null);
 	const [isLoaded, setIsLoaded] = useState(false);
 	const [list, setList] = useState([]);
-	const [clicked, setClicked] = useState([false, false, false, false, false, false, false]);
+	const [clicked, setClicked] = useState([]);
 	useEffect(() => {
 		axios.get('http://localhost:8080/api/keyspaces')
 		.then(
 			(result) => {
 			setIsLoaded(true);
 			setList(result.data);
+			setClicked(Array(result.data.length).fill(false, 0, result.data.length))
 			},
 			// Note: it's important to handle errors here
 			// instead of a catch() block so that we don't swallow

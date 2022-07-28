@@ -9,6 +9,8 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import AddRow from './AddRow';
+import { Button } from '@mui/material';
 
 function Table(props) {
 	const [error, setError] = useState(null);
@@ -17,6 +19,7 @@ function Table(props) {
     const [table, setTable] = useState(props.table);
 	const [columns, setCols] = useState([]);
     const [rows, setRows] = useState([[]]);
+	const [inputRow, setInputRow] = useState(['2', '\'Vikas\'', '12', '\'Dallas\'', '12']);
 
 
 	useEffect(() => {
@@ -55,7 +58,30 @@ function Table(props) {
 			}
 		)
 	}, [])
-
+	useEffect(() => {
+		const query = 'http://localhost:8080/api/keyspaces/'+keyspace+'/tables/'+table+'/addRow'
+		const cols = columns.map((column => column.substring(0, column.indexOf('(')-1)));
+		console.log(cols);
+		axios.put(query, {cols: cols, row: [inputRow.toString()]}).then(
+			(result) => {
+			console.log('success');
+			},
+			// Note: it's important to handle errors here
+			// instead of a catch() block so that we don't swallow
+			// exceptions from actual bugs in components.
+			(error) => {
+			console.log('fail');
+			}
+		)
+	}, [columns, inputRow]
+	);
+	const useRowAdder = () => 
+	{
+		const list = rows.map(item => item);
+		setInputRow(['2', '\'Vikas\'', '12', '\'Dallas\'', '12']);
+		list.push(inputRow);
+		setRows(list);
+	}
     console.log(keyspace + table);
     console.log(rows);
     console.log(columns);
@@ -66,7 +92,7 @@ function Table(props) {
 		return <div>Loading...</div>;
 	  } else {
 		const colsFormatted = [];
-        columns.forEach((column, index) => colsFormatted.push(<TableCell>{column}</TableCell>))
+        columns.forEach((column, index) => colsFormatted.push(<TableCell key={index}>{column}</TableCell>))
 		return (
 			/*<div id="myGrid" className="ag-theme-alpine" style={{height: 400, width: 600}}>
 				<AgGridReact
@@ -75,7 +101,7 @@ function Table(props) {
 
 				</AgGridReact>
 			</div>*/
-            <TableContainer component={Paper}>
+            [<TableContainer key='0' component={Paper}>
       <Bruhmoment sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
@@ -93,10 +119,10 @@ function Table(props) {
           ))}
         </TableBody>
       </Bruhmoment>
-    </TableContainer>
+    </TableContainer>, <Button variant='contained' onClick={useRowAdder}>Add Row</Button>]
 		);
-	  }
 	}
+}
 
 
 export default Table;
