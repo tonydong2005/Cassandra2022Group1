@@ -37,7 +37,7 @@ public class CreateMethods {
         session.execute(String.valueOf(query));
     }
 
-    public void createData(String keyspace, String tableName, ArrayList<String>labels, ArrayList<String>rows) {
+    public void createData(String keyspace, String tableName, List<String>labels, List<String>rows) {
         String use="USE "+keyspace+";";
         session.execute(use);
         StringBuilder query = new StringBuilder("INSERT INTO " + tableName + " (");
@@ -47,7 +47,10 @@ public class CreateMethods {
         query.append(labels.get(labels.size()-1) + ")");
         for (String values : rows) {
             StringBuilder q = new StringBuilder(query + " VALUES(" + values + ");");
+            System.out.println(q);
             session.execute(String.valueOf(q));
         }
     }
+
+
 }
