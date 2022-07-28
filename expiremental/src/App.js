@@ -4,6 +4,8 @@ import {AppBar, Toolbar, Typography, IconButton} from '@mui/material';
 import { blue } from '@mui/material/colors';
 import { ThemeProvider , createTheme } from '@mui/material/styles';
 import KeyspaceList from './components/KeyspaceList';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Table from './components/Table';
 
 const theme = createTheme({
     palette: {
@@ -27,7 +29,13 @@ function App() {
                                     </Typography>
                                   </Toolbar>
                                 </AppBar>
-            <KeyspaceList/>
+            <BrowserRouter>
+                <Routes>
+                  <Route path="/" element={<KeyspaceList/>} exact={true} />
+                  <Route path="/:keyspaceName/:tableName" element={<Table />} exact={true} />
+                </Routes>
+                
+            </BrowserRouter>
         </ThemeProvider>
         
     );
