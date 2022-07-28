@@ -15,6 +15,7 @@ function KeyspaceList() {
 			(result) => {
 			setIsLoaded(true);
 			setList(result.data);
+			setClicked(Array(result.data.length).fill(false, 0, result.data.length))
 			},
 			// Note: it's important to handle errors here
 			// instead of a catch() block so that we don't swallow

@@ -45,7 +45,7 @@ public class CassandraController {
 
 	}
 
-	@GetMapping("keyspaces/{keyspaceName}/tables")
+	@GetMapping("/keyspaces/{keyspaceName}/tables")
 	public List<String> getAllTables(@PathVariable(value = "keyspaceName") String keyspace) {
 		System.out.print("getAllTables ran in keyspace ");
 		System.out.println(keyspace);
@@ -53,7 +53,7 @@ public class CassandraController {
 		return keyspaceRepository.getTableList(keyspace);
 	}
 
-	@GetMapping("keyspaces/{keyspaceName}/tables/{tableName}/rows")
+	@GetMapping("/keyspaces/{keyspaceName}/tables/{tableName}/rows")
 	public List<List<String>> getAllRows(@PathVariable("keyspaceName") String keyspace, @PathVariable("tableName") String table) {
 		System.out.print("getAllRows ran in keyspace ");
 		System.out.print(keyspace + " in table ");
@@ -63,7 +63,7 @@ public class CassandraController {
 		return list;
 	}
 
-	@GetMapping("keyspaces/{keyspaceName}/tables/{tableName}/columnNames")
+	@GetMapping("/keyspaces/{keyspaceName}/tables/{tableName}/columnNames")
 	public List<String> getColumnNames(@PathVariable("keyspaceName") String keyspace, @PathVariable("tableName") String table) {
 		System.out.println("getColumnNames ran in keyspace " + keyspace + " in table " + table);
 		List<String> list = keyspaceRepository.getColNames(keyspace, table);

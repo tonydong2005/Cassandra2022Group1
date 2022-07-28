@@ -20,7 +20,6 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { DataGrid } from '@mui/x-data-grid';
-import { ConnectingAirportsOutlined } from '@mui/icons-material';
 
 function Table(props) {
 	const [error, setError] = useState(null);
@@ -114,6 +113,7 @@ function Table(props) {
 		return <div>Loading...</div>;
 	  } else {
 		const colsFormatted = [];
+        columns.forEach((column, index) => colsFormatted.push(<TableCell key={index}>{column}</TableCell>))
 		const rowsFormatted = [];
         columns.forEach((column, index) => colsFormatted.push({field: column}));
 		
@@ -140,7 +140,7 @@ function Table(props) {
 				columnDefs={colsFormatted}>
 
 				</AgGridReact>
-				<Button variant="contained" onClick={() => {
+            <Button variant='contained' onClick={useRowAdder}>Add Row</Button>,<Button variant="contained" onClick={() => {
 					{navigate(`/`, { replace: true })}
 				}}>bacc
 				
@@ -167,8 +167,8 @@ function Table(props) {
     		// </div>
 			
 		);
-	  }
 	}
+}
 
 
 export default Table;
