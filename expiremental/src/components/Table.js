@@ -22,7 +22,7 @@ function table() {
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead>
+        <TableHead sx = {{ background: '#D3D3D3'}}>
           <TableRow>
             <TableCell>Name</TableCell>
             <TableCell align="right" >ID</TableCell>
@@ -30,7 +30,7 @@ function table() {
             <TableCell align="right">Phone</TableCell>
           </TableRow>
         </TableHead>
-        <TableBody>
+        <TableBody sx = {{background: '#F2F2F2'}}>
           {rows.map((row) => (
             <TableRow
               key={row.name}
