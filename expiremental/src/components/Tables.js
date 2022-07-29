@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from 'react';
+import {React, Component, useState, useEffect } from 'react';
 import axios from 'axios';
 import {
     Table,
@@ -9,6 +9,7 @@ import {
     TableRow,
     Paper,
     Box,
+    Stack,
     Container,
     Typography,
     Avatar,
@@ -36,7 +37,7 @@ theme.typography.table = {
 
 
 function Tablez() {
-    const [page, setPage] = React.useState(0);
+    const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
     const handleChangePage = (event, newPage) => {

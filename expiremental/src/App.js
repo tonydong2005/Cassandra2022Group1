@@ -1,12 +1,15 @@
-import React from 'react';
+import { React, Component, useState, useEffect, useRef } from 'react';
 import './App.css';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { blue } from '@mui/material/colors';
 import { ThemeProvider , createTheme } from '@mui/material/styles';
-import KeyspaceList from './components/KeyspaceList';
+import Keyspaces from './pages/keyspaces';
 import Header from './components/Header';
+import Login from './pages/login';
 import { Accordion, AccordionDetails, AccordionSummary, Container, Typography } from '@mui/material';
-import Table from './components/Table'
+import Tables from './components/Tables';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+
 
 const theme = createTheme({
     palette: {
@@ -18,7 +21,37 @@ const theme = createTheme({
 
 
 function App() {
-    return (
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  /*  useEffect(() => {
+        const loginStat = window.localStorage.getItem('loginStatus');
+        console.log(loginStat);
+        setIsLoggedIn(JSON.parse(loginStat));
+    }
+    );
+    useEffect(() => {
+        window.localStorage.setItem('loginStatus', JSON.stringify(isLoggedIn));
+    }
+    );*/
+   if (isLoggedIn) {
+        return (
+            <ThemeProvider theme={theme} > 
+                <Header loginStatus={true} onLog={(value) => setIsLoggedIn(value)} />
+                    <Keyspaces />
+            </ThemeProvider>
+        );
+    }
+    else {
+        return (
+            <ThemeProvider theme={theme} >
+                <Header loginStatus={false} onLog={(value) => setIsLoggedIn(value)} />
+                    <Login onLog={(value) => setIsLoggedIn(value)} />
+            </ThemeProvider>
+        );
+
+    }
+
+    /*return (
       <ThemeProvider theme={theme} >
       <Header/>
       <Container maxWidth = 'lg' sx = {{mt: '25px', mb: '10px'}}>
@@ -56,14 +89,14 @@ function App() {
                 <Typography>lmao XD</Typography>
               </AccordionSummary>
               <AccordionDetails>
-                <Table/>
+                <Tables/>
               </AccordionDetails>
             </Accordion>
           </AccordionDetails>
         </Accordion>
       </Container>
             </ThemeProvider>
-  );
+  );*/
 }
 
 export default App;
