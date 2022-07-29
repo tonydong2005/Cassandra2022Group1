@@ -17,19 +17,16 @@ const theme = createTheme({
 
 
 function App() {
-  return (
-    <ThemeProvider theme={theme}>
+    return (
+      <ThemeProvider theme={theme} >
       <Header/>
       <Container maxWidth = 'lg'>
         <Typography sx = {{ fontSize: 22, mt: '18px', mb: '10px'}}>
           Keyspaces
         </Typography>
-        <KeyspaceList/>
-      </Container>
-      <Container maxWidth = 'md' sx = {{mt: '18px', mb: '10px'}}>
         <Table/>
       </Container>
-    </ThemeProvider>
+            </ThemeProvider>
   );
 }
 

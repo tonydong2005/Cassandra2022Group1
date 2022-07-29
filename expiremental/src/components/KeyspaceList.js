@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import TableList from './TableList';
+import Table from './Table';
 import axios from 'axios';
 import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -28,13 +29,20 @@ function KeyspaceList() {
 	}, [])
 	function clickedElement(keyspace, index) {
 		if(clicked[index])
-			return (<Accordion sx={{background: '#D7E5F0'}}><AccordionSummary expandIcon={<ExpandMoreIcon />} onClick={() => {
-				const items = clicked.map(item => item);
-				items[index] = false;
-				console.log(items);
-				setClicked(items);
-				console.log(clicked);}}>{keyspace} </AccordionSummary>
-			    <AccordionDetails><TableList keyspace={keyspace}/> <Typography> Ur Mom </Typography></AccordionDetails></Accordion>);
+			return (
+				<Accordion sx={{ background: '#D7E5F0' }}>
+					<AccordionSummary expandIcon={<ExpandMoreIcon />} onClick={() => {
+						const items = clicked.map(item => item);
+						items[index] = false;
+						console.log(items);
+						setClicked(items);
+						console.log(clicked);
+						}}>{keyspace}
+					</AccordionSummary>
+					<AccordionDetails>
+						<Table/>
+					</AccordionDetails>
+				</Accordion>);
 		else
 			return (<Accordion sx={{background: '#D7E5F0'}}><AccordionSummary expandIcon={<ExpandMoreIcon />}><AccordionDetails onClick={() => {
 				const items = clicked.map(item => item);

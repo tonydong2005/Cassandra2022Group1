@@ -1,6 +1,6 @@
 import React, { Component, useState, useEffect } from 'react';
 import axios from 'axios';
-import { AgGridReact } from 'ag-grid-react';
+//import { AgGridReact } from 'ag-grid-react';
 
 function TableList(props) {
 	const [error, setError] = useState(null);
@@ -35,7 +35,7 @@ function TableList(props) {
 	  } else {
 		const listFormatted = [];
 		list.forEach((tables, index) => listFormatted.push({tables})); // for the Ag grid <li key={index}>{tableName}</li>
-		return (
+		/*return (
 			<div id="myGrid" className="ag-theme-alpine" style={{height: 400, width: 600}}>
 				<AgGridReact
 				rowData={listFormatted}
@@ -43,8 +43,8 @@ function TableList(props) {
 
 				</AgGridReact>
 			</div>
-			/*<ul>{listFormatted}</ul>*/
-		);
+			<ul>{listFormatted}</ul>
+		);*/
 	  }
 	}
 
