@@ -21,9 +21,12 @@ public class ModifierMethods {
         });
         query.delete(query.length()-5,query.length());
         query.append(";");
+        session.execute(String.valueOf(query));
         try{
             session.execute(String.valueOf(query));
-            return true;
+            ResultSet a=session.execute(String.valueOf(query));
+
+            return a.wasApplied();
         }
         catch (Exception e){
             return false;
@@ -48,7 +51,8 @@ public class ModifierMethods {
         query.append(";");
         try{
             session.execute(String.valueOf(query));
-            return true;
+            ResultSet a=session.execute(String.valueOf(query));
+            return a.wasApplied();
         }
         catch (Exception e){
             return false;
@@ -69,7 +73,8 @@ public class ModifierMethods {
         query.append(";");
         try{
             session.execute(String.valueOf(query));
-            return true;
+            ResultSet a=session.execute(String.valueOf(query));
+            return a.wasApplied();
         }
         catch (Exception e){
             return false;

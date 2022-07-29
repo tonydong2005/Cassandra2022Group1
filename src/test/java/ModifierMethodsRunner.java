@@ -23,22 +23,22 @@ public class ModifierMethodsRunner {
         ModifierMethods MM = new ModifierMethods(connector.getSession());
         CassandraAccessor C=new CassandraAccessor(connector.getSession());
 
-//        //Test inputs for deleteRow method
-//        System.out.println("Enter the name of your keyspace.");
-//        keyspaceName= scan.nextLine();
-//        System.out.println("Enter the name of your table.");
-//        tableName=scan.nextLine();
-//        colDefs=C.getColDefs(keyspaceName,tableName);
-//        colDefs.forEach((key,value) -> {
-//            System.out.println("Enter the value in "+key+" for the row you want to delete.");
-//            String input=scan.nextLine();
-//            CTV.put(key.toString(), input);
-//        });
-//        PK=C.getPrimaryKeyLabels(keyspaceName,tableName);
-//        PK.forEach(label->{
-//            PKV.put(label, CTV.getOrDefault(label,"You messed up."));
-//        });
-//        System.out.println(MM.deleteRow(keyspaceName,tableName, PKV));
+        //Test inputs for deleteRow method
+        System.out.println("Enter the name of your keyspace.");
+        keyspaceName= scan.nextLine();
+        System.out.println("Enter the name of your table.");
+        tableName=scan.nextLine();
+        colDefs=C.getColDefs(keyspaceName,tableName);
+        colDefs.forEach((key,value) -> {
+            System.out.println("Enter the value in "+key+" for the row you want to delete.");
+            String input=scan.nextLine();
+            CTV.put(key.toString(), input);
+        });
+        PK=C.getPrimaryKeyLabels(keyspaceName,tableName);
+        PK.forEach(label->{
+            PKV.put(label, CTV.getOrDefault(label,"You messed up."));
+        });
+        System.out.println(MM.deleteRow(keyspaceName,tableName, PKV));
 
         //Test inputs for insertRow method
         System.out.println("Enter the name of your keyspace.");
@@ -56,32 +56,32 @@ public class ModifierMethodsRunner {
         scan.nextLine();
         System.out.println(MM.insertRow(keyspaceName,tableName, CTV, TTL));
 
-//        //Test inputs for editRow method
-//        System.out.println("Enter the name of your keyspace.");
-//        keyspaceName= scan.nextLine();
-//        System.out.println("Enter the name of your table.");
-//        tableName=scan.nextLine();
-//        colDefs=C.getColDefs(keyspaceName,tableName);
-//        colDefs.forEach((key,value) -> {
-//            System.out.println("Enter the current value in "+key+".");
-//            String input=scan.nextLine();
-//            CTV.put(key.toString(), input);
-//        });
-//        PK=C.getPrimaryKeyLabels(keyspaceName,tableName);
-//        PK.forEach(label->{
-//            PKV.put(label, CTV.getOrDefault(label,"You messed up."));
-//            CTV.remove(label);
-//        });
-//        Map<String, Object>NPKV=new HashMap<>();
-//        CTV.forEach((key,value)->{
-//            System.out.println("Enter the new value of "+key+".");
-//            String input=scan.nextLine();
-//            NPKV.put(key,input);
-//        });
-//        System.out.println("Enter a TTL or 0 if you don't want to set it.");
-//        TTL=scan.nextInt();
-//        scan.nextLine();
-//        System.out.println(MM.editRow(keyspaceName,tableName, PKV,NPKV, TTL));
+        //Test inputs for editRow method
+        System.out.println("Enter the name of your keyspace.");
+        keyspaceName= scan.nextLine();
+        System.out.println("Enter the name of your table.");
+        tableName=scan.nextLine();
+        colDefs=C.getColDefs(keyspaceName,tableName);
+        colDefs.forEach((key,value) -> {
+            System.out.println("Enter the current value in "+key+".");
+            String input=scan.nextLine();
+            CTV.put(key.toString(), input);
+        });
+        PK=C.getPrimaryKeyLabels(keyspaceName,tableName);
+        PK.forEach(label->{
+            PKV.put(label, CTV.getOrDefault(label,"You messed up."));
+            CTV.remove(label);
+        });
+        Map<String, Object>NPKV=new HashMap<>();
+        CTV.forEach((key,value)->{
+            System.out.println("Enter the new value of "+key+".");
+            String input=scan.nextLine();
+            NPKV.put(key,input);
+        });
+        System.out.println("Enter a TTL or 0 if you don't want to set it.");
+        TTL=scan.nextInt();
+        scan.nextLine();
+        System.out.println(MM.editRow(keyspaceName,tableName, PKV,NPKV, TTL));
 
         connector.close();
     }
