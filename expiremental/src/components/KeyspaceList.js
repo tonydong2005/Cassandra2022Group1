@@ -34,7 +34,7 @@ function KeyspaceList() {
 				console.log(items);
 				setClicked(items);
 				console.log(clicked);}}>{keyspace} </AccordionSummary>
-			    <AccordionDetails><TableList keyspace={keyspace}/> <Typography> Ur Mom </Typography></AccordionDetails></Accordion>);
+			    <AccordionDetails><TableList keyspace={keyspace}/></AccordionDetails></Accordion>);
 		else
 			return (<Accordion sx={{background: '#D7E5F0'}}><AccordionSummary expandIcon={<ExpandMoreIcon />}><AccordionDetails onClick={() => {
 				const items = clicked.map(item => item);
