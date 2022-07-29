@@ -124,7 +124,7 @@ function Tablez() {
                                         color: 'white'
                                     }}
                                     align="left" >Columns and Rows Info</TableCell>
-                                
+
                                 <TableCell
                                     sx={{
                                         fontWeight: 'bold',
@@ -174,7 +174,7 @@ function Tablez() {
                 </Container>
         );
     }
-    
+
 }
 
 export default Tablez;
