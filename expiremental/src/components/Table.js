@@ -91,10 +91,7 @@ function Tablez() {
         const listFormatted = [];
         return (
             <Container maxWidth='lg'>
-                <Typography sx={{ fontSize: 22, mt: '18px', mb: '10px' }}>
-                    Keyspace Name (put variable here instead)
-            </Typography>
-                    <TableContainer component={Paper}
+                <TableContainer component={Paper}
                         sx={{
                             borderRadius: 5,
                             margin: '10px 10px',
@@ -106,21 +103,21 @@ function Tablez() {
                                 <TableCell
                                     sx={{
                                         fontWeight: 'bold',
-                                        backgroundColor: blue[900],
+                                        backgroundColor: blue[700],
                                         color: 'white'
                                     }}
                                     align="left" >Table Name</TableCell>
                                 <TableCell
                                     sx={{
                                         fontWeight: 'bold',
-                                        backgroundColor: blue[900],
+                                        backgroundColor: blue[700],
                                         color: 'white'
                                     }}
                                 align="left" >Table Size Info</TableCell>
                                 <TableCell
                                     sx={{
                                         fontWeight: 'bold',
-                                        backgroundColor: blue[900],
+                                        backgroundColor: blue[700],
                                         color: 'white'
                                     }}
                                     align="left" >Columns and Rows Info</TableCell>
@@ -128,7 +125,7 @@ function Tablez() {
                                 <TableCell
                                     sx={{
                                         fontWeight: 'bold',
-                                        backgroundColor: blue[900],
+                                        backgroundColor: blue[700],
                                         color: 'white'
                                     }}
                                     align="left" >View/Edit Table</TableCell>
@@ -141,18 +138,18 @@ function Tablez() {
                             //sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
                                 <TableCell component="th" scope="row" align="left">
-                                    <Typography sx={{color: blue[600], fontWeight: 800}}> {row.name}</Typography>
+                                    <Typography sx={{color: blue[600], mb: '10px'}}> {row.name}</Typography>
                                 </TableCell>
                                 <TableCell align="left">
-                                        <Typography>{row.size}</Typography>
-                                        <Typography> {row.maxPartitionSize}</Typography>
+                                        <Typography sx = {{mb: '10px'}}>{row.size}</Typography>
+                                        <Typography sx = {{mb: '10px'}}> {row.maxPartitionSize}</Typography>
                                 </TableCell>
                                 <TableCell align="left">
-                                        <Typography> {row.numCols}</Typography>
-                                        <Typography>  {row.numRows}</Typography>
+                                        <Typography sx = {{mb: '10px'}}> {row.numCols}</Typography>
+                                        <Typography sx = {{mb: '10px'}}>  {row.numRows}</Typography>
                                 </TableCell>
                                 <TableCell align="left">
-                                    <Button variant="contained">View</Button>
+                                    <Button variant="contained" sx = {{mb: '10px'}}>View</Button>
                                     <Button variant="contained">Edit</Button>
                                 </TableCell>
                             </TableRow>
