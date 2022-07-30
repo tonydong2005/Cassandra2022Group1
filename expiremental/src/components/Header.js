@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { AppBar, Box, Toolbar, Typography, Container, Stack, Button } from '@mui/material';
+import { AppBar, Box, Toolbar, Typography, Container, Stack, Button, Grid } from '@mui/material';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 function Header(props) {
@@ -18,7 +18,9 @@ function Header(props) {
         //[theme.breakpoints.up('md')]: {
         //    fontSize: '1 rem',
         //}
+    
     };
+
     return (
       <AppBar position="static">
         <Toolbar variant="dense">
@@ -33,14 +35,12 @@ function Header(props) {
                 />
                 <ThemeProvider theme={theme}>
                     <Container align='center'>
-                        
-          <Typography variant = "nav" color = "inherit" component = "div" align = 'center' sx = {{ ml: '10px'}}>
+                        <Typography id = 'jp' variant = "nav" color = "inherit" component = "div" align = 'center' sx = {{ mr: '46px'}}>
                             <Box fontWeight="1000">
                                 JP MORGAN CHASE & CO.
                             </Box>
-                            
                         </Typography>
-                        
+                    
                     </Container>
                     {props.loginStatus && <Stack direction='row' >
                         <Button color='inherit' sx={{
