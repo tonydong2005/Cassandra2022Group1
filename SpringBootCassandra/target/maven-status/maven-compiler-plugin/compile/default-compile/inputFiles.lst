@@ -1,0 +1,8 @@
+/Users/TrexK/Documents/GitHub/Cassandra2022Group1/Sophia/SpringBootCassandra/src/main/java/com/javasampleapproach/spring/cassandra/model/Tabl.java
+/Users/TrexK/Documents/GitHub/Cassandra2022Group1/Sophia/SpringBootCassandra/src/main/java/com/javasampleapproach/spring/cassandra/KeyspaceRepository.java
+/Users/TrexK/Documents/GitHub/Cassandra2022Group1/Sophia/SpringBootCassandra/src/main/java/com/javasampleapproach/spring/cassandra/model/Book.java
+/Users/TrexK/Documents/GitHub/Cassandra2022Group1/Sophia/SpringBootCassandra/src/main/java/com/javasampleapproach/spring/cassandra/controller/BookController.java
+/Users/TrexK/Documents/GitHub/Cassandra2022Group1/Sophia/SpringBootCassandra/src/main/java/com/javasampleapproach/spring/cassandra/SpringBootCassandraApplication.java
+/Users/TrexK/Documents/GitHub/Cassandra2022Group1/Sophia/SpringBootCassandra/src/main/java/com/javasampleapproach/spring/cassandra/repo/BookRepository.java
+/Users/TrexK/Documents/GitHub/Cassandra2022Group1/Sophia/SpringBootCassandra/src/main/java/com/javasampleapproach/spring/cassandra/CreateMethods.java
+/Users/TrexK/Documents/GitHub/Cassandra2022Group1/Sophia/SpringBootCassandra/src/main/java/com/javasampleapproach/spring/cassandra/CassandraConnector.java
