@@ -21,6 +21,7 @@ const Login = props => {
     const paperStyle={padding :30,height:400,width:700, margin:"125px auto"}
     const avatarStyle={backgroundColor: blue[700], margin:'20px 0', padding:10}
     const btnstyle={margin:'30px 0',padding:10}
+    const user = {margin:"15px 0"}
     return (
         <ThemeProvider theme={theme} >
         <Grid>
@@ -29,7 +30,7 @@ const Login = props => {
                      <Avatar style={avatarStyle}><LockOutlinedIcon/></Avatar>
                     <h2 id="login">Log In</h2>
                 </Grid>
-                <TextField label='Username' placeholder='Enter username' fullWidth required/>
+                <TextField style={user} label='Username' placeholder='Enter username' fullWidth required/>
                 <TextField label='Password' placeholder='Enter password' type='password' fullWidth required/>
                 {/*<FormControlLabel
                     control={
