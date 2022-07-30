@@ -1,8 +1,7 @@
 import React from 'react';
-import { Link } from "react-router";
+import { Link } from 'react-router';
 import { AppBar, Box, Toolbar, Typography, Container, Stack, Button } from '@mui/material';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-//import chaseLogo from 'chaselogo-removebg-preview.png'
 
 function Header(props) {
     console.log(props);
