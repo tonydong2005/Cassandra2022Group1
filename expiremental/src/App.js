@@ -9,7 +9,7 @@ import Login from './pages/login';
 import { Accordion, AccordionDetails, AccordionSummary, Container, Typography } from '@mui/material';
 import Tables from './components/Tables';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-
+//import Login from './components/Login';
 
 const theme = createTheme({
     palette: {

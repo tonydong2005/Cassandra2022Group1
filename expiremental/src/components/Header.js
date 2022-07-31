@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { AppBar, Box, Toolbar, Typography, Container, Stack, Button } from '@mui/material';
+import { AppBar, Box, Toolbar, Typography, Container, Stack, Button, Grid } from '@mui/material';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 function Header(props) {
@@ -47,7 +47,7 @@ function Header(props) {
                             fontFamily: [
                                 'Open Sans',
                                 'sans-serif'
-                            ].join(',')
+                            ].join(','), fontSize:'13px'
                         }}>Keyspaces</Button>
                         <Button
                             onClick={() => {
@@ -57,7 +57,7 @@ function Header(props) {
                             fontFamily: [
                                 'Open Sans',
                                 'sans-serif'
-                            ].join(',')
+                            ].join(','), fontSize:'13px', px:'0px'
                         }}>Sign Out</Button>
                     </Stack>}
                     
