@@ -108,7 +108,7 @@ function TableList(props) {
 					sx={{
 						borderRadius: 5,
 						margin: '10px 10px',
-						maxWidth: 950
+						maxWidth: '950px'
 					}} >
 					<Table sx={{ minWidth: 650 }} aria-label="simple table">
 						<TableHead>
@@ -141,7 +141,7 @@ function TableList(props) {
 										backgroundColor: blue[700],
 										color: 'white'
 									}}
-									align="left" >View/Edit Table</TableCell>
+									align="left" >View Table</TableCell>
 							</TableRow>
 						</TableHead>
 						<TableBody>
@@ -155,7 +155,7 @@ function TableList(props) {
 									</TableCell>
 									<TableCell align="left">
 										<Typography>{row.size}</Typography>
-										<Typography> {row.maxPartitionSize}</Typography>
+										<Typography>{row.maxPartitionSize}</Typography>
 									</TableCell>
 									<TableCell align="left">
 										<Typography> {row.numCols}</Typography>
@@ -163,7 +163,7 @@ function TableList(props) {
 									</TableCell>
 									<TableCell align="center">
 										<Stack spacing={1}>
-											<Button variant="contained">Edit</Button>
+											<Button variant="contained">View</Button>
 										</Stack>
 									</TableCell>
 								</TableRow>
