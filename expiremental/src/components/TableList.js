@@ -117,21 +117,24 @@ function TableList(props) {
 									sx={{
 										fontWeight: 'bold',
 										backgroundColor: blue[700],
-										color: 'white'
+										color: 'white',
+				                        fontSize: '15px'
 									}}
 									align="left" >Table Name</TableCell>
 								<TableCell
 									sx={{
 										fontWeight: 'bold',
 										backgroundColor: blue[700],
-										color: 'white'
+										color: 'white',
+										fontSize: '15px'
 									}}
 									align="left" >Table Size Info</TableCell>
 								<TableCell
 									sx={{
 										fontWeight: 'bold',
 										backgroundColor: blue[700],
-										color: 'white'
+										color: 'white',
+										fontSize: '15px'
 									}}
 									align="left" >Columns and Rows Info</TableCell>
 
@@ -139,7 +142,8 @@ function TableList(props) {
 									sx={{
 										fontWeight: 'bold',
 										backgroundColor: blue[700],
-										color: 'white'
+										color: 'white',
+										fontSize: '15px'
 									}}
 									align="left" >View Table</TableCell>
 							</TableRow>
@@ -151,15 +155,15 @@ function TableList(props) {
 								//sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
 								>
 									<TableCell component="th" scope="row" align="left">
-										<Typography sx={{ color: blue[600], fontWeight: 800 }}> {row.name}</Typography>
+										<Typography sx={{ color: blue[600], fontWeight: 800, fontSize: '15px'}}> {row.name}</Typography>
 									</TableCell>
 									<TableCell align="left">
-										<Typography>{row.size}</Typography>
-										<Typography>{row.maxPartitionSize}</Typography>
+										<Typography sx = {{fontSize: '15px'}}>{row.size }</Typography>
+										<Typography sx = {{fontSize: '15px'}}>{row.maxPartitionSize}</Typography>
 									</TableCell>
 									<TableCell align="left">
-										<Typography> {row.numCols}</Typography>
-										<Typography>  {row.numRows}</Typography>
+										<Typography sx = {{fontSize: '15px'}}> {row.numCols}</Typography>
+										<Typography sx = {{fontSize: '15px'}}>  {row.numRows}</Typography>
 									</TableCell>
 									<TableCell align="center">
 										<Stack spacing={1}>
