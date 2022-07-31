@@ -174,7 +174,7 @@ function TableList(props) {
 							))}
 						</TableBody>
 						<TableFooter>
-							<TablePagination
+							<TablePagination sx = {{ width: '170%'}}
 								rowsPerPageOptions={[5, 10, 15]}
 								component="div"
 								count={TABLES.length}
