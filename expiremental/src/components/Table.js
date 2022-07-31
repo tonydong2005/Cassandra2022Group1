@@ -26,6 +26,7 @@ import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
+import { ConstructionOutlined } from '@mui/icons-material';
 
 function Table(props) {
 	const [error, setError] = useState(null);
@@ -36,7 +37,7 @@ function Table(props) {
     const [rows, setRows] = useState([[]]);
 	const [inputRow, setInputRow] = useState([]);
 	const [update, setUpdate] = useState(false);
-	const [formValues, setFormValues] = useState({field1: 0, field2: "", field3: 0, field4: "", field5: 0});
+	const [formValues, setFormValues] = useState([]);
 
 	let navigate = useNavigate();
 
@@ -125,17 +126,22 @@ function Table(props) {
 
 	const handleInputChange = (e) => {
 		const { name, value } = e.target;
-		setFormValues({
-		  ...formValues,
-		  [name]: value,
-		});
+		const list = formValues;
+		
+		list[name] = value;
+		console.log(list);
+		setFormValues(list);
 	};
 	const handleSubmit = (event) => {
 		event.preventDefault();
 		console.log(formValues);
-		setInputRow([formValues.field1, "\'" + formValues.field2 + "\'", formValues.field3, "\'" + formValues.field4 +"\'", formValues.field5]);
-		console.log(inputRow);
-		addRow(keyspace, table, inputRow);
+		columns.map((column, index) => {
+			if (column.includes('int')) {}
+			else if (column.includes('text')) {
+				formValues[index] = '\'' + formValues[index] + '\'';
+			}
+		})
+		addRow(keyspace, table, formValues);
 	};
 	
     console.log("hi");
@@ -151,7 +157,6 @@ function Table(props) {
 		const colsFormatted = [];
 		const rowsFormatted = [];
         columns.forEach((column, index) => colsFormatted.push({field: column}));
-		
 		rows.forEach(row => {
 			const temp = {};
             for (let i = 0; i < columns.length; i++) {
@@ -173,105 +178,69 @@ function Table(props) {
            		<Button variant="contained" onClick={() => {
 					{navigate(`/`, { replace: true })}
 				}}>bacc
-				
 				</Button>
+
 				<form onSubmit={handleSubmit}>
       				<Grid container alignItems="center" justify="center" direction="column">
-        				<Grid item>
-          					<TextField
-            					id="field1-input"
-            					name="field1"
-            					label="Field1"
-            					type="number"
-            					value={formValues.field1}
-            					onChange={handleInputChange}
-          					/>
-        				</Grid>
-        				<Grid item>
-          					<TextField
-            					id="field2-input"
-            					name="field2"
-            					label="Field2"
-            					type="text"
-            					value={formValues.field2}
-            					onChange={handleInputChange}
-          					/>
-        				</Grid>
-						<Grid item>
-          					<TextField
-            					id="field3-input"
-            					name="field3"
-            					label="Field3"
-            					type="number"
-            					value={formValues.field3}
-            					onChange={handleInputChange}
-          					/>
-        				</Grid>
-						<Grid item>
-          					<TextField
-            					id="field4-input"
-            					name="field4"
-            					label="Field4"
-            					type="text"
-            					value={formValues.field4}
-            					onChange={handleInputChange}
-          					/>
-        				</Grid>
-						<Grid item>
-          					<TextField
-            					id="field5-input"
-            					name="field5"
-            					label="Field5"
-            					type="number"
-            					value={formValues.field5}
-            					onChange={handleInputChange}
-          					/>
-        				</Grid>
+        				{
+							<ul>
+								{columns.map((column, index) => {
+                					if (column.includes('int'))
+									return (
+                    					<li key={column}>
+                        					
+											<Grid item>
+          										<TextField
+            										id="field1-input"
+            										name={index}
+            										label={column}
+            										type="number"
+            										value={formValues[index]}
+            										onChange={handleInputChange}
+          										/>
+        									</Grid>
+                    					</li>
+                					);
+									else if (column.includes('text'))
+									return (
+										<li key={column}>
+                        					
+											<Grid item>
+          										<TextField
+            										id="field1-input"
+            										name={index}
+            										label={column}
+            										type="text"
+            										value={formValues[index]}
+            										onChange={handleInputChange}
+          										/>
+        									</Grid>
+                    					</li>
+									);
+									else if (column.includes('uuid'))
+									return (
+										<li key={column}>
+                        					
+											<Grid item>
+          										<TextField
+            										id="field1-input"
+            										name={index}
+            										label={column}
+            										type="text"
+            										value={formValues[index]}
+            										onChange={handleInputChange}
+          										/>
+        									</Grid>
+                    					</li>
+									);
+            					})}
+							</ul>	
+						}
 						<Button variant="contained" color="primary" type="submit">
           					Submit
         				</Button>
       				</Grid>
    				 </form>
-				<form id="addForm">
-					<h1>Sign Up</h1>
-					<div>
-						<label>Enter first field: </label>
-						<input type="text" id="field1" name="name" placeholder="Enter first field" />
-						<small></small>
-					</div>
-					<div>
-						<label>Enter second field: </label>
-						<input type="text" id="field2" name="name" placeholder="Enter second field" />
-						<small></small>
-					</div>
-					<div>
-						<label>Enter third field: </label>
-						<input type="text" id="field3" name="name" placeholder="Enter third field" />
-						<small></small>
-					</div>
-					<div>
-						<label>Enter fourth field: </label>
-						<input type="text" id="field4" name="name" placeholder="Enter fourth field" />
-						<small></small>
-					</div>
-					<div>
-						<label>Enter fifth field: </label>
-						<input type="text" id="field5" name="name" placeholder="Enter fifth field" />
-						<small></small>
-					</div>
-					
-					<button type="submit">Confirm</button>
-				</form>
-				
-				<Button variant="contained" onClick={() => {
-					document.forms["addForm"].submit();
-					const form = document.getElementById('addForm').elements;
-						setInputRow([form[0], form[1], form[2], form[3], form[4]]);
-						console.log(inputRow);
-						//{addRow(keyspace, table, inputRow)};
-
-					}}>add
-					</Button>
 					<Button variant="contained" onClick={() => {
 						{setUpdate(true)};
 					}}>update

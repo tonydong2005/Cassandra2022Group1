@@ -58,21 +58,14 @@ public class KeyspaceRepository {
             ResultSet rs=session.execute(select.build());
             List<List<String>>result=new ArrayList<>();
             Map<CqlIdentifier,DataType>cd=getColDefs(keyspace,table);
-            rs.forEach(pee->{
-                List<String>poo=new ArrayList<>();
+            System.out.println("cd" + cd);
+            rs.forEach(row->{
+                List<String>list=new ArrayList<>();
                 cd.forEach((key,value)->{
-                    poo.add(pee.getObject(key).toString());
+                    list.add(row.getObject(key).toString());
                 });
-                result.add(poo);
+                result.add(list);
             });
-            String temp = "";
-            for (List<String> list : result) {
-                temp = list.get(list.size() - 1);
-                for (int i = list.size() - 2; i > -1; i--) {
-                    list.set(i + 1, list.get(i));
-                }
-                list.set(0, temp);
-            }
             return result;
         } catch (Exception e)
         {
@@ -124,11 +117,8 @@ public class KeyspaceRepository {
         try {
             Map<CqlIdentifier, ColumnMetadata> map = session.getMetadata().getKeyspace(keyspace).get().getTable(table).get().getColumns();
             Set<CqlIdentifier> set = map.keySet();
-
-            //System.out.println(map);
-            Map<CqlIdentifier,DataType>joe=new HashMap<>();
-            map.forEach((key,value) -> joe.put(key,value.getType()));
-
+            Map<CqlIdentifier,DataType>joe=new LinkedHashMap<>();
+            set.forEach((key)-> joe.put(key,map.get(key).getType()));
             return joe;
         }catch (Exception e)
         {

@@ -67,9 +67,6 @@ public class CassandraController {
 	public List<String> getColumnNames(@PathVariable("keyspaceName") String keyspace, @PathVariable("tableName") String table) {
 		System.out.println("getColumnNames ran in keyspace " + keyspace + " in table " + table);
 		List<String> list = keyspaceRepository.getColNames(keyspace, table);
-		List<String> list2 = keyspaceRepository.getPrimaryKeyNames(keyspace, table);
-		list.removeAll(list2);
-		list.addAll(0, list2);
 		System.out.println(list);
 		return list;
 	}
