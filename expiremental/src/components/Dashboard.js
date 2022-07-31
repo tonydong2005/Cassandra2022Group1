@@ -1,46 +1,72 @@
-import React, { useState, useEffect } from "react";
-import ReactDOM from "react-dom";
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
-import KeyspaceList from "./KeyspaceList";
+import { React, Component, useState, useEffect, useRef } from 'react';
+import { Grid, Paper, Avatar, TextField, Button, Typography, Link, Container } from '@mui/material';
+import Header from "../components/Header";
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { blue } from '@mui/material/colors';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import { fontSize, spacing } from '@mui/system';
+import { Navigate, useNavigate } from 'react-router-dom';
+
+const theme = createTheme({
+    palette: {
+        primary: {
+            main: blue[700],
+        },
+    },
+    typography: {
+        h1: {
+          fontWeight: 'bold',
+          fontSize: 40
+        },
+        textbody: {
+            fontStyle: 'italic',
+        }
+      },
+});
+
+const Dashboard = props => {
+    const navigate=useNavigate();
+
+    const paperStyle = { padding: 30, height: 100, width: "50%", margin: "40px auto"}
+    const avatarStyle = { backgroundColor: blue[700], margin: '20px 0', padding: 10 }
+    const btnstyle = { backgroundColor: blue[700], color: '#fff', borderRadius: 35, fontSize: '15px', marginBottom: 20}
+    const user = { margin: "15px 0" }
+    return (
+    
+        <ThemeProvider theme={theme} >
+            <ThemeProvider theme={theme.typography} >
+                <Typography variant="h1" align='center' marginTop={5}>
+                        Welcome Admin
+                </Typography>
+                <Typography variant="textbody" align='center'>
+                 This is your homepage. You can access your Data Center or Metrics. 
+                </Typography>
+            </ThemeProvider> 
+            
+            <Grid>                
+                <Paper elevation={10} style={paperStyle}>                    
+                    {/* <Button onClick={() => <Navigate replace to='/keyspaces'/>} */}
+
+                    <Button onClick={() => navigate("/keyspaces")}
+
+                        type='submit' color='primary' variant="contained" style={btnstyle} fullWidth> Data Center </Button>
 
 
+                    <Button onClick={() => {
+                        //authorization stuff to make sure info is right, if logged in successfully...
+                    }}
+                        type='submit' color='primary' variant="contained" style={btnstyle} fullWidth> Metrics </Button>
+                    
+                </Paper>
+            </Grid>
 
-function Dashboard (){
 
-    return(
-        <div>
-            <div align='center'> 
-            <Typography
-          variant="h2"
-            sx={{
-                // mr: 2,
-                // display: { xs: 'none', md: 'flex' },
-                fontFamily: 'monospace',
-                fontWeight: 700,
-                letterSpacing: '.3rem',
-                color: 'inherit',
-                textDecoration: 'none',
-              }}
-            > 
-Welcome Admin  
-  </Typography>  
-                <Typography
-                    variant="h6"
-                    sx={{
-                    fontFamily: 'monospace',
-                    fontWeight: 700,
-                    letterSpacing: '.3rem',
-                    color: 'inherit',
-                    textDecoration: 'none',
-                  }}
-                > 
-                This is the homepage. You can access your Data Center or Metrics.
-            </Typography>  
-            </div>
-      </div> 
-    )
+        </ThemeProvider>
+    );
+
+
 }
 
 export default Dashboard;
