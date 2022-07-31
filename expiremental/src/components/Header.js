@@ -202,7 +202,7 @@ function Header(props) {
                  
                                     <Typography variant="sidenav" color="inherit" component="div" align='left' sx={{}}>
                                 <Box fontWeight="700" sx={{ width: '.5 rem', }}>
-                                            Keyspaces
+                                            Dashboard
                                         </Box>
                                     </Typography>
                                 </Button>

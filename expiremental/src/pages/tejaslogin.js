@@ -18,7 +18,7 @@ const theme = createTheme({
 
 const Login = props => {
     console.log(props);
-    const paperStyle = { padding: 30, height: 400, width: "70%", margin: "125px auto" }
+    const paperStyle = { padding: 30, height: 400, width: "50%", margin: "125px auto" }
     const avatarStyle = { backgroundColor: blue[700], margin: '20px 0', padding: 10 }
     const btnstyle = { margin: '30px 0', padding: 10 }
     const user = { margin: "15px 0" }

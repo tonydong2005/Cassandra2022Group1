@@ -108,7 +108,7 @@ function TableList(props) {
 					sx={{
 						borderRadius: 5,
 						margin: '10px 10px',
-						maxWidth: 950
+						maxWidth: '950px'
 					}} >
 					<Table sx={{ minWidth: 650 }} aria-label="simple table">
 						<TableHead>
@@ -116,32 +116,36 @@ function TableList(props) {
 								<TableCell
 									sx={{
 										fontWeight: 'bold',
-										backgroundColor: blue[900],
-										color: 'white'
+										backgroundColor: blue[700],
+										color: 'white',
+				                        fontSize: '15px'
 									}}
 									align="left" >Table Name</TableCell>
 								<TableCell
 									sx={{
 										fontWeight: 'bold',
-										backgroundColor: blue[900],
-										color: 'white'
+										backgroundColor: blue[700],
+										color: 'white',
+										fontSize: '15px'
 									}}
 									align="left" >Table Size Info</TableCell>
 								<TableCell
 									sx={{
 										fontWeight: 'bold',
-										backgroundColor: blue[900],
-										color: 'white'
+										backgroundColor: blue[700],
+										color: 'white',
+										fontSize: '15px'
 									}}
 									align="left" >Columns and Rows Info</TableCell>
 
 								<TableCell
 									sx={{
 										fontWeight: 'bold',
-										backgroundColor: blue[900],
-										color: 'white'
+										backgroundColor: blue[700],
+										color: 'white',
+										fontSize: '15px'
 									}}
-									align="left" >View/Edit Table</TableCell>
+									align="left" >View Table</TableCell>
 							</TableRow>
 						</TableHead>
 						<TableBody>
@@ -151,26 +155,26 @@ function TableList(props) {
 								//sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
 								>
 									<TableCell component="th" scope="row" align="left">
-										<Typography sx={{ color: blue[600], fontWeight: 800 }}> {row.name}</Typography>
+										<Typography sx={{ color: blue[600], fontWeight: 800, fontSize: '15px'}}> {row.name}</Typography>
 									</TableCell>
 									<TableCell align="left">
-										<Typography>{row.size}</Typography>
-										<Typography> {row.maxPartitionSize}</Typography>
+										<Typography sx = {{fontSize: '15px'}}>{row.size }</Typography>
+										<Typography sx = {{fontSize: '15px'}}>{row.maxPartitionSize}</Typography>
 									</TableCell>
 									<TableCell align="left">
-										<Typography> {row.numCols}</Typography>
-										<Typography>  {row.numRows}</Typography>
+										<Typography sx = {{fontSize: '15px'}}> {row.numCols}</Typography>
+										<Typography sx = {{fontSize: '15px'}}>  {row.numRows}</Typography>
 									</TableCell>
 									<TableCell align="center">
 										<Stack spacing={1}>
-											<Button variant="contained">Edit</Button>
+											<Button variant="contained">View</Button>
 										</Stack>
 									</TableCell>
 								</TableRow>
 							))}
 						</TableBody>
 						<TableFooter>
-							<TablePagination
+							<TablePagination sx = {{ width: '170%'}}
 								rowsPerPageOptions={[5, 10, 15]}
 								component="div"
 								count={TABLES.length}
