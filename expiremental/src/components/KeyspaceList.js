@@ -10,6 +10,7 @@ import Collapse from '@mui/material/Collapse';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import DraftsIcon from '@mui/icons-material/Drafts';
 import SendIcon from '@mui/icons-material/Send';
+import KeyIcon from '@mui/icons-material/Key';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import StarBorder from '@mui/icons-material/StarBorder';
@@ -72,14 +73,14 @@ function KeyspaceList() {
 				sx={{ margin: 'auto', width: '100%', maxWidth: '80%', bgcolor: 'background.paper' }}
 
 			>
-				<ListSubheader component="div" id="nested-list-subheader">
+				<ListSubheader component="div" id="nested-list-subheader" sx = {{fontSize: '20px'}}>
 					Keyspaces
-        </ListSubheader>
+                </ListSubheader>
 				{list.map((keyspace, index) => (
 					<div key={index}>
 						<ListItemButton onClick={() => handleClick(index)}>
 							<ListItemIcon>
-								<InboxIcon />
+								<KeyIcon />
 							</ListItemIcon>
 							<ListItemText primary={keyspace} />
 							{open[index] ? <ExpandLess /> : <ExpandMore />}

@@ -116,21 +116,21 @@ function TableList(props) {
 								<TableCell
 									sx={{
 										fontWeight: 'bold',
-										backgroundColor: blue[900],
+										backgroundColor: blue[700],
 										color: 'white'
 									}}
 									align="left" >Table Name</TableCell>
 								<TableCell
 									sx={{
 										fontWeight: 'bold',
-										backgroundColor: blue[900],
+										backgroundColor: blue[700],
 										color: 'white'
 									}}
 									align="left" >Table Size Info</TableCell>
 								<TableCell
 									sx={{
 										fontWeight: 'bold',
-										backgroundColor: blue[900],
+										backgroundColor: blue[700],
 										color: 'white'
 									}}
 									align="left" >Columns and Rows Info</TableCell>
@@ -138,7 +138,7 @@ function TableList(props) {
 								<TableCell
 									sx={{
 										fontWeight: 'bold',
-										backgroundColor: blue[900],
+										backgroundColor: blue[700],
 										color: 'white'
 									}}
 									align="left" >View/Edit Table</TableCell>

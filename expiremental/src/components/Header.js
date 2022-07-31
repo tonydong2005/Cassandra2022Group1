@@ -70,7 +70,7 @@ function Header(props) {
                                 <Button color='inherit'>
                                     <Typography variant="sidenav" color="inherit" component="div" align='left' sx={{ ml: '0px' }}>
                                 <Box fontWeight="700" sx={{ width: '.5 rem', }}>
-                                            Keyspaces
+                                            Dashboard
                                         </Box>
                                     </Typography>
                                 </Button>
