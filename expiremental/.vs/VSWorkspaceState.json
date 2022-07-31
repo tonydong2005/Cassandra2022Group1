@@ -3,8 +3,11 @@
     "",
     "\\public",
     "\\src",
-    "\\src\\components"
+    "\\src\\components",
+    "\\src\\components\\images",
+    "\\src\\pages",
+    "\\src\\pages\\styling"
   ],
-  "SelectedNode": "\\src\\components\\KeyspaceList.js",
+  "SelectedNode": "\\src\\pages\\tejaslogin.js",
   "PreviewInSolutionExplorer": false
 }

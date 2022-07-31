@@ -5,12 +5,14 @@ import { blue } from '@mui/material/colors';
 import { ThemeProvider , createTheme } from '@mui/material/styles';
 import Keyspaces from './pages/keyspaces';
 import Header from './components/Header';
+import Dashboard from './components/Dashboard';
+import { BrowserRouter as Router, Routes, Route, useNavigate, Navigate } from "react-router-dom";
 //decide between LoginT and LoginN and then rename the file we use to login.js
 import LoginT from './pages/tejaslogin';
 import LoginN from './pages/nityalogin';
+import Login from './pages/login';
 import { Accordion, AccordionDetails, AccordionSummary, Container, Typography } from '@mui/material';
 import Tables from './components/Tables';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 
 const theme = createTheme({
@@ -23,7 +25,7 @@ const theme = createTheme({
 
 
 function App() {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('isLoggedIn'));
 
   /*  useEffect(() => {
         const loginStat = window.localStorage.getItem('loginStatus');
@@ -35,7 +37,7 @@ function App() {
         window.localStorage.setItem('loginStatus', JSON.stringify(isLoggedIn));
     }
     );*/
-   if (isLoggedIn) {
+   /*if (isLoggedIn) {
         return (
             <ThemeProvider theme={theme} > 
                 <Header loginStatus={true} onLog={(value) => setIsLoggedIn(value)} />
@@ -51,54 +53,36 @@ function App() {
             </ThemeProvider>
         );
 
-    }
+    }*/
 
-    /*return (
-      <ThemeProvider theme={theme} >
-      <Header/>
-      <Container maxWidth = 'lg' sx = {{mt: '25px', mb: '10px'}}>
-        <Accordion>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1a-content"
-            id="panel1a-header">
-            <Typography sx = {{fontSize: 18}}> Keyspaces </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <KeyspaceList/>
-          </AccordionDetails>
-        </Accordion>
-      </Container>
-      <Container maxWidth = 'lg' sx = {{mt: '18px', mb: '10px'}}>
-        <Accordion>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1a-content"
-            id="panel1a-header"
-          >
-            <Typography sx = {{fontSize: 18}}>Ur Mom</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography sx = {{mt: '0px', mb: '10px'}}>
-              Tables
-            </Typography>
-            <Accordion sx={{background: '#D7E5F0'}}>
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel1a-content"
-                id="panel1a-header"
-              >
-                <Typography>lmao XD</Typography>
-              </AccordionSummary>
-              <AccordionDetails>
-                <Tables/>
-              </AccordionDetails>
-            </Accordion>
-          </AccordionDetails>
-        </Accordion>
-      </Container>
-            </ThemeProvider>
-  );*/
+    return (
+        <ThemeProvider theme={theme} >
+            <Header loginStatus={isLoggedIn==='true'} onLog={(value) => setIsLoggedIn(value)} />
+            <Router>
+                {/* A <Switch> looks through its children <Route>s and
+            renders the first one that matches the current URL. */}
+                <Routes>
+
+                    <Route path="/" element={<Navigate replace to="/login" />} >
+
+                    </Route>
+
+                    <Route path="/login" element={<Login onLog={(value) => setIsLoggedIn(value)}/>}>
+                    </Route>
+
+                    <Route path="/dashboard" element={isLoggedIn === 'true' ? <Dashboard /> : <Navigate to="/login" />}>
+                    </Route>
+
+                    <Route path="/keyspaces" element={isLoggedIn === 'true' ? <Keyspaces /> : <Navigate to="/login" />}>
+                    </Route>*
+
+                    {/*<Route path="/tabledisplay" element={<TableDisplay />}>
+                    </Route>*/}
+
+                </Routes>
+            </Router>
+        </ThemeProvider>
+  );
 }
 
 export default App;
