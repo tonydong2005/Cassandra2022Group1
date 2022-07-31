@@ -34,8 +34,8 @@ function Header(props) {
           src="https://go.distance.ncsu.edu/gd203/wp-content/uploads/2020/04/704a1e534e8dc0138eee3ded449555d5-860x860.png"
                 />
                 <ThemeProvider theme={theme}>
-                    <Container align='center'>
-                        <Typography id = 'jp' variant = "nav" color = "inherit" component = "div" align = 'center' sx = {{ mr: '46px'}}>
+                    <Container align='left'>
+                        <Typography id = 'jp' variant = "nav" color = "inherit" component = "div" align = 'left' sx = {{ mr: '40px', mb:'5px'}}>
                             <Box fontWeight="1000">
                                 JP MORGAN CHASE & CO.
                             </Box>
@@ -47,7 +47,7 @@ function Header(props) {
                             fontFamily: [
                                 'Open Sans',
                                 'sans-serif'
-                            ].join(',')
+                            ].join(','), fontSize:'13px'
                         }}>Keyspaces</Button>
                         <Button
                             onClick={() => {
@@ -57,7 +57,7 @@ function Header(props) {
                             fontFamily: [
                                 'Open Sans',
                                 'sans-serif'
-                            ].join(',')
+                            ].join(','), fontSize:'13px', px:'0px'
                         }}>Sign Out</Button>
                     </Stack>}
                     
