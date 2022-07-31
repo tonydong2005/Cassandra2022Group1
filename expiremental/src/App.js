@@ -10,8 +10,8 @@ import LoginT from './pages/tejaslogin';
 import LoginN from './pages/nityalogin';
 import { Accordion, AccordionDetails, AccordionSummary, Container, Typography } from '@mui/material';
 import Tables from './components/Tables';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-
+import {BrowserRouter as Router, Routes, Route, useNavigate, Navigate, Link} from "react-router-dom";
+import Dashboard from './pages/dashboard';
 
 const theme = createTheme({
     palette: {
@@ -36,23 +36,50 @@ function App() {
     }
     );*/
    if (isLoggedIn) {
+    console.log("Nitya - " + isLoggedIn);
+
         return (
             <ThemeProvider theme={theme} > 
                 <Header loginStatus={true} onLog={(value) => setIsLoggedIn(value)} />
-                    <Keyspaces />
+              
+                  <Router>
+                    <Routes> 
+                      <Route path="/" element={<Dashboard />} />
+                      <Route path="/keyspaces" element={<Keyspaces />} /> 
+
+
+                    </Routes>
+                  </Router>
+    
+
+
             </ThemeProvider>
         );
     }
     else {
-        return (
+      console.log("Nitya - " + isLoggedIn);
+      return (
             <ThemeProvider theme={theme} >
                 <Header loginStatus={false} onLog={(value) => setIsLoggedIn(value)} />
                     <LoginT onLog={(value) => setIsLoggedIn(value)} />
+                    
+                    // history.entries = [];
+                    // history.index = -1;
+                    {/* history.push(`/`);
+                    history.go(-1); */}
+                    <Router>
+                    <Routes> 
+                    <Route path="/keyspaces" element={<Dashboard />} /> 
+
+                  </Routes>
+                  </Router>
+
             </ThemeProvider>
         );
 
     }
 
+  
     /*return (
       <ThemeProvider theme={theme} >
       <Header/>

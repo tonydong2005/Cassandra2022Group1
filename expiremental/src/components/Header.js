@@ -3,8 +3,10 @@ import { Link } from "react-router";
 import { AppBar, Box, Toolbar, Typography, Container, Stack, Button } from '@mui/material';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 //import chaseLogo from 'chaselogo-removebg-preview.png'
+import { Navigate, useNavigate } from 'react-router-dom';
 
 function Header(props) {
+    // const navigate=useNavigate();
     console.log(props);
     const theme = createTheme();
     theme.typography.nav = {
@@ -43,6 +45,7 @@ function Header(props) {
       //  }
     };
     return (
+
       <AppBar position="static">
         <Toolbar variant="dense">
         <Box
@@ -76,6 +79,7 @@ function Header(props) {
                                 </Button>
                                 <Button
                                     onClick={() => {
+                                        // navigate("/")
                                         props.onLog(false)
                                     }}
                                     color='inherit' sx={{
