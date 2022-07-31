@@ -5,7 +5,8 @@ import { blue } from '@mui/material/colors';
 import { ThemeProvider , createTheme } from '@mui/material/styles';
 import Keyspaces from './pages/keyspaces';
 import Header from './components/Header';
-import Login from './pages/login';
+import LoginT from './pages/tejaslogin';
+import LoginN from './pages/nityalogin';
 import { Accordion, AccordionDetails, AccordionSummary, Container, Typography } from '@mui/material';
 import Tables from './components/Tables';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -45,7 +46,7 @@ function App() {
         return (
             <ThemeProvider theme={theme} >
                 <Header loginStatus={false} onLog={(value) => setIsLoggedIn(value)} />
-                    <Login onLog={(value) => setIsLoggedIn(value)} />
+                    <LoginT onLog={(value) => setIsLoggedIn(value)} />
             </ThemeProvider>
         );
 
