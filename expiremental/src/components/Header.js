@@ -10,6 +10,7 @@ import { Navigate } from "react-router-dom";
 import { Link } from '@mui/material';
 import { AppBar, Box, Toolbar, Typography, Container, Stack, Button } from '@mui/material';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { SettingsInputComponent } from '@mui/icons-material';
 //import chaseLogo from 'chaselogo-removebg-preview.png'
 
 function Header(props) {
@@ -78,6 +79,16 @@ function Header(props) {
       //      fontSize: '.5 rem',
       //  }
     };
+
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const open = Boolean(anchorEl);
+    const handleClick = (event) => {
+      setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+      setAnchorEl(null);
+    };
+
     return (
       <AppBar position="static">
             <Toolbar variant="dense" disableGutters>
@@ -191,20 +202,38 @@ function Header(props) {
                     </Box> */}
                     {props.loginStatus &&
                         <Stack direction='row'>
-                        <Button href="/" color='inherit'>
+                        <Button color='inherit' id="basic-button" aria-controls={open ? 'basic-menu' : undefined} aria-haspopup="true" aria-expanded={open ? 'true' : undefined} onClick={handleClick}>
                         <Typography variant="sidenav" color="inherit" component="div" align='center' sx={{}}>
                             <Box fontWeight="700" sx={{ width: '.5 rem' }}>
                                 Dashboard
-                                        </Box>
+                            </Box>
                             </Typography>
                             </Button>
-                            <Button href="/keyspaces" color='inherit'>
-                              <Typography variant="sidenav" color="inherit" component="div" align='left' sx={{}}>
-                                <Box fontWeight="700" sx={{ width: '.5 rem', }}>
-                                  Keyspaces
-                                </Box>
-                              </Typography>
-                            </Button>
+                            <Menu
+                              id="basic-menu"
+                              anchorEl={anchorEl}
+                              open={open}
+                              onClose={handleClose}
+                              MenuListProps={{
+                                'aria-labelledby': 'basic-button',
+                              }}
+                            >
+                              <MenuItem onClick={handleClose}>
+                                <Button href="/">
+                                  View Dashboard
+                                </Button>
+                              </MenuItem>
+                              <MenuItem onClick={handleClose}>
+                                <Button href="/keyspaces">
+                                  Data Center
+                                </Button>
+                              </MenuItem>
+                              <MenuItem onClick={handleClose}>
+                                <Button>
+                                  Metrics
+                                </Button>
+                              </MenuItem>
+                            </Menu>                
                         <Button
                             href="/"
                                     onClick={() => {

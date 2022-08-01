@@ -36,7 +36,7 @@ const theme = createTheme({
       },
 });
 
-const Dashboard = props => {
+const Dashboard = props => { 
     const navigate = useNavigate();
     const paperStyle = { backgroundColor: blue[100], padding: 30, height: 100, width: "50%", margin: "40px auto"}
     const avatarStyle = { backgroundColor: blue[700], margin: '20px 0', padding: 10 }
@@ -46,6 +46,7 @@ const Dashboard = props => {
             'sans-serif'
         ].join(','),marginBottom: 20}
     const user = { margin: "15px 0" }
+
     return (
 
         <ThemeProvider theme={theme} >
