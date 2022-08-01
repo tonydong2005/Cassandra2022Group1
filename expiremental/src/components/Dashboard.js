@@ -18,7 +18,7 @@ const theme = createTheme({
     typography: {
         h1: {
           fontWeight: 'bold',
-            fontSize: 40,
+            fontSize: 35,
             fontFamily: [
                 'Open Sans',
                 'sans-serif'
@@ -56,7 +56,7 @@ const Dashboard = props => {
                 </Typography>
                 <Container align='center'>
                 <Typography variant="textbody" align='center'>
-                        This is your homepage. You can access your Data Center or Metrics.
+                        This is your dashboard. You can access your Data Center or Metrics.
                 </Typography>
                     </Container>
             </ThemeProvider>

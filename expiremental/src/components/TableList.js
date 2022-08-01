@@ -175,7 +175,6 @@ function TableList(props) {
 
 											<Button onClick={() => navigate("/viewTable")} variant="contained"> View </Button>
 
-											<Button variant="contained">Edit</Button>
 										</Stack>
 									</TableCell>
 								</TableRow>
