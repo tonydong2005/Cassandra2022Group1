@@ -17,8 +17,8 @@ const theme = createTheme({
     },
     typography: {
         h1: {
-          fontWeight: 'bold',
-          fontSize: 40
+          fontWeight: 300,
+          fontSize: 30
         },
         textbody: {
             fontStyle: 'italic',
@@ -37,16 +37,18 @@ const Dashboard = props => {
     
         <ThemeProvider theme={theme} >
             <ThemeProvider theme={theme.typography} >
-                <Typography variant="h1" align='center' marginTop={5}>
-                        Welcome Admin
+              <Container align = 'center'>
+                <Typography variant="h1" align='center' marginTop={4}>
+                        Welcome
                 </Typography>
-                <Typography variant="textbody" align='center'>
+                <Typography marginTop = '10px' align='center'>
                  This is your homepage. You can access your Data Center or Metrics. 
                 </Typography>
+              </Container>
             </ThemeProvider> 
             
             <Grid>                
-                <Paper elevation={10} style={paperStyle}>                    
+                <Paper elevation={2} style={paperStyle}>                    
                     {/* <Button onClick={() => <Navigate replace to='/keyspaces'/>} */}
 
                     <Button onClick={() => navigate("/keyspaces")}

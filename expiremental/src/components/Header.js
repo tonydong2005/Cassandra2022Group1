@@ -82,7 +82,7 @@ function Header(props) {
       <AppBar position="static">
             <Toolbar variant="dense" disableGutters>
                 <ThemeProvider theme={theme}>
-                    <Button href="/" sx={{ }}>
+                    <Button href="/" sx={{ ml: '15px' }}>
                         <Box
                             component="img"
                             sx={{
@@ -194,7 +194,7 @@ function Header(props) {
                         <Button href="/" color='inherit'>
                         <Typography variant="sidenav" color="inherit" component="div" align='center' sx={{}}>
                             <Box fontWeight="700" sx={{ width: '.5 rem' }}>
-                                Home
+                                Dashboard
                                         </Box>
                             </Typography>
                             </Button>
@@ -206,14 +206,14 @@ function Header(props) {
                                         </Box>
                                     </Typography>
                                 </Button> */}
-                        <Button
+                        <Button 
                             href="/"
                                     onClick={() => {
                                         props.onLog('false');
                                         localStorage.setItem('isLoggedIn', 'false');
                                     }}
                             color='inherit' sx={{
-                                        mr: "5px",
+                                        mr: "20px",
                                     fontFamily: [
                                         'Open Sans',
                                         'sans-serif'
