@@ -19,6 +19,8 @@ import {
 } from '@mui/material';
 import { blue, green } from '@mui/material/colors';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { Navigate, useNavigate } from 'react-router-dom';
+
 //import { AgGridReact } from 'ag-grid-react';
 
 const theme = createTheme();
@@ -37,6 +39,8 @@ theme.typography.table = {
 };
 
 function TableList(props) {
+	const navigate=useNavigate();
+
 	const [page, setPage] = useState(0);
 	const [rowsPerPage, setRowsPerPage] = useState(5);
 
@@ -167,7 +171,11 @@ function TableList(props) {
 									</TableCell>
 									<TableCell align="center">
 										<Stack spacing={1}>
-											<Button variant="contained">View</Button>
+											{/* <Button onClick= {() => navigate(/"viewTable")} variant="contained">View</Button> */}
+
+											<Button onClick={() => navigate("/viewTable")} variant="contained"> View </Button>
+
+											<Button variant="contained">Edit</Button>
 										</Stack>
 									</TableCell>
 								</TableRow>

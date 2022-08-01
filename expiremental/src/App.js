@@ -14,6 +14,8 @@ import Login from './pages/login';
 import ErrorPage from './pages/error';
 import { Accordion, AccordionDetails, AccordionSummary, Container, Typography } from '@mui/material';
 import Tables from './components/Tables';
+import ViewTable from './pages/viewTable';
+
 
 
 const theme = createTheme({
@@ -75,6 +77,9 @@ function App() {
                     </Route>
 
                     <Route path="/keyspaces" element={isLoggedIn === 'true' ? <Keyspaces /> : <Navigate to="/login" />}>
+                    </Route>*
+
+                    <Route path="/viewTable" element={isLoggedIn === 'true' ? <ViewTable /> : <Navigate to="/login" />}>
                     </Route>*
 
                     <Route path="*" element={<ErrorPage/>}>
