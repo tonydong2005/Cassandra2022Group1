@@ -42,12 +42,12 @@ const Dashboard = props => {
                         Welcome
                 </Typography>
                 <Typography marginTop = '10px' align='center'>
-                 This is your homepage. You can access your Data Center or Metrics. 
+                 This is your dashboard. You can use it to access your Data Center or Metrics. 
                 </Typography>
               </Container>
             </ThemeProvider> 
             
-            <Grid>                
+            <Grid sx = {{mt: '-15px'}}>                
                 <Paper elevation={2} style={paperStyle}>                    
                     {/* <Button onClick={() => <Navigate replace to='/keyspaces'/>} */}
 
