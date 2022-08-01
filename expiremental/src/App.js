@@ -11,6 +11,7 @@ import { BrowserRouter as Router, Routes, Route, useNavigate, Navigate } from "r
 import LoginT from './pages/tejaslogin';
 import LoginN from './pages/nityalogin';
 import Login from './pages/login';
+import ErrorPage from './pages/error';
 import { Accordion, AccordionDetails, AccordionSummary, Container, Typography } from '@mui/material';
 import Tables from './components/Tables';
 
@@ -74,6 +75,9 @@ function App() {
                     </Route>
 
                     <Route path="/keyspaces" element={isLoggedIn === 'true' ? <Keyspaces /> : <Navigate to="/login" />}>
+                    </Route>*
+
+                    <Route path="*" element={<ErrorPage/>}>
                     </Route>*
 
                     {/*<Route path="/tabledisplay" element={<TableDisplay />}>

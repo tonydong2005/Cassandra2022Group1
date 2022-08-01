@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { blue } from '@mui/material/colors';
 import TableList from './TableList';
 import axios from 'axios';
 import ListSubheader from '@mui/material/ListSubheader';
 import List from '@mui/material/List';
+import { Grid, Paper, Avatar, TextField, Box, Button, Typography, Link, Container } from '@mui/material';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
@@ -14,10 +16,42 @@ import KeyIcon from '@mui/icons-material/Key';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import StarBorder from '@mui/icons-material/StarBorder';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 
-
+const theme = createTheme({
+	palette: {
+		primary: {
+			main: blue[700],
+		},
+	},
+	typography: {
+		h1: {
+			fontWeight: 'bold',
+			fontSize: 40,
+			fontFamily: [
+				'Open Sans',
+				'sans-serif'
+			].join(',')
+		},
+		textbody: {
+			textAlign: 'left',
+			fontFamily: [
+				'Open Sans',
+				'sans-serif'
+			].join(','),
+			fontWeight: '1000',
+			color: blue[900]
+		}
+	},
+});
 function KeyspaceList() {
+	const liststyle = {
+		fontSize: '15px', fontWeight: 'bold', fontFamily: [
+			'Open Sans',
+			'sans-serif'
+		].join(','), 
+	}
 	const [error, setError] = useState(null);
 	const [isLoaded, setIsLoaded] = useState(false);
 	const [list, setList] = useState([]);
@@ -69,20 +103,24 @@ function KeyspaceList() {
 		return <div>Loading...</div>;
 	} else {
 		return (
+			<ThemeProvider theme={theme} >
+				<ThemeProvider theme={theme.typography} >
+					<Typography variant="h1" align='center' marginTop={5} marginBottom={5}>
+						Keyspaces
+                </Typography>
 			<List
-				sx={{ margin: 'auto', width: '100%', maxWidth: '80%', bgcolor: 'background.paper' }}
+				sx={{ margin: 'auto', width: '100%', maxWidth: '80%', bgcolor: blue[100] }}
 
-			>
-				<ListSubheader component="div" id="nested-list-subheader" sx = {{fontSize: '20px'}}>
-					Keyspaces
-                </ListSubheader>
+			>				
 				{list.map((keyspace, index) => (
 					<div key={index}>
 						<ListItemButton onClick={() => handleClick(index)}>
 							<ListItemIcon>
-								<KeyIcon />
+								<KeyIcon sx={{color:blue[900]}}/>
 							</ListItemIcon>
-							<ListItemText primary={keyspace} />
+							<ListItemText primary={<Typography variant="textbody" align='left'>
+								{keyspace}
+                </Typography>}/>
 							{open[index] ? <ExpandLess /> : <ExpandMore />}
 						</ListItemButton>
 
@@ -94,17 +132,20 @@ function KeyspaceList() {
 				))}
 
 			</List>
-			// 	<ListItemButton>
-			// 	<ListItemIcon>
-			// 	  <SendIcon />
-			// 	</ListItemIcon>
-			// 	<ListItemText primary={keyspace} />
-			//   </ListItemButton>
-			// <ul>
-			// 	{list.map((keyspace, index) => (
-			// 	clickedElement(keyspace, index)
-			// 	))}
-			// </ul>
+					{// 	<ListItemButton>
+						// 	<ListItemIcon>
+						// 	  <SendIcon />
+						// 	</ListItemIcon>
+						// 	<ListItemText primary={keyspace} />
+						//   </ListItemButton>
+						// <ul>
+						// 	{list.map((keyspace, index) => (
+						// 	clickedElement(keyspace, index)
+						// 	))}
+						//</ul>
+					}
+				</ThemeProvider>
+			</ThemeProvider>
 		);
 	}
 }

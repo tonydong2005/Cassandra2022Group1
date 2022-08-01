@@ -14,12 +14,23 @@ import "./styling/styles.css";
 import axios from "axios";
 import { Navigate, useNavigate } from "react-router-dom";
 
+const theme = createTheme({
+    palette: {
+        primary: {
+            main: blue[700],
+        },
+    },
+});
 
 function Login(props) {
     let navigate = useNavigate();
     // React States
     const [errorMessages, setErrorMessages] = useState({});
     const [isSubmitted, setIsSubmitted] = useState(false);
+    const paperStyle = { padding: 30, height: 500, width: "50%", margin: "125px auto" };
+    const avatarStyle = { backgroundColor: blue[700], margin: '20px 0', padding: 10 };
+    const btnstyle = { margin: '30px 0', padding: 10 };
+    const user = { margin: "15px 0" };
 
     // User Login info
     const database = [
@@ -66,49 +77,42 @@ function Login(props) {
     // Generate JSX code for error message
     const renderErrorMessage = (name) =>
         name === errorMessages.name && (
-            <div className="error">{errorMessages.message}</div>
+            <div className="error" style={{color:'red'}}>{errorMessages.message}</div>
         );
 
     // JSX code for login form
     const renderForm = (
+        <ThemeProvider theme={theme} >
+            <Grid>
+                <Paper elevation={10} style={paperStyle}>
+                    <Grid align='center'>
+                        <Avatar style={avatarStyle}><LockOutlinedIcon /></Avatar>
+                        <h2 id="login">Log In</h2>
+                    </Grid>
         <div className="form" >
             <form onSubmit={handleSubmit}>
-                <div align='center' className="input-container">
-                    <TextField id="standard-basic" label="Username" variant="outlined" type="text" name="uname" required />
+                <div align='center' className="input-container">    
+                                <TextField style={user} id="standard-basic" placeholder= 'Enter username' label="Username" variant="outlined" type="text" name="uname" fullWidth required />
                     {renderErrorMessage("uname")}
                 </div>
                 <div align='center' className="input-container">
-                    <TextField id="standard-basic" label="Password" variant="outlined" type="password" name="pass" required />
+                                <TextField id="standard-basic" label="Password" placeholder='Enter password' variant="outlined" type="password" name="pass" fullWidth required />
                     {renderErrorMessage("pass")}
                 </div>
-                {/* <div className="button-container">
-          <input type="submit" />
-        </div> */}
                 <div align='center'>
                     <Button 
-                        variant="contained" input type="submit" > Submit </Button>
+                         color='primary' variant="contained" input style={btnstyle} type="submit" fullWidth > Log In </Button>
                 </div>
             </form>
-        </div>
+                    </div>
+                    </Paper>
+                </Grid>
+            </ThemeProvider>
     );
 
     return (
         <div align='center' className="app">
             <div >
-                <Typography
-                    variant="h2"
-                    sx={{
-                        // mr: 2,
-                        // display: { xs: 'none', md: 'flex' },
-                        fontFamily: 'monospace',
-                        fontWeight: 700,
-                        letterSpacing: '.3rem',
-                        color: 'inherit',
-                        textDecoration: 'none',
-                    }}
-                >
-                    Sign In  </Typography>
-
                 {localStorage.getItem('isLoggedIn') === 'true' ?
 
                     <Navigate replace to='/dashboard' />
