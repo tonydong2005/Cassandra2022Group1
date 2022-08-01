@@ -1,4 +1,5 @@
 com\javasampleapproach\spring\cassandra\controller\CassandraController.class
+com\javasampleapproach\spring\cassandra\ModifierMethods.class
 com\javasampleapproach\spring\cassandra\controller\RowRequest.class
 com\javasampleapproach\spring\cassandra\CreateMethods.class
 com\javasampleapproach\spring\cassandra\repo\BookRepository.class

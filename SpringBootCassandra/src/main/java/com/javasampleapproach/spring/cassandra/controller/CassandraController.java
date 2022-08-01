@@ -1,11 +1,15 @@
 package com.javasampleapproach.spring.cassandra.controller;
 
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.javasampleapproach.spring.cassandra.CassandraConnector;
 import com.javasampleapproach.spring.cassandra.CreateMethods;
 import com.javasampleapproach.spring.cassandra.KeyspaceRepository;
+import com.javasampleapproach.spring.cassandra.ModifierMethods;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +26,8 @@ public class CassandraController {
 	private CqlSession session;
 	private KeyspaceRepository keyspaceRepository;
 	private CreateMethods createMethods;
+
+	private ModifierMethods modifierMethods;
 
 	public CassandraController() {
 		CassandraConnector connector = new CassandraConnector();
@@ -70,36 +76,6 @@ public class CassandraController {
 		System.out.println(list);
 		return list;
 	}
-
-//	@PostMapping("/{keyspaceName}/{tableName}/addRow")
-//	public void createRow(@PathVariable("keyspaceName") String keyspace, @PathVariable("tableName") String table, @Valid @RequestBody String str) {
-//		int index = 1;
-//		String word = "";
-//		List<String> list = new ArrayList<>();
-//		while (index < str.length()) {
-//			if (str.charAt(index) == '\"') {
-//				index++;
-//				while(str.charAt(index) != '\"') {
-//					index++;
-//				}
-//				index+=3;
-//				while(str.charAt(index) != '\"') {
-//					word += str.charAt(index);
-//					index++;
-//				}
-//				list.add(word);
-//			}
-//			index++;
-//			word = "";
-//		}
-//		System.out.println("createRow ran in keyspace " + keyspace + " in table " + table);
-//		System.out.println(list);
-//		List<String> lis1 = keyspaceRepository.getColNames(keyspace, table);
-//		List<String> lis2 = keyspaceRepository.getPrimaryKeyNames(keyspace, table);
-//		lis1.removeAll(lis2);
-//		lis1.addAll(0, lis2);
-//		createMethods.createData(keyspace, table, lis1, list);
-//	}
 	@PutMapping("/keyspaces/{keyspaceName}/tables/{tableName}/addRow")
 	public boolean addRow(@PathVariable("keyspaceName") String keyspace, @PathVariable("tableName") String table, @Valid @RequestBody RowRequest added)
 	{
@@ -107,16 +83,83 @@ public class CassandraController {
 			System.out.print("addRow ran in keyspace ");
 			System.out.print(keyspace + " in table ");
 			System.out.println(table + " with the following coldefs and row");
-			System.out.println(added.getCols() + " " + added.getRows());
+			System.out.println(added.getCols() + " " + added.getRow());
 			CreateMethods cM = new CreateMethods(session);
-			cM.createData(keyspace, table, added.getCols(), added.getRows());
+			List<String> list = added.getRow();
+			String val = "";
+			for (String s : list) {
+				val += s + ", ";
+			}
+			val = val.substring(0, val.length() - 2);
+			list.clear();
+			list.add(val);
+			cM.createData(keyspace, table, added.getCols(), list);
 			return true;
 		}
-		catch (Exception e)
-		{
+		catch (Exception e) {
 			return false;
 		}
 	}
+
+	@PutMapping("/keyspaces/{keyspaceName}/tables/{tableName}/editRow")
+	public boolean editRow(@PathVariable("keyspaceName") String keyspace, @PathVariable("tableName") String table, @Valid @RequestBody RowRequest edited)
+	{
+		try{
+			System.out.print("editRow ran in keyspace ");
+			System.out.print(keyspace + " in table ");
+			System.out.println(table + " with the following coldefs and row");
+			System.out.println(edited.getCols() + " " + edited.getRow());
+			modifierMethods = new ModifierMethods(session);
+			keyspaceRepository = new KeyspaceRepository(session);
+			List<String> primaryKeyNames = keyspaceRepository.getPrimaryKeyNames(keyspace, table);
+			Map<String, Object> map1 = new LinkedHashMap<>();
+			Map<String, Object> map2 = new LinkedHashMap<>();
+			for (int i = 0; i < edited.getCols().size(); i++) {
+				for (String s : primaryKeyNames) {
+					if (edited.getCols().get(i) == s) {
+						map1.put(edited.getCols().get(i), edited.getRow().get(i));
+					}
+					else {
+						map2.put(edited.getCols().get(i), edited.getRow().get(i));
+					}
+				}
+			}
+			modifierMethods.editRow(keyspace, table, map1, map2);
+			return true;
+		}
+		catch (Exception e) {
+			return false;
+		}
+	}
+
+	@PutMapping("/keyspaces/{keyspaceName}/tables/{tableName}/deleteRow")
+	public boolean deleteRow(@PathVariable("keyspaceName") String keyspace, @PathVariable("tableName") String table, @Valid @RequestBody RowRequest deleted)
+	{
+		try{
+			System.out.print("deleteRow ran in keyspace ");
+			System.out.print(keyspace + " in table ");
+			System.out.println(table + " with the following coldefs and row");
+			System.out.println(deleted.getCols() + " " + deleted.getRow());
+			modifierMethods = new ModifierMethods(session);
+			keyspaceRepository = new KeyspaceRepository(session);
+			List<String> primaryKeyNames = keyspaceRepository.getPrimaryKeyNames(keyspace, table);
+			Map<String, Object> map = new LinkedHashMap<>();
+			for (String s : primaryKeyNames) {
+				for (int i = 0; i < deleted.getCols().size(); i++) {
+					if (deleted.getCols().get(i).equals(s)) {
+						map.put(deleted.getCols().get(i), deleted.getRow().get(i));
+						System.out.println(map);
+					}
+				}
+			}
+			modifierMethods.deleteRow(keyspace, table, map);
+			return true;
+		}
+		catch (Exception e) {
+			return false;
+		}
+	}
+
 }
 
 class RowRequest{
@@ -131,7 +174,7 @@ class RowRequest{
 		return cols;
 	}
 
-	public List<String> getRows() {
+	public List<String> getRow() {
 		return row;
 	}
 

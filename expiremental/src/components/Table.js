@@ -109,7 +109,7 @@ function Table(props) {
 		const query = 'http://localhost:8080/api/keyspaces/'+keyspace+'/tables/'+table+'/addRow'
 		const cols = columns.map((column => column.substring(0, column.indexOf('(')-1)));
 		console.log(inputRow);
-		axios.put(query, {cols: cols, row: [inputRow.toString()]}).then(
+		axios.put(query, {cols: cols, row: inputRow}).then(
 			(result) => {
 				console.log('success');
 				delay(1000);
@@ -122,6 +122,38 @@ function Table(props) {
 			console.log('fail');
 			}
 		)
+	}
+
+	function deleteRow(keyspace, table, inputRow) {
+		const query = 'http://localhost:8080/api/keyspaces/'+keyspace+'/tables/'+table+'/deleteRow'
+		const cols = columns.map((column => column.substring(0, column.indexOf('(')-1)));
+
+		columns.map((column, index) => {
+			if (column.includes('int')) {}
+			else if (column.includes('text')) {
+				inputRow[index] = '\'' + inputRow[index] + '\'';
+			}
+		})
+
+		console.log(inputRow);
+		axios.put(query, {cols: cols, row: inputRow}).then(
+			(result) => {
+				console.log('delete success');
+				delay(1000);
+				getRows();
+			},
+			// Note: it's important to handle errors here
+			// instead of a catch() block so that we don't swallow
+			// exceptions from actual bugs in components.
+			(error) => {
+			console.log('delete fail');
+			}
+		)
+		columns.map((column, index) => {
+			if (column.includes('text')) {
+				inputRow[index] = inputRow[index].substring(1, inputRow[index].length - 1);
+			}
+		})
 	}
 
 	const handleInputChange = (e) => {
@@ -142,12 +174,28 @@ function Table(props) {
 			}
 		})
 		addRow(keyspace, table, formValues);
+		setFormValues([]);
 	};
 	
     console.log("hi");
     console.log(keyspace + table);
     console.log(rows);
     console.log(columns);
+
+	class BtnCellRenderer extends Component {
+		constructor(props) {
+		  super(props);
+		  this.btnClickedHandler = this.btnClickedHandler.bind(this);
+		}
+		btnClickedHandler() {
+		 this.props.clicked(this.props.value);
+		}
+		render() {
+		  return (
+			<button onClick={this.btnClickedHandler}>Delete</button>
+		  )
+		}
+	  }
 
 	if (error) {
 		return <div>Error: {error.message}</div>;
@@ -156,12 +204,23 @@ function Table(props) {
 	  } else {
 		const colsFormatted = [];
 		const rowsFormatted = [];
-        columns.forEach((column, index) => colsFormatted.push({field: column}));
+        columns.forEach((column, index) => colsFormatted.push({field: column, sortable: true}));
+		colsFormatted.push({
+			field: 'buttons',
+			cellRenderer: BtnCellRenderer,
+			cellRendererParams: {
+				clicked: function(field) {
+					deleteRow(keyspace, table, field);
+					console.log(field);
+				},
+			},
+		});
 		rows.forEach(row => {
 			const temp = {};
             for (let i = 0; i < columns.length; i++) {
                 temp[columns[i]] = row[i];
 			}
+			temp["buttons"] = row;
 			rowsFormatted.push(temp);
 		});
         
@@ -169,12 +228,13 @@ function Table(props) {
 		console.log(rowsFormatted);
 
 		return (
-			<div id="myGrid" className="ag-theme-alpine" style={{height: 400, width: 600}}>
+			<div id="myGrid" className="ag-theme-alpine" style={{height: 400, width: 1200}}>
 				<AgGridReact
 				rowData={rowsFormatted}
-				columnDefs={colsFormatted}>
-
+				columnDefs={colsFormatted}
+				animateRows={true}>
 				</AgGridReact>
+
            		<Button variant="contained" onClick={() => {
 					{navigate(`/`, { replace: true })}
 				}}>bacc
@@ -241,10 +301,10 @@ function Table(props) {
         				</Button>
       				</Grid>
    				 </form>
-					<Button variant="contained" onClick={() => {
-						{setUpdate(true)};
-					}}>update
-					</Button>
+				<Button variant="contained" onClick={() => {
+					{setUpdate(true)};
+				}}>update
+				</Button>
 			</div>
 			// <div style={{ height: 400, width: '100%' }}>
       		// 	<DataGrid

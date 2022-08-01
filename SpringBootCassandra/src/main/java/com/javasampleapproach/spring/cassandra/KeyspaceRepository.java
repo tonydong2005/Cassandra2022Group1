@@ -58,7 +58,6 @@ public class KeyspaceRepository {
             ResultSet rs=session.execute(select.build());
             List<List<String>>result=new ArrayList<>();
             Map<CqlIdentifier,DataType>cd=getColDefs(keyspace,table);
-            System.out.println("cd" + cd);
             rs.forEach(row->{
                 List<String>list=new ArrayList<>();
                 cd.forEach((key,value)->{
@@ -92,7 +91,7 @@ public class KeyspaceRepository {
         List<String>result=new ArrayList<>();
         Map<CqlIdentifier,DataType>colDefs=getPrimaryKeyDefs(keyspace,table);
         colDefs.forEach((key,value)->{
-            String s=key.toString()+" ("+value.toString().toLowerCase() + ")";
+            String s=key.toString()/*+" ("+value.toString().toLowerCase() + ")"*/;
             result.add(s);
         });
         return result;
