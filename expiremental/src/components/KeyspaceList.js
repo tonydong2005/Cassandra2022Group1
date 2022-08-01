@@ -121,7 +121,7 @@ function KeyspaceList() {
 							<ListItemText primary={<Typography variant="textbody" align='left'>
 								{keyspace}
                 </Typography>}/>
-							{open[index] ? <ExpandLess /> : <ExpandMore />}
+							{open[index] ? <ExpandLess sx={{color:blue[900]}}/> : <ExpandMore sx={{color:blue[900]}}/>}
 						</ListItemButton>
 
 						<Collapse in={open[index]} timeout="auto" unmountOnExit>
