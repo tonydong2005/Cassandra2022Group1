@@ -31,7 +31,7 @@ const theme = createTheme({
                 'Open Sans',
                 'sans-serif'
             ].join(','),
-            color: blue[500]
+            color: blue[700]
         }
       },
 });

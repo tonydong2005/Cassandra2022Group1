@@ -198,14 +198,13 @@ function Header(props) {
                                         </Box>
                             </Typography>
                             </Button>
-                         <Button href="/keyspaces" color='inherit'>
-
-                                    <Typography variant="sidenav" color="inherit" component="div" align='left' sx={{}}>
+                            <Button href="/keyspaces" color='inherit'>
+                              <Typography variant="sidenav" color="inherit" component="div" align='left' sx={{}}>
                                 <Box fontWeight="700" sx={{ width: '.5 rem', }}>
-                                            Keyspaces
-                                        </Box>
-                                    </Typography>
-                                </Button>
+                                  Keyspaces
+                                </Box>
+                              </Typography>
+                            </Button>
                         <Button
                             href="/"
                                     onClick={() => {

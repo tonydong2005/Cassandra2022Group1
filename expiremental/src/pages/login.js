@@ -84,7 +84,7 @@ function Login(props) {
     const renderForm = (
         <ThemeProvider theme={theme} >
             <Grid>
-                <Paper elevation={10} style={paperStyle}>
+                <Paper elevation={5} style={paperStyle}>
                     <Grid align='center'>
                         <Avatar style={avatarStyle}><LockOutlinedIcon /></Avatar>
                         <h2 id="login">Log In</h2>
