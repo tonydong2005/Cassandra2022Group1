@@ -82,7 +82,7 @@ function Header(props) {
       <AppBar position="static">
             <Toolbar variant="dense" disableGutters>
                 <ThemeProvider theme={theme}>
-                    <Button href="/" sx={{ }}>
+                    <Button href="/" sx={{ ml: '15px' }}>
                         <Box
                             component="img"
                             sx={{
@@ -94,7 +94,7 @@ function Header(props) {
                         />
                     </Button>
                     <Container align='left' sx={{ml:'0px'}}>
-                        
+
                         <Typography href="/"
                             variant="nav"
                             color="inherit"
@@ -103,7 +103,7 @@ function Header(props) {
                             sx={{ ml: '0px', textDecoration: 'none', pr: '0px' }}>
                                 JP MORGAN CHASE & CO.
                         </Typography>
-                        
+
                     </Container>
                     {/*<Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                         <IconButton
@@ -138,7 +138,7 @@ function Header(props) {
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
-              ))} 
+              ))}
                         </Menu>
                     </Box>
                     <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
@@ -151,7 +151,7 @@ function Header(props) {
               >
                 {page}
               </Button>
-            ))} 
+            ))}
                     </Box>
 
                     <Box sx={{ flexGrow: 0 }}>
@@ -180,32 +180,32 @@ function Header(props) {
                             {/* {settings.map((setting) => (
                 <MenuItem  component={Link} to="/" key={setting} onClick={handleCloseUserMenu}>
                   <Typography
-                  href='/'  
+                  href='/'
                   textAlign="center"
                   >
                   Log Out
                   </Typography>
                 </MenuItem>
-              ))} 
+              ))}
                         </Menu>
                     </Box> */}
                     {props.loginStatus &&
-                        <Stack direction='row'> 
+                        <Stack direction='row'>
                         <Button href="/" color='inherit'>
                         <Typography variant="sidenav" color="inherit" component="div" align='center' sx={{}}>
                             <Box fontWeight="700" sx={{ width: '.5 rem' }}>
-                                Home
+                                Dashboard
                                         </Box>
                             </Typography>
                             </Button>
                          <Button href="/keyspaces" color='inherit'>
-                 
+
                                     <Typography variant="sidenav" color="inherit" component="div" align='left' sx={{}}>
                                 <Box fontWeight="700" sx={{ width: '.5 rem', }}>
                                             Keyspaces
                                         </Box>
                                     </Typography>
-                                </Button> 
+                                </Button>
                         <Button
                             href="/"
                                     onClick={() => {
@@ -213,7 +213,7 @@ function Header(props) {
                                         localStorage.setItem('isLoggedIn', 'false');
                                     }}
                             color='inherit' sx={{
-                                        mr: "5px",
+                                        mr: "20px",
                                     fontFamily: [
                                         'Open Sans',
                                         'sans-serif'
@@ -234,10 +234,10 @@ function Header(props) {
                                             Sign Out
                                         </Box>
                                     </Typography>
-                                </Button> 
+                                </Button>
                             </Stack>
                         }
-                        
+
                 </ThemeProvider>
         </Toolbar>
       </AppBar>

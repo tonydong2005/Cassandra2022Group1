@@ -47,21 +47,21 @@ const Dashboard = props => {
         ].join(','),marginBottom: 20}
     const user = { margin: "15px 0" }
     return (
-    
+
         <ThemeProvider theme={theme} >
             <ThemeProvider theme={theme.typography} >
                 <Typography variant="h1" align='center' marginTop={5} marginBottom={3}>
-                    Welcome Admin
+                    Welcome
                 </Typography>
                 <Container align='center'>
                 <Typography variant="textbody" align='center'>
-                        This is your homepage. You can access your Data Center or Metrics. 
+                        This is your homepage. You can access your Data Center or Metrics.
                 </Typography>
                     </Container>
-            </ThemeProvider> 
-            
-            <Grid>                
-                <Paper elevation={10} style={paperStyle}>                    
+            </ThemeProvider>
+
+            <Grid sx = {{mt: '-15px'}}>
+                <Paper elevation={2} style={paperStyle}>
                     {/* <Button onClick={() => <Navigate replace to='/keyspaces'/>} */}
 
                     <Button onClick={() => navigate("/keyspaces")}
@@ -73,7 +73,7 @@ const Dashboard = props => {
                         //authorization stuff to make sure info is right, if logged in successfully...
                     }}
                         type='submit' color='primary' variant="contained" style={btnstyle} fullWidth> Metrics </Button>
-                    
+
                 </Paper>
             </Grid>
 
