@@ -8,18 +8,10 @@ import '../ag-theme-custom.css';
 
 import { useParams } from 'react-router-dom';
 
-import { Button } from '@mui/material';
-
 import { Navigate } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 
 import { default as Bruhmoment } from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
 import { DataGrid } from '@mui/x-data-grid';
 
 import Grid from "@mui/material/Grid";
@@ -29,7 +21,29 @@ import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import { ConstructionOutlined } from '@mui/icons-material';
 
-function Table(props) {
+import {
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow,
+    Paper,
+    Box,
+    Stack,
+    Container,
+    Typography,
+    Avatar,
+    Button,
+    TablePagination,
+    TableFooter,
+	Select,
+	MenuItem,
+
+} from '@mui/material';
+import { blue, green } from '@mui/material/colors';
+
+function ViewTable(props) {
 	const [error, setError] = useState(null);
 	const [isLoaded, setIsLoaded] = useState(false);
 	const [keyspace, setKeyspace] = useState(useParams().keyspaceName);
@@ -39,6 +53,20 @@ function Table(props) {
 	const [inputRow, setInputRow] = useState([]);
 	const [formValues, setFormValues] = useState([]);
 	const [success, setSuccess] = useState(false);
+	const [sortBy, setSortBy] = useState(null);
+	const [sortOrder, setSortOrder] = useState(null);
+
+	const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(5);
+
+    const handleChangePage = (event, newPage) => {
+        setPage(newPage);
+    };
+
+    const handleChangeRowsPerPage = (event) => {
+        setRowsPerPage(+event.target.value);
+        setPage(0);
+    };
 
 	let navigate = useNavigate();
 
@@ -192,6 +220,14 @@ function Table(props) {
 		}
 	  }
 
+	function onPageSizeChanged() {
+		var select = document.getElementById('page-size');
+		var value = select.options[select.selectedIndex].value;
+		console.log(value);
+	}
+	
+
+
 	if (error) {
 		return <div>Error: {error.message}</div>;
 	  } else if (!isLoaded) {
@@ -199,7 +235,50 @@ function Table(props) {
 	  } else {
 		const colsFormatted = [];
 		const rowsFormatted = [];
-        columns.forEach((column, index) => colsFormatted.push({field: column, sortable: true, resizable: true, flex: 1}));
+		// const colsFormatted = columns.map((column, index) =>
+		// 	<TableCell
+		// 	sx={{
+		// 		fontWeight: 'bold',
+		// 		backgroundColor: blue[700],
+		// 		color: 'white',
+		// 		fontSize: '15px'
+		// 	}}
+		// 	align="left">
+		// 	{column}
+		// 	</TableCell>
+		// )
+		// colsFormatted.push(
+		// 	<TableCell
+		// 	sx={{
+		// 		fontWeight: 'bold',
+		// 		backgroundColor: blue[700],
+		// 		color: 'white',
+		// 		fontSize: '15px'
+		// 	}}
+		// 	align="left">
+		// 	buttons
+		// 	</TableCell>)
+		// const rowsFormatted = rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) =>
+		// 	<TableRow
+		// 	key={index}>
+		// 	{row.map((data, index) => 
+		// 		<TableCell align="left">
+		// 			<Typography sx = {{fontSize: '15px'}}>{data}</Typography>
+		// 		</TableCell>
+		// 	)}
+		// 	<TableCell align="left">
+		// 			<Typography sx = {{fontSize: '15px'}}>
+		// 				<Button variant="contained" color="primary" onClick={() => deleteRow(keyspace, table, row)}>
+        //   					delete
+        // 				</Button>
+		// 			</Typography>
+		// 	</TableCell>
+		// 	</TableRow>
+
+			
+		// );
+
+        columns.forEach((column, index) => colsFormatted.push({field: column, sortable: true, resizable: true}));
 		colsFormatted.push({
 			field: 'buttons',
 			cellRenderer: BtnCellRenderer,
@@ -219,20 +298,73 @@ function Table(props) {
 			rowsFormatted.push(temp);
 		});
         
+
 		console.log(colsFormatted);
 		console.log(rowsFormatted);
 
+
 		return (
+
+			<div id="myGrid" className="ag-theme-material ag-theme-custom" style={{height: 700, width: '100%', }}>
 				
-			<div id="myGrid" className="ag-theme-material ag-theme-custom" style={{height: 400, width: '100%', }}>
+				{/* <Container maxWidth='lg'>
+                <Typography sx = {{mt: '20px', fontSize: '20px'}}> Table Name: {table} </Typography>
+                <TableContainer component={Paper}
+                    sx={{
+                        borderRadius: 5,
+                        margin: '10px 10px',
+                        maxWidth: '950px'
+                    }} >
+                    <Table
+					sx={{ minWidth: 650 }}
+					aria-label="simple table"
+					requestSort={requestSort.bind(this)}
+					sortOrder={sortOrder}
+          			sortBy={sortBy}
+					>
+                        <TableHead>
+                            <TableRow>
+								{colsFormatted}
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+							{rowsFormatted}
+						</TableBody>
+                        <TableFooter>
+                            <TablePagination sx={{ width: '170%' }}
+                                rowsPerPageOptions={[5, 10, 15]}
+                                component="div"
+                                count={rows.length}
+                                rowsPerPage={rowsPerPage}
+                                page={page}
+                                onPageChange={handleChangePage}
+                                onRowsPerPageChange={handleChangeRowsPerPage}
+                            />
+                        </TableFooter>
+                    </Table>
+                </TableContainer>
+            </Container> */}
+				
 				<AgGridReact
 					rowData={rowsFormatted}
 					columnDefs={colsFormatted}
 					animateRows={true}
-					
+					pagination={true}
+					paginationPageSize={rowsPerPage}
 					>
 					
 				</AgGridReact>
+				<Select
+    			labelId="demo-simple-select-label"
+    			id="demo-simple-select"
+    			value={rowsPerPage}
+    			label="Page Size"
+    			onChange={handleChangeRowsPerPage}
+  				>
+    			<MenuItem value={5}>5</MenuItem>
+    			<MenuItem value={10}>10</MenuItem>
+    			<MenuItem value={15}>15</MenuItem>
+  				</Select>
 
            		<Button variant="contained" onClick={() => {
 					{navigate(`/`, { replace: true })}
@@ -242,11 +374,11 @@ function Table(props) {
 				<form name='addForm' onSubmit={handleSubmit}>
       				<Grid container alignItems="center" justify="center" direction="column">
         				{
-							<ul>
+							<Stack direction='column'>
 								{columns.map((column, index) => {
                 					if (column.includes('int'))
 									return (
-                    					<li key={column}>
+                    					<MenuItem>
                         					
 											<Grid item>
           										<TextField
@@ -258,11 +390,11 @@ function Table(props) {
             										onChange={handleInputChange}
           										/>
         									</Grid>
-                    					</li>
+                    					</MenuItem>
                 					);
 									else if (column.includes('text'))
 									return (
-										<li key={column}>
+										<MenuItem>
                         					
 											<Grid item>
           										<TextField
@@ -274,11 +406,11 @@ function Table(props) {
             										onChange={handleInputChange}
           										/>
         									</Grid>
-                    					</li>
+                    					</MenuItem>
 									);
 									else if (column.includes('uuid'))
 									return (
-										<li key={column}>
+										<MenuItem>
                         					
 											<Grid item>
           										<TextField
@@ -290,10 +422,10 @@ function Table(props) {
             										onChange={handleInputChange}
           										/>
         									</Grid>
-                    					</li>
+                    					</MenuItem>
 									);
             					})}
-							</ul>	
+							</Stack>	
 						}
 						<Button variant="contained" color="primary" type="submit">
           					Submit
@@ -301,19 +433,9 @@ function Table(props) {
       				</Grid>
    				 </form>
 			</div>
-			// <div style={{ height: 400, width: '100%' }}>
-      		// 	<DataGrid
-			// 		getRowId={(row) => row[0]}
-        	// 		rows={rowsFormatted}
-        	// 		columns={colsFormatted}
-        	// 		pageSize={5}
-        	// 		rowsPerPageOptions={[5]}
-      		// 	/>
-    		// </div>
-			
 		);
 	}
 }
 
 
-export default Table;
+export default ViewTable;

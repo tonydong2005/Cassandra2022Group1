@@ -2,7 +2,35 @@ import React, { useState, useEffect } from 'react';
 import TableList from './TableList';
 import axios from 'axios';
 import { Button } from '@mui/material';
+import { blue } from '@mui/material/colors';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 
+const theme = createTheme({
+	palette: {
+		primary: {
+			main: blue[700],
+		},
+	},
+	typography: {
+		h1: {
+			fontWeight: 'bold',
+			fontSize: 35,
+			fontFamily: [
+				'Open Sans',
+				'sans-serif'
+			].join(',')
+		},
+		textbody: {
+			textAlign: 'left',
+			fontFamily: [
+				'Open Sans',
+				'sans-serif'
+			].join(','),
+			fontWeight: '1000',
+			color: blue[900]
+		}
+	},
+});
 
 function KeyspaceList() {
 	const [error, setError] = useState(null);
