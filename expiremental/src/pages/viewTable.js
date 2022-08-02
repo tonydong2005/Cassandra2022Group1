@@ -20,7 +20,6 @@ const theme = createTheme({
 function ViewTable() {
     return (
         <ThemeProvider theme={theme} >
-           <h1> Tables </h1>
             <DescTable></DescTable>
         </ThemeProvider>
     );
