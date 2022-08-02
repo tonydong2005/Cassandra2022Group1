@@ -1,41 +1,48 @@
-import React, { Component } from 'react';
+import { React, useState } from 'react';
 import './App.css';
-import {AppBar, Toolbar, Typography, IconButton} from '@mui/material';
-import { blue } from '@mui/material/colors';
-import { ThemeProvider , createTheme } from '@mui/material/styles';
-import KeyspaceList from './components/KeyspaceList';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import KeyspaceList from './components/KeyspaceList2';
 import Table from './components/Table';
+import { blue, grey } from '@mui/material/colors';
+import { ThemeProvider , createTheme } from '@mui/material/styles';
+import Header from './components/Header';
+import Dashboard from './components/Dashboard';
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import Login from './components/Login';
+import ErrorPage from './components/Error';
+import { Box } from '@mui/material';
 
 const theme = createTheme({
     palette: {
       primary: {
         main: blue[700],
+        
       },
     },
+    
   });  
 
 
 function App() {
   
+  const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('isLoggedIn'));
+
     return (
         <ThemeProvider theme={theme}>
-                                          <AppBar position="static">
-                                  <Toolbar variant="dense">
-                                    <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
-                                    </IconButton>
-                                    <Typography variant="h6" color="inherit" component="div">
-                                      Photos
-                                    </Typography>
-                                  </Toolbar>
-                                </AppBar>
+          <Header loginStatus={isLoggedIn==='true'} onLog={(value) => setIsLoggedIn(value)} sx={{backgroundColor: 'darkgray', height: '100%', width: '100%'}}/>
+          <Box sx={{backgroundColor: 'darkgray', height: '100%', width: '100%'}}>
             <BrowserRouter>
                 <Routes>
-                  <Route path="/" element={<KeyspaceList/>} exact={true} />
-                  <Route path="/:keyspaceName/:tableName" element={<Table />} exact={true} />
+                  <Route path="/" element={<Navigate replace to="/login" />} />
+                  <Route path="/login" element={<Login onLog={(value) => setIsLoggedIn(value)}/>} />
+                  <Route path="/dashboard" element={isLoggedIn === 'true' ? <Dashboard /> : <Navigate to="/login" />} />
+                  <Route path="/keyspaces" element={isLoggedIn === 'true' ? <KeyspaceList /> : <Navigate to="/login" />} />
+                  <Route path="/:keyspaceName/:tableName" element={isLoggedIn === 'true' ? <Table /> : <Navigate to="/login" />} />
+                  <Route path="*" element={<ErrorPage/>} />
                 </Routes>
                 
             </BrowserRouter>
+          </Box>
+            
         </ThemeProvider>
         
     );

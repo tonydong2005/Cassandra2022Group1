@@ -1,15 +1,13 @@
 package com.javasampleapproach.spring.cassandra.controller;
 
 import java.lang.reflect.Modifier;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import com.javasampleapproach.spring.cassandra.CassandraConnector;
 import com.javasampleapproach.spring.cassandra.CreateMethods;
-import com.javasampleapproach.spring.cassandra.KeyspaceRepository;
-import com.javasampleapproach.spring.cassandra.ModifierMethods;
+import com.javasampleapproach.spring.cassandra.repo.AccessKeyspace;
+import com.javasampleapproach.spring.cassandra.repo.GenerateKeyspace;
+import com.javasampleapproach.spring.cassandra.repo.ModifyKeyspace;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,18 +22,18 @@ public class CassandraController {
 	//@Autowired
 	//BookRepository bookRepository;
 	private CqlSession session;
-	private KeyspaceRepository keyspaceRepository;
-	private CreateMethods createMethods;
-
-	private ModifierMethods modifierMethods;
+	private AccessKeyspace accessKeyspace;
+	private GenerateKeyspace generateKeyspace;
+	private ModifyKeyspace modifyKeyspace;
 
 	public CassandraController() {
 		CassandraConnector connector = new CassandraConnector();
 		connector.connect("127.0.0.1", 9042, "datacenter1");
 		session = connector.getSession();
 		System.out.println("ran constructor");
-		keyspaceRepository = new KeyspaceRepository(session);
-		createMethods = new CreateMethods(session);
+		accessKeyspace = new AccessKeyspace(session);
+		generateKeyspace = new GenerateKeyspace(session);
+		modifyKeyspace = new ModifyKeyspace(session);
 	}
 
 	/*@GetMapping("/books")
@@ -47,16 +45,24 @@ public class CassandraController {
 	@GetMapping("/keyspaces")
 	public List<String> getAllKeyspaces() {
 		System.out.println("getAllKeyspaces ran");
-		return keyspaceRepository.getKeyspaceList();
+		return accessKeyspace.getKeyspaceList();
 
 	}
 
 	@GetMapping("/keyspaces/{keyspaceName}/tables")
-	public List<String> getAllTables(@PathVariable(value = "keyspaceName") String keyspace) {
+	public List<Map<String, Object>> getAllTables(@PathVariable(value = "keyspaceName") String keyspace) {
 		System.out.print("getAllTables ran in keyspace ");
 		System.out.println(keyspace);
-		System.out.println(keyspaceRepository.getTableList(keyspace));
-		return keyspaceRepository.getTableList(keyspace);
+		List<Map<String, Object>> list = new ArrayList<>();
+		Map<String, Object> map;
+		for (String table : accessKeyspace.getTableList(keyspace)) {
+			map = new LinkedHashMap<>();
+			map.put("table", table);
+			map.put("metrics", getMetrics(keyspace, table));
+			list.add(map);
+		}
+		System.out.println(list);
+		return list;
 	}
 
 	@GetMapping("/keyspaces/{keyspaceName}/tables/{tableName}/rows")
@@ -64,7 +70,21 @@ public class CassandraController {
 		System.out.print("getAllRows ran in keyspace ");
 		System.out.print(keyspace + " in table ");
 		System.out.println(table);
-		List<List<String>> list = keyspaceRepository.getRowList(keyspace, table);
+		List<List<String>> list =accessKeyspace.getRowList(keyspace, table);
+		System.out.println(list);
+		return list;
+	}
+
+	@GetMapping("/keyspaces/{keyspaceName}/tables/{tableName}/metrics")
+	public List<String> getMetrics(@PathVariable("keyspaceName") String keyspace, @PathVariable("tableName") String table) {
+		System.out.print("getMetrics ran in keyspace ");
+		System.out.print(keyspace + " in table ");
+		System.out.println(table);
+		List<String> list = new ArrayList<>();
+		list.add(accessKeyspace.getTableSizes().get(keyspace + " " + table));
+		list.add(accessKeyspace.getColDefs(keyspace, table).size() + "");
+		list.add(accessKeyspace.getRowList(keyspace, table).size() + "");
+		list.add(accessKeyspace.statsPart(accessKeyspace.getRowsPerPartition(keyspace, table), list.get(0)));
 		System.out.println(list);
 		return list;
 	}
@@ -72,7 +92,7 @@ public class CassandraController {
 	@GetMapping("/keyspaces/{keyspaceName}/tables/{tableName}/columnNames")
 	public List<String> getColumnNames(@PathVariable("keyspaceName") String keyspace, @PathVariable("tableName") String table) {
 		System.out.println("getColumnNames ran in keyspace " + keyspace + " in table " + table);
-		List<String> list = keyspaceRepository.getColNames(keyspace, table);
+		List<String> list =accessKeyspace.getColNames(keyspace, table);
 		System.out.println(list);
 		return list;
 	}
@@ -109,9 +129,7 @@ public class CassandraController {
 			System.out.print(keyspace + " in table ");
 			System.out.println(table + " with the following coldefs and row");
 			System.out.println(edited.getCols() + " " + edited.getRow());
-			modifierMethods = new ModifierMethods(session);
-			keyspaceRepository = new KeyspaceRepository(session);
-			List<String> primaryKeyNames = keyspaceRepository.getPrimaryKeyNames(keyspace, table);
+			List<String> primaryKeyNames =accessKeyspace.getPrimaryKeyNames(keyspace, table);
 			Map<String, Object> map1 = new LinkedHashMap<>();
 			Map<String, Object> map2 = new LinkedHashMap<>();
 			for (int i = 0; i < edited.getCols().size(); i++) {
@@ -124,7 +142,7 @@ public class CassandraController {
 					}
 				}
 			}
-			modifierMethods.editRow(keyspace, table, map1, map2);
+			modifyKeyspace.editRow(keyspace, table, map1, map2, 0);
 			return true;
 		}
 		catch (Exception e) {
@@ -140,9 +158,7 @@ public class CassandraController {
 			System.out.print(keyspace + " in table ");
 			System.out.println(table + " with the following coldefs and row");
 			System.out.println(deleted.getCols() + " " + deleted.getRow());
-			modifierMethods = new ModifierMethods(session);
-			keyspaceRepository = new KeyspaceRepository(session);
-			List<String> primaryKeyNames = keyspaceRepository.getPrimaryKeyNames(keyspace, table);
+			List<String> primaryKeyNames =accessKeyspace.getPrimaryKeyNames(keyspace, table);
 			Map<String, Object> map = new LinkedHashMap<>();
 			for (String s : primaryKeyNames) {
 				for (int i = 0; i < deleted.getCols().size(); i++) {
@@ -152,7 +168,7 @@ public class CassandraController {
 					}
 				}
 			}
-			modifierMethods.deleteRow(keyspace, table, map);
+			modifyKeyspace.deleteRow(keyspace, table, map);
 			return true;
 		}
 		catch (Exception e) {

@@ -3,7 +3,8 @@ import axios from 'axios';
 import { AgGridReact } from 'ag-grid-react';
 
 import 'ag-grid-community/styles/ag-grid.css';
-import 'ag-grid-community/styles/ag-theme-alpine.css';
+import 'ag-grid-community/styles/ag-theme-material.css';
+import '../ag-theme-custom.css';
 
 import { useParams } from 'react-router-dom';
 
@@ -36,19 +37,10 @@ function Table(props) {
 	const [columns, setCols] = useState([]);
     const [rows, setRows] = useState([[]]);
 	const [inputRow, setInputRow] = useState([]);
-	const [update, setUpdate] = useState(false);
 	const [formValues, setFormValues] = useState([]);
+	const [success, setSuccess] = useState(false);
 
 	let navigate = useNavigate();
-
-	function delay(time) {
-		return new Promise(resolve => setTimeout(resolve, time));
-	}
-
-	useEffect(() => {
-		getRows();
-		setUpdate(false);
-	}, [update])
 
 	function getRows() {
 		const query = 'http://localhost:8080/api/keyspaces/'+keyspace+'/tables/'+table+'/rows'
@@ -111,8 +103,8 @@ function Table(props) {
 		console.log(inputRow);
 		axios.put(query, {cols: cols, row: inputRow}).then(
 			(result) => {
-				console.log('success');
-				delay(1000);
+				console.log(result.data);
+				setSuccess(result.data);
 				getRows();
 			},
 			// Note: it's important to handle errors here
@@ -139,7 +131,6 @@ function Table(props) {
 		axios.put(query, {cols: cols, row: inputRow}).then(
 			(result) => {
 				console.log('delete success');
-				delay(1000);
 				getRows();
 			},
 			// Note: it's important to handle errors here
@@ -158,7 +149,7 @@ function Table(props) {
 
 	const handleInputChange = (e) => {
 		const { name, value } = e.target;
-		const list = formValues;
+		const list = formValues.map(x => x);
 		
 		list[name] = value;
 		console.log(list);
@@ -174,7 +165,7 @@ function Table(props) {
 			}
 		})
 		addRow(keyspace, table, formValues);
-		setFormValues([]);
+		setFormValues(formValues.map(x => ''));
 		var frm = document.getElementsByName('addForm')[0];
 		frm.reset();
 	};
@@ -194,7 +185,9 @@ function Table(props) {
 		}
 		render() {
 		  return (
-			<button onClick={this.btnClickedHandler}>Delete</button>
+			<Button variant="contained" color="primary" onClick={this.btnClickedHandler}>
+          		delete
+        	</Button>
 		  )
 		}
 	  }
@@ -206,7 +199,7 @@ function Table(props) {
 	  } else {
 		const colsFormatted = [];
 		const rowsFormatted = [];
-        columns.forEach((column, index) => colsFormatted.push({field: column, sortable: true}));
+        columns.forEach((column, index) => colsFormatted.push({field: column, sortable: true, resizable: true, flex: 1}));
 		colsFormatted.push({
 			field: 'buttons',
 			cellRenderer: BtnCellRenderer,
@@ -230,16 +223,20 @@ function Table(props) {
 		console.log(rowsFormatted);
 
 		return (
-			<div id="myGrid" className="ag-theme-alpine" style={{height: 400, width: 1200}}>
+				
+			<div id="myGrid" className="ag-theme-material ag-theme-custom" style={{height: 400, width: '100%', }}>
 				<AgGridReact
-				rowData={rowsFormatted}
-				columnDefs={colsFormatted}
-				animateRows={true}>
+					rowData={rowsFormatted}
+					columnDefs={colsFormatted}
+					animateRows={true}
+					
+					>
+					
 				</AgGridReact>
 
            		<Button variant="contained" onClick={() => {
 					{navigate(`/`, { replace: true })}
-				}}>bacc
+				}}>backk
 				</Button>
 
 				<form name='addForm' onSubmit={handleSubmit}>
@@ -303,10 +300,6 @@ function Table(props) {
         				</Button>
       				</Grid>
    				 </form>
-				<Button variant="contained" onClick={() => {
-					{setUpdate(true)};
-				}}>update
-				</Button>
 			</div>
 			// <div style={{ height: 400, width: '100%' }}>
       		// 	<DataGrid
