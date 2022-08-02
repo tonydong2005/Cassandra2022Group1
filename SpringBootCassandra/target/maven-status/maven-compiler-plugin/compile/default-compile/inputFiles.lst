@@ -1,8 +1,8 @@
-C:\Users\vikas\Documents\GitHub\Cassandra2022Group1\SpringBootCassandra\src\main\java\com\javasampleapproach\spring\cassandra\CreateMethods.java
-C:\Users\vikas\Documents\GitHub\Cassandra2022Group1\SpringBootCassandra\src\main\java\com\javasampleapproach\spring\cassandra\repo\BookRepository.java
-C:\Users\vikas\Documents\GitHub\Cassandra2022Group1\SpringBootCassandra\src\main\java\com\javasampleapproach\spring\cassandra\CassandraConnector.java
-C:\Users\vikas\Documents\GitHub\Cassandra2022Group1\SpringBootCassandra\src\main\java\com\javasampleapproach\spring\cassandra\KeyspaceRepository.java
-C:\Users\vikas\Documents\GitHub\Cassandra2022Group1\SpringBootCassandra\src\main\java\com\javasampleapproach\spring\cassandra\model\Tabl.java
-C:\Users\vikas\Documents\GitHub\Cassandra2022Group1\SpringBootCassandra\src\main\java\com\javasampleapproach\spring\cassandra\SpringBootCassandraApplication.java
-C:\Users\vikas\Documents\GitHub\Cassandra2022Group1\SpringBootCassandra\src\main\java\com\javasampleapproach\spring\cassandra\controller\BookController.java
-C:\Users\vikas\Documents\GitHub\Cassandra2022Group1\SpringBootCassandra\src\main\java\com\javasampleapproach\spring\cassandra\model\Book.java
+/Users/rpakala/NityaChase2022/muiJul30/rishindrabranch2/SpringBootCassandra/src/main/java/com/javasampleapproach/spring/cassandra/CassandraConnector.java
+/Users/rpakala/NityaChase2022/muiJul30/rishindrabranch2/SpringBootCassandra/src/main/java/com/javasampleapproach/spring/cassandra/KeyspaceRepository.java
+/Users/rpakala/NityaChase2022/muiJul30/rishindrabranch2/SpringBootCassandra/src/main/java/com/javasampleapproach/spring/cassandra/repo/BookRepository.java
+/Users/rpakala/NityaChase2022/muiJul30/rishindrabranch2/SpringBootCassandra/src/main/java/com/javasampleapproach/spring/cassandra/CreateMethods.java
+/Users/rpakala/NityaChase2022/muiJul30/rishindrabranch2/SpringBootCassandra/src/main/java/com/javasampleapproach/spring/cassandra/model/Book.java
+/Users/rpakala/NityaChase2022/muiJul30/rishindrabranch2/SpringBootCassandra/src/main/java/com/javasampleapproach/spring/cassandra/controller/BookController.java
+/Users/rpakala/NityaChase2022/muiJul30/rishindrabranch2/SpringBootCassandra/src/main/java/com/javasampleapproach/spring/cassandra/SpringBootCassandraApplication.java
+/Users/rpakala/NityaChase2022/muiJul30/rishindrabranch2/SpringBootCassandra/src/main/java/com/javasampleapproach/spring/cassandra/model/Tabl.java

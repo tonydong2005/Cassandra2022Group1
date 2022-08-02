@@ -7,6 +7,7 @@ import Header from '../components/Header';
 import { Accordion, AccordionDetails, AccordionSummary, Container, Typography } from '@mui/material';
 import Tables from '../components/Tables';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import DescTable from '../components/ViewTable';
 
 const theme = createTheme({
     palette: {
@@ -20,6 +21,7 @@ function ViewTable() {
     return (
         <ThemeProvider theme={theme} >
            <h1> Tables </h1>
+            <DescTable></DescTable>
         </ThemeProvider>
     );
 }

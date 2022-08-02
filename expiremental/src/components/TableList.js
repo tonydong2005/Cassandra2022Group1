@@ -1,4 +1,4 @@
-import { React, Component, useState, useEffect } from 'react';
+import { React, Component, useState, useEffect, setState } from 'react';
 import axios from 'axios';
 import {
 	Table,
@@ -20,6 +20,8 @@ import {
 import { blue, green } from '@mui/material/colors';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { Navigate, useNavigate } from 'react-router-dom';
+import DescTable from './ViewTable';
+import { ViewAgenda } from '@mui/icons-material';
 
 //import { AgGridReact } from 'ag-grid-react';
 
@@ -55,11 +57,41 @@ function TableList(props) {
 	const [error, setError] = useState(null);
 	const [isLoaded, setIsLoaded] = useState(false);
 	const [keyspace, setKeyspace] = useState(props.keyspace);
+	const [myTable, setMytable]= useState(props.myTable);
 	const [list, setList] = useState([]);
 	const [columnDefs] = useState([{field:'tables'}])
 
+	// const handleClick = (index) => {
+	// 	// console.log("TableList handleClick - keyspace " + props.keyspace)		
+	// 	// console.log("TableList handleClick - props.table " + props.myTable)		
+	// 	console.log("TableList.handleClick " + keyspace  + "/" + myTable)		
+	// 	console.log("TableList.handleClick.props " + props.keyspace  + "/" + props.myTable)		
+
+	// 	// console.log("handleClick--table+" + table)
+	// 	const tableN = index;		
+	// 	// console.log("handleClick--table N Variable " + tableN)		
+	// 	// setMytable(index)
+	// 	// console.log("handleClick--keyspace:+ " + keyspace)		
+	// };
+	const viewButtonClick = (tableName) => {
+		//DescTable.keyspace= "keyspace";
+		console.log("TableList.ViewButtonClick " + props.keyspace +"/" + props.tableName)
+		// console.log("TableList.ViewButtonClick " + props.keyspace +"/" + props.tableName)
+		// console.log("rowname "+tableName)
+		// setState({keyspaces: props.keyspace, table: tableName})
+		DescTable(props)
+		// props.row.name; 
+		//<DescTable keyspace={keyspace} />
+		// navigate("/viewTable"); 
+
+	}
+
 
 	useEffect(() => {
+		// console.log("useEffect in TableList: " + keyspace )
+		console.log("TableList.UseEffect " + keyspace  + "/" + myTable)		
+		console.log("TableList.useEffect.props " + props.keyspace  + "/" + props.myTable)		
+
 		const query = 'http://localhost:8080/api/keyspaces/'+keyspace+'/tables'
 		axios.get(query)
 		.then(
@@ -75,6 +107,7 @@ function TableList(props) {
 			setError(error);
 			}
 		)
+		// setMytable(props);
 	}, [])
 
 	let TABLES = [];
@@ -173,7 +206,13 @@ function TableList(props) {
 										<Stack spacing={1}>
 											{/* <Button onClick= {() => navigate(/"viewTable")} variant="contained">View</Button> */}
 
-											<Button onClick={() => navigate("/viewTable")} variant="contained"> View </Button>
+											 <Button onClick={() => {
+												// viewButtonClick(row.name);
+												navigate("/viewTable", {state: {keyspace: keyspace, table: row.name}}); 
+												
+												}
+												}variant="contained"> View </Button> 
+										
 
 										</Stack>
 									</TableCell>

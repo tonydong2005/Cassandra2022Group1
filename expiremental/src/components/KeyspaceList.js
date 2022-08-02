@@ -61,6 +61,7 @@ function KeyspaceList() {
 	const handleClick = (index) => {
 		const items = open.map(item => item);
 		items[index] = !items[index];
+		
 		setOpen(items);
 	};
 	useEffect(() => {
@@ -103,6 +104,7 @@ function KeyspaceList() {
 		return <div>Loading...</div>;
 	} else {
 		return (
+			// console.log("In keyspacelist - setting mytable to network");
 			<ThemeProvider theme={theme} >
 				<ThemeProvider theme={theme.typography} >
 					<Typography variant="h1" align='center' marginTop={5} marginBottom={5}>
@@ -116,7 +118,7 @@ function KeyspaceList() {
 					<div key={index}>
 						<ListItemButton onClick={() => handleClick(index)}>
 							<ListItemIcon>
-								<KeyIcon sx={{color:blue[900]}}/>
+								<KeyIcon sx={{ color: blue[900] }} />
 							</ListItemIcon>
 							<ListItemText primary={<Typography variant="textbody" align='left'>
 								{keyspace}
@@ -125,8 +127,7 @@ function KeyspaceList() {
 						</ListItemButton>
 
 						<Collapse in={open[index]} timeout="auto" unmountOnExit>
-
-							<TableList keyspace={keyspace} />
+							<TableList keyspace={keyspace} myTable={'network_permissions'} />
 						</Collapse>
 					</div>
 				))}
