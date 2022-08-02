@@ -175,6 +175,8 @@ function Table(props) {
 		})
 		addRow(keyspace, table, formValues);
 		setFormValues([]);
+		var frm = document.getElementsByName('addForm')[0];
+		frm.reset();
 	};
 	
     console.log("hi");
@@ -240,7 +242,7 @@ function Table(props) {
 				}}>bacc
 				</Button>
 
-				<form onSubmit={handleSubmit}>
+				<form name='addForm' onSubmit={handleSubmit}>
       				<Grid container alignItems="center" justify="center" direction="column">
         				{
 							<ul>
