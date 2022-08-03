@@ -50,6 +50,7 @@ public class ModifyKeyspace {
         });
         query.delete(query.length() - 5, query.length());
         query.append(";");
+        System.out.println(query);
         session.execute(String.valueOf(query));
     }
     public boolean deleteRow(String keyspace,String table, Map<String, Object>PKV){
@@ -70,7 +71,7 @@ public class ModifyKeyspace {
         }
     }
 
-    public void insertRow(String keyspace, String tableName, Map<String, Object> CTV, int ttlI/*, States states*/) {
+    public void insertRow(String keyspace, String tableName, Map<String, Object> CTV, int ttlI) {
         StringBuilder query = new StringBuilder("INSERT INTO " + keyspace + "." + tableName + "(");
         CTV.forEach((key, value) -> {
             query.append(key + ", ");

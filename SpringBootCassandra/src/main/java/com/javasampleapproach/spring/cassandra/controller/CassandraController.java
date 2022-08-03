@@ -36,17 +36,18 @@ public class CassandraController {
 		modifyKeyspace = new ModifyKeyspace(session);
 	}
 
-	/*@GetMapping("/books")
-	public List<Book> getAllBooks() {
-		System.out.println("Get all Books...");
-
-		return bookRepository.findAll();
-	}*/
+	@GetMapping("/cluster")
+	public List<String> getClusterInfo() {
+		System.out.println("getClusterInfo ran");
+		List<String> clusterInfo = new ArrayList<>();
+		clusterInfo.add(accessKeyspace.clusterName());
+		clusterInfo.add(accessKeyspace.getClusterSize());
+		return clusterInfo;
+	}
 	@GetMapping("/keyspaces")
 	public List<String> getAllKeyspaces() {
 		System.out.println("getAllKeyspaces ran");
 		return accessKeyspace.getKeyspaceList();
-
 	}
 
 	@GetMapping("/keyspaces/{keyspaceName}/tables")
@@ -132,9 +133,10 @@ public class CassandraController {
 			List<String> primaryKeyNames =accessKeyspace.getPrimaryKeyNames(keyspace, table);
 			Map<String, Object> map1 = new LinkedHashMap<>();
 			Map<String, Object> map2 = new LinkedHashMap<>();
+
 			for (int i = 0; i < edited.getCols().size(); i++) {
 				for (String s : primaryKeyNames) {
-					if (edited.getCols().get(i) == s) {
+					if (edited.getCols().get(i).equals(s)) {
 						map1.put(edited.getCols().get(i), edited.getRow().get(i));
 					}
 					else {

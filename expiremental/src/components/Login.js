@@ -1,18 +1,22 @@
-//nitya put ur login thing here
-import { React, Component, useState, useEffect, useRef } from 'react';
-import { Grid, Paper, Avatar, TextField, Button, Typography, Link, Container } from '@mui/material';
+/************************************************************
+ * Login.js codes for the login page of the website. Refer to
+ * any additional comments for details about the code.
+ * 
+ * Written by Tony Dong, Athulya Saravanakumar, Sophia Phu,
+ * Rishindra Davuluri, Tommy Fang, Suhani Goswami,
+ * Nitya Pakala, and Tejas Kalpathi.
+ *
+ * Big thanks to Vikas Thoutam for technical support.
+ * 
+ * Last updated: 8/3/2022
+ ***********************************************************/
+
+import { React,  useState } from 'react';
+import { Grid, Paper, Avatar, TextField, Button } from '@mui/material';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { blue } from '@mui/material/colors';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import { spacing } from '@mui/system';
-import ReactDOM from "react-dom";
-import KeyspaceList from "../components/KeyspaceList";
-import Dashboard from "../components/Dashboard";
-//import "./styling/styles.css";
-import axios from "axios";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 const theme = createTheme({
     palette: {
@@ -23,7 +27,6 @@ const theme = createTheme({
 });
 
 function Login(props) {
-    let navigate = useNavigate();
     // React States
     const [errorMessages, setErrorMessages] = useState({});
     const [isSubmitted, setIsSubmitted] = useState(false);
@@ -52,7 +55,7 @@ function Login(props) {
     const handleSubmit = (event) => {
         //Prevent page reload
         event.preventDefault();
-
+        
         var { uname, pass } = document.forms[0];
 
         // Find user login info
@@ -74,13 +77,13 @@ function Login(props) {
         }
     };
 
-    // Generate JSX code for error message
+    // Error message
     const renderErrorMessage = (name) =>
         name === errorMessages.name && (
             <div className="error" style={{color:'red'}}>{errorMessages.message}</div>
         );
 
-    // JSX code for login form
+    // Login form
     const renderForm = (
         <ThemeProvider theme={theme} >
             <Grid>

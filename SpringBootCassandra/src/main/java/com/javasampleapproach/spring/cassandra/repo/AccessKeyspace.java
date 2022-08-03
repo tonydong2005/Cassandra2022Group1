@@ -219,12 +219,50 @@ public class AccessKeyspace {
         });
         return partitionKeysTONumInPartition;
     }
-    public String clusterName() throws IOException
+    public String clusterName()
     {
-        BufferedReader br = new BufferedReader(new FileReader("cluster_info.txt"));
-        br.readLine();
-        return br.readLine().substring("\tName: ".length());
+        String query = "SELECT cluster_name FROM system.local;";
+        //list of rows
+        ResultSet resultSet = session.execute(query);
+        String cluster = "";
+        for(Row x:resultSet){
+            cluster = x.getString("cluster_name");
+        }
+        return cluster;
     }
+
+    public String getClusterSize() {
+        Map<String, String> map = this.getTableSizes();
+        int multiplier = 1;
+        int sum = 0;
+        for (Map.Entry<String,String> entry : map.entrySet()) {
+            if (entry.getValue().charAt(entry.getValue().length() - 2) == 'K') {
+                multiplier = 1000;
+            }
+            else if (entry.getValue().charAt(entry.getValue().length() - 2) == 'M') {
+                multiplier = 1000000;
+            }
+            else if (entry.getValue().charAt(entry.getValue().length() - 2) == 'G') {
+                multiplier = 1000000000;
+            }
+            sum += Double.parseDouble(entry.getValue().substring(0, entry.getValue().length() - 2)) * multiplier;
+        }
+        double bites = (double) sum;
+        long d = 0l;
+        while(bites>1)
+        {
+            bites /= 1000;
+            d++;
+        }
+        if(d>0&&bites<1)
+        {
+            bites *= 1000;
+            d--;
+        }
+        bites = Math.max(bites, 0);
+        return String.format("%.3f %s", bites, this.xd.get((int)d));
+    }
+
     public String statsTable(Map<String, Integer> rPP)
     {
         if(rPP.size()==0)

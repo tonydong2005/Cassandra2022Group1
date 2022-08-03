@@ -1,6 +1,6 @@
 import { React, useState } from 'react';
 import './App.css';
-import KeyspaceList from './components/KeyspaceList2';
+import KeyspaceList from './components/KeyspaceList';
 import Table from './components/Table';
 import { blue, grey } from '@mui/material/colors';
 import { ThemeProvider , createTheme } from '@mui/material/styles';
