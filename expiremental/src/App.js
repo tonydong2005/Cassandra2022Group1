@@ -29,7 +29,7 @@ function App() {
 
     return (
         <div >
-            <style>{'body {background-color: darkgray;}'}</style>
+          
         <ThemeProvider theme={theme}>
                 <div><Header loginStatus={isLoggedIn === 'true'} onLog={(value) => setIsLoggedIn(value)} /></div>
                 <BrowserRouter>
