@@ -15,4 +15,7 @@ Prerequisites:
 * Node.js 18.7.0
 * NPM 8.15.0
 
+npm install -g serve
+serve -s build
+
 Last updated: 8/3/2022
