@@ -369,7 +369,7 @@ function ViewTable(props) {
 																</Grid>
 															</MenuItem>
 														);
-													else if (column.includes('uuid'))
+													else
 														return (
 															<MenuItem>
 																<Grid item>
@@ -438,7 +438,7 @@ function ViewTable(props) {
 																</Grid>
 															</MenuItem>
 														);
-													else if (column.includes('uuid'))
+													else
 														return (
 															<MenuItem>
 

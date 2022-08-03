@@ -18,6 +18,8 @@ import { Grid, Paper, Typography, Container } from '@mui/material';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { blue } from '@mui/material/colors';
 import { useNavigate } from 'react-router-dom';
+import { Button } from '@mui/material';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const theme = createTheme({
     palette: {
@@ -100,6 +102,11 @@ const Cluster = props => {
                                     <div>
                                         Cluster Size: {clusterInfo[1]}
                                     </div>
+                                    <Button variant="contained" startIcon={<ArrowBackIcon />} sx={{ my: '10px', mx: '5px', fontWeight: 'bold', fontFamily: ['Open Sans', 'sans-serif'].join(',')  }} onClick={() => {
+						                { navigate(`/keyspaces`, { replace: true }) }
+					                }}>
+						                Back
+					                </Button>
                                 </Paper>
                             </Grid>
                         </Typography>
