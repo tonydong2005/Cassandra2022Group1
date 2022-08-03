@@ -1,14 +1,26 @@
+/**************************************************************************
+ * CassandraController.java codes for the rest controller that response to
+ * and calls Java methods based on the mappings received from axios. Refer
+ * to any additional comments for details about the code.
+ *
+ * Written by Tony Dong, Athulya Saravanakumar, Sophia Phu,
+ * Rishindra Davuluri, Tommy Fang, Suhani Goswami,
+ * Nitya Pakala, and Tejas Kalpathi.
+ *
+ * Big thanks to Vikas Thoutam for technical support.
+ *
+ * Last updated: 8/3/2022
+ *************************************************************************/
+
 package com.javasampleapproach.spring.cassandra.controller;
 
-import java.lang.reflect.Modifier;
 import java.util.*;
 
 import com.javasampleapproach.spring.cassandra.CassandraConnector;
-import com.javasampleapproach.spring.cassandra.CreateMethods;
+import com.javasampleapproach.spring.cassandra.repo.CreateMethods;
 import com.javasampleapproach.spring.cassandra.repo.AccessKeyspace;
 import com.javasampleapproach.spring.cassandra.repo.GenerateKeyspace;
 import com.javasampleapproach.spring.cassandra.repo.ModifyKeyspace;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.datastax.oss.driver.api.core.CqlSession;

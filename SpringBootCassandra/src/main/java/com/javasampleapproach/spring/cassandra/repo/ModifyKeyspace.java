@@ -1,3 +1,17 @@
+/**************************************************************************
+ * ModifyKeyspace.java codes for the Java methods that modifies information
+ * in the Cassandra database. Refer to any additional comments for details
+ * about the code.
+ *
+ * Written by Tony Dong, Athulya Saravanakumar, Sophia Phu,
+ * Rishindra Davuluri, Tommy Fang, Suhani Goswami,
+ * Nitya Pakala, and Tejas Kalpathi.
+ *
+ * Big thanks to Vikas Thoutam for technical support.
+ *
+ * Last updated: 8/3/2022
+ *************************************************************************/
+
 package com.javasampleapproach.spring.cassandra.repo;
 
 import com.datastax.oss.driver.api.core.CqlIdentifier;
@@ -87,8 +101,6 @@ public class ModifyKeyspace {
         } else
             query.append(");");
         session.execute(String.valueOf(query));
-
-        //states.count();
     }
 
     public List<Row> getPrimaryKeyValue(String keyspace, String tableName) {

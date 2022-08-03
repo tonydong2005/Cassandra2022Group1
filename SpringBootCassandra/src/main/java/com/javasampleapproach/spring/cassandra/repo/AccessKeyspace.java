@@ -1,3 +1,17 @@
+/**************************************************************************
+ * AccessKeyspace.java codes for the Java methods that obtains information
+ * from keyspaces in the Cassandra database. Refer to any additional
+ * comments for details about the code.
+ *
+ * Written by Tony Dong, Athulya Saravanakumar, Sophia Phu,
+ * Rishindra Davuluri, Tommy Fang, Suhani Goswami,
+ * Nitya Pakala, and Tejas Kalpathi.
+ *
+ * Big thanks to Vikas Thoutam for technical support.
+ *
+ * Last updated: 8/3/2022
+ *************************************************************************/
+
 package com.javasampleapproach.spring.cassandra.repo;
 
 import com.datastax.oss.driver.api.core.CqlIdentifier;
@@ -15,9 +29,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
-
-//Created by Vikas in 2021
-//UPDATED BY ATHULYA, AND TOMMY 7/20/22
 
 public class AccessKeyspace {
     private CqlSession session;

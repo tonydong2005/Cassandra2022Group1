@@ -1,6 +1,6 @@
 /**************************************************************************
- * GenerateKeyspace.java codes for the Java methods that create entities in
- * the Cassandra database. Refer to any additional comments for details
+ * CreateMethods.java codes for the Java methods that creates information
+ * in the Cassandra database. Refer to any additional comments for details
  * about the code.
  *
  * Written by Tony Dong, Athulya Saravanakumar, Sophia Phu,
@@ -14,32 +14,24 @@
 
 package com.javasampleapproach.spring.cassandra.repo;
 
+import com.datastax.driver.core.schemabuilder.CreateKeyspace;
+import com.datastax.driver.core.schemabuilder.SchemaBuilder;
 import com.datastax.oss.driver.api.core.CqlSession;
 import com.datastax.oss.driver.api.core.cql.SimpleStatement;
 import java.util.*;
 
-import com.datastax.oss.driver.api.querybuilder.SchemaBuilder;
-import com.datastax.oss.driver.api.querybuilder.schema.CreateKeyspace;
 
-/*
-CreationMethods (Create keyspace, table, and data)
-Created by Tommy, Athulya, Vikas 7/3/2022
- */
-
-public class GenerateKeyspace {
+public class CreateMethods {
 
     private CqlSession session;
 
     //constructor
-    public GenerateKeyspace(CqlSession session){
+    public CreateMethods(CqlSession session){
         this.session=session;
     }
 
     public void createKeyspace(String keyspace){
-        CreateKeyspace createKeyspace = SchemaBuilder.createKeyspace(keyspace).ifNotExists()
-                .withSimpleStrategy(1);
-        SimpleStatement create = createKeyspace.build();
-        session.execute(create);
+        session.execute("CREATE KEYSPACE " + keyspace + " WITH replication = {'class':'SimpleStrategy', 'replication_factor':1};");
     }
 
     public void createTable(String keyspace, String table, ArrayList<String>labels, String partitions, String clustering){
@@ -54,7 +46,7 @@ public class GenerateKeyspace {
         session.execute(String.valueOf(query));
     }
 
-    public void createData(String keyspace, String tableName, ArrayList<String>labels, ArrayList<String>rows) {
+    public void createData(String keyspace, String tableName, List<String>labels, List<String>rows) {
         String use="USE "+keyspace+";";
         session.execute(use);
         StringBuilder query = new StringBuilder("INSERT INTO " + tableName + " (");
@@ -64,7 +56,10 @@ public class GenerateKeyspace {
         query.append(labels.get(labels.size()-1) + ")");
         for (String values : rows) {
             StringBuilder q = new StringBuilder(query + " VALUES(" + values + ");");
+            System.out.println(q);
             session.execute(String.valueOf(q));
         }
     }
+
+
 }
