@@ -15,7 +15,8 @@ import {
     Avatar,
     Button,
     TablePagination,
-    TableFooter
+    TableFooter,
+    Toolbar
 } from '@mui/material';
 import { blue, green } from '@mui/material/colors';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
@@ -147,7 +148,15 @@ function DescTable(props) {
         return (
             
             <Container maxWidth='lg'>
-                <Typography sx = {{mt: '30px', mb: '15px', fontSize: '20px'}}> Table Name: {state.table} </Typography>
+                <Toolbar align = 'center'>
+                  <Typography align = 'center' sx = {{mt: '30px', mb: '15px', fontSize: '20px'}}> Table Name: {state.table} </Typography>
+                  <Button variant = 'contained' sx = {{mt: '30px', mb: '15px', ml: 'auto', fontSize: '16px'}} >
+                    Add Row
+                  </Button>
+                  <Button variant = 'contained' href="/keyspaces" sx = {{mt: '30px', mb: '15px', ml: '10px', fontSize: '16px'}}>
+                    Back
+                  </Button>
+                </Toolbar>
                 <TableContainer component={Paper}
                     sx={{
                         borderRadius: 5,
