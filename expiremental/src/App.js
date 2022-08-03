@@ -27,23 +27,24 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('isLoggedIn'));
 
     return (
+        <div >
+            <style>{'body {background-color: darkgray;}'}</style>
         <ThemeProvider theme={theme}>
-          <Header loginStatus={isLoggedIn==='true'} onLog={(value) => setIsLoggedIn(value)} sx={{backgroundColor: 'darkgray', height: '100%', width: '100%'}}/>
-          <Box sx={{backgroundColor: 'darkgray', height: '100%', width: '100%'}}>
-            <BrowserRouter>
-                <Routes>
-                  <Route path="/" element={<Navigate replace to="/login" />} />
-                  <Route path="/login" element={<Login onLog={(value) => setIsLoggedIn(value)}/>} />
-                  <Route path="/dashboard" element={isLoggedIn === 'true' ? <Dashboard /> : <Navigate to="/login" />} />
-                  <Route path="/keyspaces" element={isLoggedIn === 'true' ? <KeyspaceList /> : <Navigate to="/login" />} />
-                  <Route path="/:keyspaceName/:tableName" element={isLoggedIn === 'true' ? <Table /> : <Navigate to="/login" />} />
-                  <Route path="*" element={<ErrorPage/>} />
-                </Routes>
-                
-            </BrowserRouter>
-          </Box>
+                <div><Header loginStatus={isLoggedIn === 'true'} onLog={(value) => setIsLoggedIn(value)} /></div>
+                <BrowserRouter>
+                    <Routes>
+                        <Route path="/" element={<Navigate replace to="/login" />} />
+                        <Route path="/login" element={<Login onLog={(value) => setIsLoggedIn(value)} />} />
+                        <Route path="/dashboard" element={isLoggedIn === 'true' ? <Dashboard /> : <Navigate to="/login" />} />
+                        <Route path="/keyspaces" element={isLoggedIn === 'true' ? <KeyspaceList /> : <Navigate to="/login" />} />
+                        <Route path="/:keyspaceName/:tableName" element={isLoggedIn === 'true' ? <Table /> : <Navigate to="/login" />} />
+                        <Route path="*" element={<ErrorPage />} />
+                    </Routes>
+
+                </BrowserRouter>
             
-        </ThemeProvider>
+            </ThemeProvider>
+            </div>
         
     );
   
