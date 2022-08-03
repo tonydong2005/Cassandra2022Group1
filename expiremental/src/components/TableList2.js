@@ -39,7 +39,7 @@ theme.typography.table = {
 };
 
 function TableList(props) {
-	const navigate=useNavigate();
+	const navigate = useNavigate();
 
 	const [page, setPage] = useState(0);
 	const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -56,27 +56,27 @@ function TableList(props) {
 	const [isLoaded, setIsLoaded] = useState(false);
 	const [keyspace, setKeyspace] = useState(props.keyspace);
 	const [tables, setTables] = useState([]);
-	const [columnDefs] = useState([{field:'tables'}])
+	const [columnDefs] = useState([{ field: 'tables' }])
 
 
 	useEffect(() => {
-		const query = 'http://localhost:8080/api/keyspaces/'+keyspace+'/tables'
+		const query = 'http://localhost:8080/api/keyspaces/' + keyspace + '/tables'
 		axios.get(query)
-		.then(
-			(result) => {
-			setTables(result.data);
-			setIsLoaded(true);
-			},
-			// Note: it's important to handle errors here
-			// instead of a catch() block so that we don't swallow
-			// exceptions from actual bugs in components.
-			(error) => {
-			setIsLoaded(true);
-			setError(error);
-			}
-		)
+			.then(
+				(result) => {
+					setTables(result.data);
+					setIsLoaded(true);
+				},
+				// Note: it's important to handle errors here
+				// instead of a catch() block so that we don't swallow
+				// exceptions from actual bugs in components.
+				(error) => {
+					setIsLoaded(true);
+					setError(error);
+				}
+			)
 	}, [])
-	
+
 	// for (let i = 0; i < tables.length; i++) {
 	// 	tablesFormatted[i] = {
 	// 		name: tables[i],
@@ -90,34 +90,59 @@ function TableList(props) {
 
 	if (error) {
 		return <div>Error: {error.message}</div>;
-	  } else if (!isLoaded) {
+	} else if (!isLoaded) {
 		return <div>Loading...</div>;
-	  } else {
+	} else {
 
 
 		const tablesFormatted = tables.map((table, index) => (
-		
+
 			<TableRow key={index}>
 				<TableCell component="th" scope="row" align="left">
-					<Typography sx={{ color: blue[600], fontWeight: 800, fontSize: '15px'}}> {table.table}</Typography>
+					<Typography sx={{
+						color: blue[600], fontWeight: 800, fontFamily: [
+							'Open Sans',
+							'sans-serif'
+						].join(','),fontSize: '15px' }}> {table.table}</Typography>
 				</TableCell>
 				<TableCell align="left">
-					<Typography sx = {{fontSize: '15px'}}>Table Size: {table.metrics[0]}</Typography>
-					<Typography sx = {{fontSize: '15px'}}>Number of Columns: {table.metrics[1]}</Typography>
+					<Typography sx={{
+						fontFamily: [
+							'Open Sans',
+							'sans-serif'
+						].join(','),fontSize: '15px' }}>Table Size: {table.metrics[0]}</Typography>
+					<Typography sx={{
+						fontFamily: [
+							'Open Sans',
+							'sans-serif'
+						].join(','),fontSize: '15px' }}>Number of Columns: {table.metrics[1]}</Typography>
 				</TableCell>
 				<TableCell align="left">
-					<Typography sx = {{fontSize: '15px'}}>Number of Rows: {table.metrics[2]}</Typography>
-					<Typography sx = {{fontSize: '15px'}}>{table.metrics[3]}</Typography>
+					<Typography sx={{
+						fontFamily: [
+							'Open Sans',
+							'sans-serif'
+						].join(','),fontSize: '15px' }}>Number of Rows: {table.metrics[2]}</Typography>
+					<Typography sx={{
+						fontFamily: [
+							'Open Sans',
+							'sans-serif'
+						].join(','),fontSize: '15px' }}>{table.metrics[3]}</Typography>
 				</TableCell>
 				<TableCell align="center">
 					<Stack spacing={1}>
-	
-						<Button onClick={() => navigate(`/${keyspace}/${table.table}`)} variant="contained"> View </Button>
-	
+
+						<Button sx={{
+							fontFamily: [
+								'Open Sans',
+								'sans-serif'
+							].join(','), fontSize: '15px'
+						}} onClick={() => navigate(`/${keyspace}/${table.table}`)} variant="contained"> View </Button>
+
 					</Stack>
 				</TableCell>
 			</TableRow>
-	
+
 		));
 
 		// const listFormatted = [];
@@ -133,12 +158,12 @@ function TableList(props) {
 			<ul>{listFormatted}</ul>
 		);*/
 		return (
-			<Container maxWidth='lg'>
+			<Container maxWidth='lg' >
 				<TableContainer component={Paper}
 					sx={{
 						borderRadius: 5,
 						margin: '10px 10px',
-						maxWidth: '950px'
+						maxWidth: '950px',
 					}} >
 					<Table sx={{ minWidth: 650 }} aria-label="simple table">
 						<TableHead>
@@ -148,6 +173,10 @@ function TableList(props) {
 										fontWeight: 'bold',
 										backgroundColor: blue[700],
 										color: 'white',
+										fontFamily: [
+											'Open Sans',
+											'sans-serif'
+										].join(','),
 				                        fontSize: '15px'
 									}}
 									align="left" >Table Name</TableCell>
@@ -156,6 +185,10 @@ function TableList(props) {
 										fontWeight: 'bold',
 										backgroundColor: blue[700],
 										color: 'white',
+										fontFamily: [
+											'Open Sans',
+											'sans-serif'
+										].join(','),
 										fontSize: '15px'
 									}}
 									align="left" >Table Size Info</TableCell>
@@ -164,6 +197,10 @@ function TableList(props) {
 										fontWeight: 'bold',
 										backgroundColor: blue[700],
 										color: 'white',
+										fontFamily: [
+											'Open Sans',
+											'sans-serif'
+										].join(','),
 										fontSize: '15px'
 									}}
 									align="left" >Columns and Rows Info</TableCell>
@@ -173,6 +210,10 @@ function TableList(props) {
 										fontWeight: 'bold',
 										backgroundColor: blue[700],
 										color: 'white',
+										fontFamily: [
+											'Open Sans',
+											'sans-serif'
+										].join(','),
 										fontSize: '15px'
 									}}
 									align="left" >View Table</TableCell>

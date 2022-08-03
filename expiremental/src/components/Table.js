@@ -1,7 +1,7 @@
 import React, { Component, useState, useEffect } from 'react';
 import axios from 'axios';
 import { AgGridReact } from 'ag-grid-react';
-
+import { blue, grey } from '@mui/material/colors';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-material.css';
 import '../ag-theme-custom.css';
@@ -19,8 +19,16 @@ import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
-import { ConstructionOutlined } from '@mui/icons-material';
-
+import { ConstructionOutlined, Delete} from '@mui/icons-material';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
+import PlaylistRemoveIcon from '@mui/icons-material/PlaylistRemove';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 import {
     Table,
     TableBody,
@@ -41,9 +49,17 @@ import {
 	MenuItem,
 
 } from '@mui/material';
-import { blue, green } from '@mui/material/colors';
 
 function ViewTable(props) {
+	const [open, setOpen] = React.useState(false);
+
+	const handleClickOpen = () => {
+		setOpen(true);
+	};
+
+	const handleClose = () => {
+		setOpen(false);
+	};
 	const [error, setError] = useState(null);
 	const [isLoaded, setIsLoaded] = useState(false);
 	const [keyspace, setKeyspace] = useState(useParams().keyspaceName);
@@ -213,7 +229,12 @@ function ViewTable(props) {
 		}
 		render() {
 		  return (
-			<Button variant="contained" color="primary" onClick={this.btnClickedHandler}>
+			  <Button variant="contained" color="primary" startIcon={<PlaylistRemoveIcon />} onClick={this.btnClickedHandler} sx={{
+				  fontWeight: 'bold',fontFamily: [
+					  'Open Sans',
+					  'sans-serif'
+				  ].join(',')
+			  }}>
           		delete
         	</Button>
 		  )
@@ -230,9 +251,9 @@ function ViewTable(props) {
 
 	if (error) {
 		return <div>Error: {error.message}</div>;
-	  } else if (!isLoaded) {
+	} else if (!isLoaded) {
 		return <div>Loading...</div>;
-	  } else {
+	} else {
 		const colsFormatted = [];
 		const rowsFormatted = [];
 		// const colsFormatted = columns.map((column, index) =>
@@ -269,21 +290,21 @@ function ViewTable(props) {
 		// 	<TableCell align="left">
 		// 			<Typography sx = {{fontSize: '15px'}}>
 		// 				<Button variant="contained" color="primary" onClick={() => deleteRow(keyspace, table, row)}>
-        //   					delete
-        // 				</Button>
+		//   					delete
+		// 				</Button>
 		// 			</Typography>
 		// 	</TableCell>
 		// 	</TableRow>
 
-			
+
 		// );
 
-        columns.forEach((column, index) => colsFormatted.push({field: column, sortable: true, resizable: true}));
+		columns.forEach((column, index) => colsFormatted.push({ field: column, sortable: true, resizable: true, filter: true }));
 		colsFormatted.push({
-			field: 'buttons',
+			field: 'delete row',
 			cellRenderer: BtnCellRenderer,
 			cellRendererParams: {
-				clicked: function(field) {
+				clicked: function (field) {
 					deleteRow(keyspace, table, field);
 					console.log(field);
 				},
@@ -291,21 +312,27 @@ function ViewTable(props) {
 		});
 		rows.forEach(row => {
 			const temp = {};
-            for (let i = 0; i < columns.length; i++) {
-                temp[columns[i]] = row[i];
+			for (let i = 0; i < columns.length; i++) {
+				temp[columns[i]] = row[i];
 			}
-			temp["buttons"] = row;
+			temp["delete row"] = row;
 			rowsFormatted.push(temp);
 		});
-        
+
 
 		console.log(colsFormatted);
 		console.log(rowsFormatted);
 
 
 		return (
-
-			<div id="myGrid" className="ag-theme-material ag-theme-custom" style={{height: 700, width: '100%', }}>
+			<Box sx={{
+				mt: '5px'
+			}}>
+				<div id="myGrid" className="ag-theme-material ag-theme-custom" style={{
+					height: 700, width: '100%', fontFamily: [
+						'Open Sans',
+						'sans-serif'
+					].join(','), fontWeight: 'bold',fontSize: 13}}>
 				
 				{/* <Container maxWidth='lg'>
                 <Typography sx = {{mt: '20px', fontSize: '20px'}}> Table Name: {table} </Typography>
@@ -353,86 +380,109 @@ function ViewTable(props) {
 					paginationPageSize={rowsPerPage}
 					>
 					
-				</AgGridReact>
-				<Select
-    			labelId="demo-simple-select-label"
-    			id="demo-simple-select"
-    			value={rowsPerPage}
-    			label="Page Size"
-    			onChange={handleChangeRowsPerPage}
-  				>
-    			<MenuItem value={5}>5</MenuItem>
-    			<MenuItem value={10}>10</MenuItem>
-    			<MenuItem value={15}>15</MenuItem>
-  				</Select>
+					</AgGridReact>	
+					
+					<Box sx={{
+						mt: '-55px',  }}>
+						<TextField
+							id="field1-input"
+							name='Rows Per Page'
+							label='Rows Per Page'
+							type="number"
+							value={rowsPerPage}
+							onChange={handleChangeRowsPerPage}
+							sx={{ width: '12%',  maxWidth: '110px', height: '50px'}}
+						/>	
+						<Button variant="contained" startIcon={<PlaylistAddIcon />} sx={{
+							width: '9%', mx: '5px', my: '9px', fontWeight: 'bold', fontFamily: ['Open Sans','sans-serif'].join(',') }} onClick= { handleClickOpen}>add
+				</Button>
+						<Dialog open={open} onClose={handleClose}>
+							<DialogTitle align='center' sx={{fontWeight: 'bold', fontFamily: ['Open Sans', 'sans-serif'].join(',') }}>Enter Data</DialogTitle>
+							<DialogContent align='center'>
+								<DialogContentText sx={{ my: 2, fontWeight: 'bold', fontFamily: ['Open Sans', 'sans-serif'].join(',')}}>
+									To add data to this row, please enter data for each column and press submit.
+          </DialogContentText>
+								<form name='addForm' onSubmit={handleSubmit} fullWidth>
+									<Grid container fullWidth alignItems="center" justify="center" direction="column">
+										{
+											<Stack direction='column' FullWidth>
+												{columns.map((column, index) => {
+													if (column.includes('int'))
+														return (
+															<MenuItem FullWidth>
 
-           		<Button variant="contained" onClick={() => {
-					{navigate(`/`, { replace: true })}
-				}}>backk
+																<Grid item fullWidth>
+																	<TextField
+																		id="field1-input"
+																		name={index}
+																		label={column}
+																		type="number"
+																		value={formValues[index]}
+																		onChange={handleInputChange}
+																	/>
+																</Grid>
+															</MenuItem>
+														);
+													else if (column.includes('text'))
+														return (
+															<MenuItem>
+
+																<Grid item>
+																	<TextField
+																		id="field1-input"
+																		name={index}
+																		label={column}
+																		type="text"
+																		value={formValues[index]}
+																		onChange={handleInputChange}
+																	/>
+																</Grid>
+															</MenuItem>
+														);
+													else if (column.includes('uuid'))
+														return (
+															<MenuItem>
+
+																<Grid item>
+																	<TextField
+																		id="field1-input"
+																		name={index}
+																		label={column}
+																		type="text"
+																		value={formValues[index]}
+																		onChange={handleInputChange}
+																	/>
+																</Grid>
+															</MenuItem>
+														);
+												})}
+											</Stack>
+										}
+										
+									</Grid>
+								</form>
+							</DialogContent>
+							<DialogActions>
+								<Button onClick={handleClose}>Cancel</Button>
+								<Button onClick={handleSubmit}>
+									Submit
+        				</Button>
+							</DialogActions>
+						</Dialog>		
+						
+
+					
+					
+				</Box>
+					<Button variant="contained" startIcon={<ArrowBackIcon />} sx={{ my: '10px', mx: '5px', fontWeight: 'bold', fontFamily: ['Open Sans', 'sans-serif'].join(',')  }} onClick={() => {
+					{ navigate(`/keyspaces`, { replace: true }) }
+					}}>
+						Back
 				</Button>
 
-				<form name='addForm' onSubmit={handleSubmit}>
-      				<Grid container alignItems="center" justify="center" direction="column">
-        				{
-							<Stack direction='column'>
-								{columns.map((column, index) => {
-                					if (column.includes('int'))
-									return (
-                    					<MenuItem>
-                        					
-											<Grid item>
-          										<TextField
-            										id="field1-input"
-            										name={index}
-            										label={column}
-            										type="number"
-            										value={formValues[index]}
-            										onChange={handleInputChange}
-          										/>
-        									</Grid>
-                    					</MenuItem>
-                					);
-									else if (column.includes('text'))
-									return (
-										<MenuItem>
-                        					
-											<Grid item>
-          										<TextField
-            										id="field1-input"
-            										name={index}
-            										label={column}
-            										type="text"
-            										value={formValues[index]}
-            										onChange={handleInputChange}
-          										/>
-        									</Grid>
-                    					</MenuItem>
-									);
-									else if (column.includes('uuid'))
-									return (
-										<MenuItem>
-                        					
-											<Grid item>
-          										<TextField
-            										id="field1-input"
-            										name={index}
-            										label={column}
-            										type="text"
-            										value={formValues[index]}
-            										onChange={handleInputChange}
-          										/>
-        									</Grid>
-                    					</MenuItem>
-									);
-            					})}
-							</Stack>	
-						}
-						<Button variant="contained" color="primary" type="submit">
-          					Submit
-        				</Button>
-      				</Grid>
-   				 </form>
-			</div>
+				
+		</div>
+	</Box>
 		);
 	}
 }

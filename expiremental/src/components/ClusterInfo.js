@@ -17,7 +17,7 @@ const theme = createTheme({
     },
     typography: {
         h1: {
-          fontWeight: 'bold',
+            fontWeight: 'bold',
             fontSize: 35,
             fontFamily: [
                 'Open Sans',
@@ -34,18 +34,19 @@ const theme = createTheme({
             ].join(','),
             color: blue[900]
         }
-      },
+    },
 });
 
-const Dashboard = props => { 
+const Cluster = props => {
     const navigate = useNavigate();
-    const paperStyle = { backgroundColor: blue[100], padding: 30, height: 100, width: "50%", margin: "40px auto"}
+    const paperStyle = { backgroundColor: blue[100], padding: 30, height: 100, width: "50%", margin: "40px auto" }
     const avatarStyle = { backgroundColor: blue[700], margin: '20px 0', padding: 10 }
     const btnstyle = {
         backgroundColor: blue[700], color: '#fff', borderRadius: 35, fontSize: '15px', fontWeight: 'bold', fontFamily: [
             'Open Sans',
             'sans-serif'
-        ].join(','),marginBottom: 20}
+        ].join(','), marginBottom: 20
+    }
     const user = { margin: "15px 0" }
 
     return (
@@ -53,29 +54,22 @@ const Dashboard = props => {
         <ThemeProvider theme={theme} >
             <ThemeProvider theme={theme.typography} >
                 <Typography variant="h1" align='center' marginTop={5} marginBottom={3}>
-                    Welcome
+                    Cluster Info
                 </Typography>
                 <Container align='center'>
-                <Typography variant="textbody" align='center'>
-                        This is your dashboard. You can access your Data Center or Cluster Info.
+                    <Typography variant="textbody" align='center'>
+                        <Grid sx={{ mt: '-15px' }}>
+                            <Paper elevation={2} style={paperStyle}>
+
+                                
+
+                            </Paper>
+                        </Grid>
                 </Typography>
-                    </Container>
+                </Container>
             </ThemeProvider>
 
-            <Grid sx = {{mt: '-15px'}}>
-                <Paper elevation={2} style={paperStyle}>
-                    {/* <Button onClick={() => <Navigate replace to='/keyspaces'/>} */}
-
-                    <Button onClick={() => navigate("/keyspaces")}
-
-                        type='submit' color='primary' variant="contained" style={btnstyle} fullWidth> Data Center </Button>
-
-
-                    <Button onClick={() => navigate("/cluster") }
-                        type='submit' color='primary' variant="contained" style={btnstyle} fullWidth> Cluster Info </Button>
-
-                </Paper>
-            </Grid>
+            
 
 
         </ThemeProvider>
@@ -84,4 +78,4 @@ const Dashboard = props => {
 
 }
 
-export default Dashboard;
+export default Cluster;

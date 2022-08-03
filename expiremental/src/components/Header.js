@@ -210,27 +210,28 @@ function Header(props) {
                             </Typography>
                             </Button>
                             <Menu
-                              id="basic-menu"
-                              anchorEl={anchorEl}
-                              open={open}
-                              onClose={handleClose}
-                              MenuListProps={{
+                            id="basic-menu"
+                            anchorEl={anchorEl}
+                            open={open}
+                            onClose={handleClose}
+                            MenuListProps={{
                                 'aria-labelledby': 'basic-button',
-                              }}
+                            }}
+                            
                             >
                               <MenuItem onClick={handleClose}>
-                                <Button href="/">
+                                <Button href="/" sx={{ fontWeight: 'bold', fontFamily: ['Open Sans', 'sans-serif'].join(',') }}>
                                   View Dashboard
                                 </Button>
                               </MenuItem>
                               <MenuItem onClick={handleClose}>
-                                <Button href="/keyspaces">
+                                <Button href="/keyspaces" sx={{ fontWeight: 'bold', fontFamily: ['Open Sans', 'sans-serif'].join(',') }}>
                                   Data Center
                                 </Button>
                               </MenuItem>
                               <MenuItem onClick={handleClose}>
-                                <Button>
-                                  Metrics
+                                <Button href="/cluster" sx={{ fontWeight: 'bold', fontFamily: ['Open Sans', 'sans-serif'].join(',') }}>
+                                  Cluster Info
                                 </Button>
                               </MenuItem>
                             </Menu>                

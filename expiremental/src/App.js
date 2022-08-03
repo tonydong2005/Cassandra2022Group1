@@ -9,6 +9,7 @@ import Dashboard from './components/Dashboard';
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Login from './components/Login';
 import ErrorPage from './components/Error';
+import ClusterInfo from './components/ClusterInfo';
 import { Box } from '@mui/material';
 
 const theme = createTheme({
@@ -37,6 +38,7 @@ function App() {
                         <Route path="/login" element={<Login onLog={(value) => setIsLoggedIn(value)} />} />
                         <Route path="/dashboard" element={isLoggedIn === 'true' ? <Dashboard /> : <Navigate to="/login" />} />
                         <Route path="/keyspaces" element={isLoggedIn === 'true' ? <KeyspaceList /> : <Navigate to="/login" />} />
+                        <Route path="/cluster" element={isLoggedIn === 'true' ? <ClusterInfo /> : <Navigate to="/login" />} />
                         <Route path="/:keyspaceName/:tableName" element={isLoggedIn === 'true' ? <Table /> : <Navigate to="/login" />} />
                         <Route path="*" element={<ErrorPage />} />
                     </Routes>
