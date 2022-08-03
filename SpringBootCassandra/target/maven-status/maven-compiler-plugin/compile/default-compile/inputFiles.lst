@@ -1,11 +1,7 @@
-C:\Users\tonyg\IdeaProjects\Cassandra2022Group1\SpringBootCassandra\src\main\java\com\javasampleapproach\spring\cassandra\CreateMethods.java
 C:\Users\tonyg\IdeaProjects\Cassandra2022Group1\SpringBootCassandra\src\main\java\com\javasampleapproach\spring\cassandra\CassandraConnector.java
 C:\Users\tonyg\IdeaProjects\Cassandra2022Group1\SpringBootCassandra\src\main\java\com\javasampleapproach\spring\cassandra\controller\CassandraController.java
-C:\Users\tonyg\IdeaProjects\Cassandra2022Group1\SpringBootCassandra\src\main\java\com\javasampleapproach\spring\cassandra\KeyspaceRepository.java
 C:\Users\tonyg\IdeaProjects\Cassandra2022Group1\SpringBootCassandra\src\main\java\com\javasampleapproach\spring\cassandra\repo\AccessKeyspace.java
 C:\Users\tonyg\IdeaProjects\Cassandra2022Group1\SpringBootCassandra\src\main\java\com\javasampleapproach\spring\cassandra\repo\GenerateKeyspace.java
 C:\Users\tonyg\IdeaProjects\Cassandra2022Group1\SpringBootCassandra\src\main\java\com\javasampleapproach\spring\cassandra\SpringBootCassandraApplication.java
-C:\Users\tonyg\IdeaProjects\Cassandra2022Group1\SpringBootCassandra\src\main\java\com\javasampleapproach\spring\cassandra\model\Book.java
 C:\Users\tonyg\IdeaProjects\Cassandra2022Group1\SpringBootCassandra\src\main\java\com\javasampleapproach\spring\cassandra\repo\ModifyKeyspace.java
-C:\Users\tonyg\IdeaProjects\Cassandra2022Group1\SpringBootCassandra\src\main\java\com\javasampleapproach\spring\cassandra\ModifierMethods.java
-C:\Users\tonyg\IdeaProjects\Cassandra2022Group1\SpringBootCassandra\src\main\java\com\javasampleapproach\spring\cassandra\model\Tabl.java
+C:\Users\tonyg\IdeaProjects\Cassandra2022Group1\SpringBootCassandra\src\main\java\com\javasampleapproach\spring\cassandra\repo\CreateMethods.java
