@@ -20,7 +20,9 @@ const theme = createTheme({
 function ViewTable() {
     return (
         <ThemeProvider theme={theme} >
+          <Container align = 'center'>
             <DescTable></DescTable>
+          </Container>
         </ThemeProvider>
     );
 }

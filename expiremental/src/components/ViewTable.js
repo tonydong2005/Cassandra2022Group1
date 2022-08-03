@@ -147,7 +147,7 @@ function DescTable(props) {
         return (
             
             <Container maxWidth='lg'>
-                <Typography sx = {{mt: '20px', fontSize: '20px'}}> Table Name: {state.table} </Typography>
+                <Typography sx = {{mt: '30px', mb: '15px', fontSize: '20px'}}> Table Name: {state.table} </Typography>
                 <TableContainer component={Paper}
                     sx={{
                         borderRadius: 5,
