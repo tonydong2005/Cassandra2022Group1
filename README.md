@@ -15,6 +15,8 @@ Prerequisites:
 * Node.js 18.7.0
 * NPM 8.15.0
 
+Run in command prompt in build folder:
+
 npm install -g serve
 
 serve -s build
