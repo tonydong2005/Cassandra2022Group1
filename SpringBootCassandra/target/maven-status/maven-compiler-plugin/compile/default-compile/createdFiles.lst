@@ -1,8 +1,0 @@
-com\javasampleapproach\spring\cassandra\controller\CassandraController.class
-com\javasampleapproach\spring\cassandra\controller\RowRequest.class
-com\javasampleapproach\spring\cassandra\repo\ModifyKeyspace.class
-com\javasampleapproach\spring\cassandra\repo\AccessKeyspace.class
-com\javasampleapproach\spring\cassandra\repo\CreateMethods.class
-com\javasampleapproach\spring\cassandra\SpringBootCassandraApplication.class
-com\javasampleapproach\spring\cassandra\CassandraConnector.class
-com\javasampleapproach\spring\cassandra\repo\GenerateKeyspace.class
