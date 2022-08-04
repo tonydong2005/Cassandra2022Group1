@@ -16,6 +16,7 @@ Prerequisites:
 * NPM 8.15.0
 
 How to open the application:
+* Download everything needed
 * Run Cassandra
 * Run the JAR
 * In command prompt in build folder, run npm install -g serve
