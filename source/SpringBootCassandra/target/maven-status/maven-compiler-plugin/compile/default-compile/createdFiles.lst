@@ -1,0 +1,8 @@
+controller\CassandraController.class
+application\SpringBootCassandraApplication.class
+controller\RowRequest.class
+repo\GenerateKeyspace.class
+repo\ModifyKeyspace.class
+repo\AccessKeyspace.class
+repo\CreateMethods.class
+application\CassandraConnector.class
