@@ -1,7 +1,7 @@
-C:\Users\tonyg\IdeaProjects\Cassandra2022Group1\SpringBootCassandra\src\main\java\application\CassandraConnector.java
-C:\Users\tonyg\IdeaProjects\Cassandra2022Group1\SpringBootCassandra\src\main\java\application\SpringBootCassandraApplication.java
-C:\Users\tonyg\IdeaProjects\Cassandra2022Group1\SpringBootCassandra\src\main\java\repo\GenerateKeyspace.java
-C:\Users\tonyg\IdeaProjects\Cassandra2022Group1\SpringBootCassandra\src\main\java\repo\ModifyKeyspace.java
-C:\Users\tonyg\IdeaProjects\Cassandra2022Group1\SpringBootCassandra\src\main\java\repo\AccessKeyspace.java
-C:\Users\tonyg\IdeaProjects\Cassandra2022Group1\SpringBootCassandra\src\main\java\controller\CassandraController.java
-C:\Users\tonyg\IdeaProjects\Cassandra2022Group1\SpringBootCassandra\src\main\java\repo\CreateMethods.java
+C:\Users\tonyg\OneDrive\Documents\GitHub\Cassandra2022Group1\source\SpringBootCassandra\src\main\java\application\SpringBootCassandraApplication.java
+C:\Users\tonyg\OneDrive\Documents\GitHub\Cassandra2022Group1\source\SpringBootCassandra\src\main\java\repo\ModifyKeyspace.java
+C:\Users\tonyg\OneDrive\Documents\GitHub\Cassandra2022Group1\source\SpringBootCassandra\src\main\java\application\CassandraConnector.java
+C:\Users\tonyg\OneDrive\Documents\GitHub\Cassandra2022Group1\source\SpringBootCassandra\src\main\java\controller\CassandraController.java
+C:\Users\tonyg\OneDrive\Documents\GitHub\Cassandra2022Group1\source\SpringBootCassandra\src\main\java\repo\CreateMethods.java
+C:\Users\tonyg\OneDrive\Documents\GitHub\Cassandra2022Group1\source\SpringBootCassandra\src\main\java\repo\AccessKeyspace.java
+C:\Users\tonyg\OneDrive\Documents\GitHub\Cassandra2022Group1\source\SpringBootCassandra\src\main\java\repo\GenerateKeyspace.java
