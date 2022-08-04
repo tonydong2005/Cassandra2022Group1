@@ -19,7 +19,7 @@ How to open the application:
 * Download everything needed
 * Run Cassandra
 * Run the JAR
-* In command prompt in build folder, run npm install -g serve
-* In command prompt in build folder, serve -s build
+* In command prompt in build folder, run "npm install -g serve"
+* In command prompt in build folder, run "serve -s build"
 
 Last updated: 8/3/2022
