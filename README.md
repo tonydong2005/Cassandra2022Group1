@@ -21,5 +21,6 @@ How to open the application:
 * Run the JAR
 * In command prompt in build folder, run "npm install -g serve"
 * In command prompt in build folder, run "serve -s build"
+* The application is now running!
 
 Last updated: 8/3/2022
