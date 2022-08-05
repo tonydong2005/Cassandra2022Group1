@@ -10,8 +10,8 @@ Prerequisites:
 * Cassandra 3.11.13
 * Apache Maven 3.8.6
 * JDK 1.8.0_251
-* Python 2.7.18 for CQL
-* Python 3.9.13 for Node.js
+* Python 2.7.18 (for CQL)
+* Python 3.9.13 (for Node.js)
 * Node.js 18.7.0
 * NPM 8.15.0
 
