@@ -58,9 +58,15 @@ function ViewTable(props) {
 	};
 	const handleClose = () => {
 		setOpen(false);
+		setFormValues(formValues.map(x => ''));
+		var frm = document.getElementsByName('addForm')[0];
+		frm.reset();
 	};
 	const handleEditClose = () => {
 		setEditOpen(false);
+		setFormValues(formValues.map(x => ''));
+		var frm = document.getElementsByName('editForm')[0];
+		frm.reset();
 	};
 
     const handleChangeRowsPerPage = (event) => {
@@ -209,6 +215,9 @@ function ViewTable(props) {
 				formValues[index] = formValues[index].substring(1, formValues[index].length - 1);
 			}
 		})
+		setFormValues(formValues.map(x => ''));
+		var frm = document.getElementsByName('editForm')[0];
+		frm.reset();
 	};
 
 	class EditBtnCellRenderer extends Component {
